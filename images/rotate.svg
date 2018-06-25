@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="122px" height="81px" viewBox="0 0 122 81" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>rotate</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="52" height="58" rx="2"></rect>
+    </defs>
+    <g id="rotate" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(63.000000, 11.000000)">
+            <rect id="Rectangle" stroke="#2470C8" stroke-width="2" fill="#FFFFFF" x="1" y="1" width="50" height="56" rx="2"></rect>
+            <g id="Rectangle-2"></g>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Mask"></g>
+            <rect id="Rectangle-2" stroke="#2470C8" stroke-width="2" fill="#2470C8" mask="url(#mask-2)" x="1" y="1" width="50" height="19"></rect>
+        </g>
+        <g id="Group-3" transform="translate(68.000000, 33.000000)">
+            <rect id="Rectangle-4" fill="#B9D9FF" x="2" y="2" width="39" height="29"></rect>
+            <g id="Group-2" stroke="#FFFFFF" stroke-linecap="square" stroke-width="2">
+                <path d="M9.5,0.5 L9.5,31.5" id="Line"></path>
+                <path d="M17.5,0.5 L17.5,31.5" id="Line"></path>
+                <path d="M25.5,0.5 L25.5,31.5" id="Line"></path>
+                <path d="M33.5,0.5 L33.5,31.5" id="Line"></path>
+                <path d="M42.5,8.5 L0.5,8.5" id="Line-2"></path>
+                <path d="M42.5,16.5 L0.5,16.5" id="Line-2"></path>
+                <path d="M42.5,24.5 L0.5,24.5" id="Line-2"></path>
+            </g>
+        </g>
+        <path d="M76.2711349,39.2979827 C76.6633983,39.6509283 76.8879353,40.1599129 76.8879353,40.6958329 C76.8879353,41.2317529 76.6633983,41.7407376 76.2711349,42.0936832 L69.0570948,48.5953121 C68.7288559,48.8916007 68.3068346,49.0550702 67.8703852,49.0550702 L67.5935464,49.0550702 C67.3230199,49.0550702 67.0570021,48.9937691 66.8063142,48.871167 L63.844049,46.2900461 L60.8817838,48.871167 C60.3876221,49.1173001 59.8114006,49.1173001 59.3163371,48.871167 L56.3540719,46.2900461 L53.3918067,48.871167 C52.8994484,49.1173001 52.3214235,49.1173001 51.8281635,48.871167 L48.8640947,46.2900461 L45.9018295,48.871167 C45.4076678,49.1173001 44.8323481,49.1173001 44.3363828,48.871167 L41.3750193,46.2900461 L38.4127541,48.871167 C38.1692803,48.9937691 37.901459,49.0550702 37.6300308,49.0550702 L32.7939186,49.0550702 C29.6476954,56.0759007 22.7131993,60.7078469 15.1582958,60.7078469 C4.44544629,60.7078469 -4.27001592,51.7309549 -4.27001592,40.6958329 C-4.27001592,29.6616397 4.44544629,20.6847477 15.1591976,20.6847477 C22.7141011,20.6847477 29.6485972,25.316694 32.7948204,32.3365957 L67.8703852,32.3365957 C68.3068346,32.3365957 68.7288559,32.5000652 69.0570948,32.7963537 L76.2711349,39.2979827 Z M5.17988251,44.0315556 C7.93874751,44.0315556 10.1827699,41.7866236 10.1827699,39.0286682 C10.1827699,36.2698032 7.93874751,34.0257808 5.17988251,34.0257808 C2.42101751,34.0257808 0.176995105,36.2698032 0.176995105,39.0286682 C0.176995105,41.7866236 2.42101751,44.0315556 5.17988251,44.0315556 Z" id="Shape" stroke="#2470C8" stroke-width="2" fill="#B9D9FF" fill-rule="nonzero" transform="translate(36.308960, 40.696297) scale(-1, 1) rotate(45.000000) translate(-36.308960, -40.696297) "></path>
+        <rect id="Rectangle-3" stroke="#2470C8" stroke-width="2" fill="#B9D9FF" x="100" y="6" width="7" height="15" rx="2"></rect>
+        <rect id="Rectangle-3" stroke="#2470C8" stroke-width="2" fill="#B9D9FF" x="72" y="6" width="7" height="15" rx="2"></rect>
+        <ellipse id="Oval" stroke="#2470C8" stroke-width="2" cx="98" cy="53.5" rx="7" ry="5.5"></ellipse>
+    </g>
+</svg>
