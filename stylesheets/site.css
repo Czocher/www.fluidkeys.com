@@ -543,6 +543,9 @@ a {
   -webkit-font-feature-settings: 'onum', 'kern';
           font-feature-settings: 'onum', 'kern'; }
 
+body {
+  overflow-x: hidden; }
+
 header.typeset {
   background: #232732;
   padding: 1rem; }
@@ -552,22 +555,34 @@ header.typeset {
 
 .hero {
   background: #232732;
-  padding: 4rem 1rem;
-  color: #ffffff; }
+  color: #ffffff;
+  padding: 1rem; }
+  @media screen and (min-width: 50em) {
+    .hero {
+      padding: 4rem 1rem; } }
   .hero .container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto; }
-    .hero .container .content {
-      width: 50%; }
-    .hero .container .illustration {
-      width: 50%;
-      margin-left: 2rem; }
-      .hero .container .illustration img {
-        position: absolute;
-        width: 65%; }
+    @media screen and (min-width: 50em) {
+      .hero .container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        max-width: 80%; } }
+    @media screen and (min-width: 50em) {
+      .hero .container .content {
+        width: 50%; } }
+    @media screen and (min-width: 50em) {
+      .hero .container .illustration {
+        width: 50%;
+        margin-left: 2rem; } }
+    .hero .container .illustration img {
+      max-width: 100%;
+      max-height: 100%; }
+      @media screen and (min-width: 50em) {
+        .hero .container .illustration img {
+          position: absolute;
+          width: 65%; } }
   .hero h1 {
     color: #ffffff;
     font-size: 4rem;
@@ -578,87 +593,113 @@ header.typeset {
   padding-top: 4rem; }
   .challenge .container, .solution .container {
     margin: 0 auto;
-    max-width: 70%; }
+    padding: 0 1em; }
+    @media screen and (min-width: 50em) {
+      .challenge .container, .solution .container {
+        max-width: 70%; } }
   .challenge h2, .solution h2 {
-    text-align: center;
-    font-size: 3rem;
-    line-height: 4rem;
-    margin-bottom: 2rem;
     color: #d33d5c;
     font-weight: normal; }
+    @media screen and (min-width: 40em) {
+      .challenge h2, .solution h2 {
+        font-size: 2rem;
+        line-height: 3rem;
+        margin-bottom: 1rem; } }
+    @media screen and (min-width: 50em) {
+      .challenge h2, .solution h2 {
+        text-align: center;
+        font-size: 3rem;
+        line-height: 4rem;
+        margin-bottom: 2rem; } }
 
-.challenge .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-  .challenge .container h2 {
-    max-width: 100%; }
-  .challenge .container .content {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    max-width: 58%; }
-  .challenge .container .illustration {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    max-width: 42%; }
-    .challenge .container .illustration img {
-      max-width: 100%; }
-
-.solution {
-  padding-bottom: 8rem; }
-  .solution .container {
+@media screen and (min-width: 50em) {
+  .challenge .container {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
-    .solution .container .content {
-      max-width: 100%; }
-      .solution .container .content img {
-        display: block;
-        margin: 0 auto 2rem auto; }
-    .solution .container .feature {
-      -webkit-box-flex: 1;
-          -ms-flex: 1;
-              flex: 1;
-      width: 33%;
-      margin: 0 1rem; }
-      .solution .container .feature img {
-        display: block;
-        margin: auto;
-        height: 60px;
-        margin-top: 1rem; }
-      .solution .container .feature h3 {
-        text-align: center;
-        font-size: 1.2rem;
-        line-height: 1.5rem; }
+        flex-wrap: wrap; } }
+.challenge .container h2 {
+  max-width: 100%; }
+@media screen and (min-width: 50em) {
+  .challenge .container .content {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    max-width: 50%; } }
+@media screen and (min-width: 50em) {
+  .challenge .container .illustration {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    max-width: 50%; } }
+.challenge .container .illustration img {
+  max-width: 100%; }
+
+.solution .container img.screencast {
+  border-radius: 1rem;
+  background: #211f1c;
+  padding: 0.5rem;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 2rem auto; }
+  @media screen and (min-width: 40em) {
+    .solution .container img.screencast {
+      max-width: 70%; } }
+
+.features {
+  margin: 0 3rem;
+  padding-bottom: 8rem; }
+  @media screen and (min-width: 40em) {
+    .features {
+      margin: 0 5rem; } }
+  @media screen and (min-width: 40em) {
+    .features .container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between; } }
+  .features .container .feature {
+    margin-top: 3rem;
+    width: 100%; }
+    @media screen and (min-width: 40em) {
+      .features .container .feature {
+        margin-top: 1rem; } }
+    @media screen and (min-width: 40em) {
+      .features .container .feature {
+        width: 31%; } }
+    .features .container .feature img {
+      display: block;
+      margin-top: 1rem;
+      height: 60px; }
+    .features .container .feature h3 {
+      text-align: left;
+      font-size: 1.2rem;
+      line-height: 1.5rem; }
 
 .final-cta {
   background: #232732;
   padding: 4rem 0; }
   .final-cta .container {
-    max-width: 50%;
-    margin: 0 auto;
+    margin: 0 1rem;
     color: #ffffff; }
+    @media screen and (min-width: 40em) {
+      .final-cta .container {
+        max-width: 50%;
+        margin: 0 auto; } }
     .final-cta .container h2 {
       color: #ffffff;
       margin-bottom: 1rem; }
 
-footer {
-  background: #232732;
-  padding: 1rem;
-  height: 8rem; }
-
 form {
   margin-bottom: 4rem; }
-  form div input[type="text"] {
+  form div input[type="email"] {
     font-size: 1em;
     padding: 1rem 1rem;
-    margin-right: 1rem;
     border: 1px solid #232732;
     width: 100%; }
   form div input[type="submit"] {
@@ -676,7 +717,8 @@ form {
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4), #232732 0px 0px 1px inset;
     -webkit-transition: all 0.15s linear;
     transition: all 0.15s linear;
-    outline: none; }
+    outline: none;
+    cursor: pointer; }
     form div input[type="submit"]:hover, form div input[type="submit"]:focus {
       background: #3DA450;
       border: 0;

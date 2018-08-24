@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Fluidkeys Blog</title>
+  <id>https://www.fluidkeys.com/blog</id>
+  <link href="https://www.fluidkeys.com/blog"/>
+  <link href="https://www.fluidkeys.com/blog/feed.xml" rel="self"/>
+  <updated>2018-08-24T00:00:00+00:00</updated>
+  <author>
+    <name>Fluidkeys</name>
+  </author>
+  <entry>
+    <title>Week 3</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-3/"/>
+    <id>https://www.fluidkeys.com/blog/week-3/</id>
+    <published>2018-08-24T00:00:00+00:00</published>
+    <updated>2018-08-24T17:22:59+00:00</updated>
+    <author>
+      <name>Paul Furley</name>
+    </author>
+    <content type="html">&lt;h1&gt;Week 3:&lt;/h1&gt;
+
+&lt;h2&gt;The short version&lt;/h2&gt;
+
+&lt;p&gt;This week we:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  released version v0.1 of Fluidkeys and sent it to 10 people&lt;/li&gt;
+&lt;li&gt;  extended the Go x/crypto/openpgp library&lt;/li&gt;
+&lt;li&gt;  committed to a theme for v0.2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;We released Fluidkeys v0.1&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://www.fluidkeys.com/blog/week-2/"&gt;In last week&amp;#39;s notes&lt;/a&gt; I explained that v0.1 would help people generate a best practice PGP key, and went through some of the usability ideas we wanted to implement.&lt;/p&gt;
+
+&lt;p&gt;This week was extremely focused, with a lot of pairing, learning, and building the first release. It was extremely helpful having a clear goal of what the release would do, so we could crank through tasks on trello, seeing it appearing bit by bit.&lt;/p&gt;
+
+&lt;p&gt;Ian&amp;#39;s got really into test-driven development — he&amp;#39;s literally building broken tests first, then implementing the code to pass the tests. It&amp;#39;s keeping me honest — it&amp;#39;s easy to fall into bad habits of &amp;quot;I&amp;#39;ll test this later&amp;quot;, but then you fail to. It&amp;#39;s a short-term investment in time (it takes longer to write code with tests) with a very clear long term return (it&amp;#39;s much easier to iterate code in the future with a solid test suite).&lt;/p&gt;
+
+&lt;p&gt;Anyway &lt;a href="https://www.fluidkeys.com/blog/release-0-1/"&gt;we managed to release Fluidkeys v0.1&lt;/a&gt; — a little delayed, but released all the same. We sent it to our original research participants and others in the community, and already had some great feedback, for which we&amp;#39;re extremely grateful.&lt;/p&gt;
+
+&lt;h2&gt;We extended x/crypto/openpgp&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#39;m really enjoying working with Go, which feels like it was made for incredibly picky people…&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s got a cool standard library, and we&amp;#39;ve benefitted from there being a lot of openpgp code already written.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s missing a key feature though, which is password-encrypting private keys. This matters for Fluidkeys in two places:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt; We output a backup ZIP file containing the public and private key. People should be able to copy the ZIP file to somewhere like Dropbox without giving Dropbox access to their private key, and without having to &lt;em&gt;further&lt;/em&gt; encrypt the file.&lt;/li&gt;
+&lt;li&gt; Fluidkeys imports the new key into GnuPG. Without a password, any code running on the machine could simply call GnuPG in the background and use the key to sign things, decrypt things, and so on.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We toyed with the idea of not using a password, but ultimately couldn&amp;#39;t do this in good faith while claiming the key follows &amp;quot;best practice&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;I must admit, adding password encryption to &lt;a href="https://godoc.org/golang.org/x/crypto/openpgp"&gt;Go&amp;#39;s openpgp library&lt;/a&gt; was a challenge. I&amp;#39;m pretty familiar with good old &lt;a href="https://tools.ietf.org/html/rfc4880"&gt;RFC 4880&lt;/a&gt; but I don&amp;#39;t find it well written, so it wasn&amp;#39;t clear how encrypted private keys should be constructed. There were a few grumpy, frustrated moments, with screens half full of debug output, and the other half filled with impenetrable ramblings from the spec.&lt;/p&gt;
+
+&lt;p&gt;We got there in the end, and after a bit of cleanup and more testing we&amp;#39;re going to submit it back to Google to try and get &lt;a href="https://github.com/fluidkeys/crypto/tree/encrypt-private-key"&gt;our fork&lt;/a&gt; back into the core library. That&amp;#39;ll be something.&lt;/p&gt;
+
+&lt;h2&gt;Fluidkeys 0.2 will help you work with existing keys&lt;/h2&gt;
+
+&lt;p&gt;The first release was all about &lt;em&gt;generating&lt;/em&gt; &lt;em&gt;a new key&lt;/em&gt; and getting it into GnuPG. But it&amp;#39;s a little underwhelming if you&amp;#39;re already using GnuPG — when you run it again, it just tries to make you another key…&lt;/p&gt;
+
+&lt;p&gt;Considering about how Fluidkeys could get adopted in a team, and based on what we&amp;#39;ve already learned about teams using PGP, we&amp;#39;re thinking about two different types of person.&lt;/p&gt;
+
+&lt;p&gt;(Excuse the clumsy over-generalisation, but this persona-ish approach is useful for thinking about this point):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt; &lt;strong&gt;Tina, product lead &amp;amp; privacy champion&lt;/strong&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  Tina feels responsible if something went wrong with the product, like a data breach. She wants to get the team using end-to-end encryption for sharing personal data inside the team, rather than via a cloud provider&lt;/li&gt;
+&lt;li&gt;  Tina is pretty confident using PGP already but is not a cryptography expert and isn&amp;#39;t sure about best practice.&lt;/li&gt;
+&lt;li&gt;  Tina is the driving force behind adopting PGP in the team, but finds it very difficult to teach to other team members.&lt;/li&gt;
+&lt;li&gt;  Tina spends several hours setting up new developers on the team with PGP, and several hours a month helping with forgotten passwords and weird error message using GPG.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;Chat, a frontend developer&lt;/strong&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  Chat understands why Tina advocates for using PGP, but hasn&amp;#39;t used it before&lt;/li&gt;
+&lt;li&gt;  Chat is a great developer but isn&amp;#39;t interested in learning the details of how end to end encryption works&lt;/li&gt;
+&lt;li&gt;  Chat trusts Tina to make decisions on his behalf about how to use PGP&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We are much more likely to reach people like Tina than Chat, so it&amp;#39;s really her we&amp;#39;re focusing on helping.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We need to make it really easy for Tina to get Chat using PGP.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For Tina, Fluidkeys 0.1 helps a bit: she can ask Chat to install it, knowing he&amp;#39;ll be able to make himself a good key and he probably won&amp;#39;t forget the password. He won&amp;#39;t be asked lots of difficult questions and it won&amp;#39;t be a horrible first experience.&lt;/p&gt;
+
+&lt;p&gt;This version &lt;em&gt;may&lt;/em&gt; also help if Tina&amp;#39;s unsure whether her key is any good. Does it use the right key size? Are the cipher preferences configured correctly? If she&amp;#39;s not too attached to her existing key, she may actually use Fluidkeys to make herself a brand new key and ditch the old one.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If not, Fluidkeys needs to let Tina use her existing key&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys is going to help teams manage their keys. It would never mess with people&amp;#39;s existing keys without them asking, but it&amp;#39;s important to give them the option.&lt;/p&gt;
+
+&lt;p&gt;Personally, my own key is far too well spread around the internet for me to want to make a new key without a good reason. I need to be able to ask Fluidkeys to use my existing key.&lt;/p&gt;
+
+&lt;p&gt;So that&amp;#39;s what we&amp;#39;re doing next. Then we can get onto the cool stuff.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:paul@paulfurley.com"&gt;paul@paulfurley.com&lt;/a&gt; and &lt;a href="mailto:idrysdale@gmail.com"&gt;idrysdale@gmail.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(Also available as &lt;a href="https://www.fluidkeys.com/blog/feed.xml"&gt;RSS/Atom&lt;/a&gt;, thanks very much to Sym)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Announcing Fluidkeys v0.1!</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/release-0-1/"/>
+    <id>https://www.fluidkeys.com/blog/release-0-1/</id>
+    <published>2018-08-23T00:00:00+00:00</published>
+    <updated>2018-08-23T16:25:13+00:00</updated>
+    <author>
+      <name>Paul Furley</name>
+    </author>
+    <content type="html">&lt;h1&gt;Announcing Fluidkeys v0.1!&lt;/h1&gt;
+
+&lt;p&gt;Ian and I are extremely proud to announce the very first (extremely minimal) release of Fluidkeys.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re building Fluidkeys to help teams protect themselves with strong encryption. Fluidkeys builds on the OpenPGP standard and is compatible with other OpenPGP software.&lt;/p&gt;
+
+&lt;h2&gt;Fluidkeys 0.1 helps you make a PGP key&lt;/h2&gt;
+
+&lt;p&gt;This release of Fluidkeys is aimed at helping developers and sysadmins get started using PGP. (We&amp;#39;re starting with technical folks but Fluidkeys will soon be for &lt;em&gt;everyone&lt;/em&gt;.)&lt;/p&gt;
+
+&lt;p&gt;Once installed, run &lt;code&gt;fk&lt;/code&gt; and it&amp;#39;ll:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a best-practice OpenPGP key&lt;/li&gt;
+&lt;li&gt;Make a strong, memorable password and help you record it&lt;/li&gt;
+&lt;li&gt;Import your new key into GnuPG so you can start using it&lt;/li&gt;
+&lt;li&gt;Save a backup ZIP file of the whole key that you can restore from later&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We&amp;#39;d love it if you &lt;a href="https://github.com/fluidkeys/fluidkeys"&gt;tried it out&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;What next?&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve got loads of ideas for v0.2, but we&amp;#39;d like to hear from you. Do any of these take your fancy?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatically publish your newly generated key on the web in a nice to find format&lt;/li&gt;
+&lt;li&gt;Email you an encrypted message for you to practice decrypting using your new key&lt;/li&gt;
+&lt;li&gt;Automatically rotate and upgrade your keys&lt;/li&gt;
+&lt;li&gt;Import your existing keys from GnuPG&lt;/li&gt;
+&lt;li&gt;Test imported keys against best practice&lt;/li&gt;
+&lt;li&gt;Setup GnuPG and Github for signed, verified commits&lt;/li&gt;
+&lt;li&gt;Store your key backup and password in 1Password or LastPass&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Or something else?&lt;/p&gt;
+
+&lt;h2&gt;Stay up to date&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;re writing weeknotes at &lt;a href="https://www.fluidkeys.com/blog"&gt;fluidkeys.com/blog&lt;/a&gt; (available as &lt;a href="https://www.fluidkeys.com/blog/feed.xml"&gt;RSS/atom&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;d love to hear from you, we&amp;#39;re &lt;a href="mailto:paul@paulfurley.com"&gt;paul@paulfurley.com&lt;/a&gt; and &lt;a href="mailto:idrysdale@gmail.com"&gt;idrysdale@gmail.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 2</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-2/"/>
+    <id>https://www.fluidkeys.com/blog/week-2/</id>
+    <published>2018-08-17T00:00:00+00:00</published>
+    <updated>2018-08-24T16:57:58+00:00</updated>
+    <author>
+      <name>Paul Furley</name>
+    </author>
+    <content type="html">&lt;h1&gt;Week 2:&lt;/h1&gt;
+
+&lt;p&gt;Recap: Ian and I are building Fluidkeys, software that helps teams protect themselves with strong encryption. Fluidkeys builds on the OpenPGP standard and is compatible with other OpenPGP software.&lt;/p&gt;
+
+&lt;h2&gt;The short version&lt;/h2&gt;
+
+&lt;p&gt;This week we&amp;#39;ve:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  clarified our thinking about building new features versus improving PGP&lt;/li&gt;
+&lt;li&gt;  started building Fluidkeys, working towards v0.1.0 next week&lt;/li&gt;
+&lt;li&gt;  set up Jenkins for continuous deployment&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;End user features vs improving PGP&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve got lots of ideas for cool things Fluidkeys could do to help teams protect themselves.&lt;/p&gt;
+
+&lt;p&gt;Early in the week we confused ourselves about what we&amp;#39;re trying to do… are we &lt;strong&gt;improving PGP&lt;/strong&gt; or &lt;strong&gt;making end-user features&lt;/strong&gt;?&lt;/p&gt;
+
+&lt;p&gt;For example, we&amp;#39;re interested in integrating with Slack to allow sending end-to-end encrypted messages. What&amp;#39;s that got to do with wrapping GnuPG or making a PGP key?&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s what we realised:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  To build features like protecting Slack messages with end to end encryption requires a &lt;strong&gt;public key distribution&lt;/strong&gt; system (e.g. I want to encrypt this file to Nina, what public key should I use?)&lt;/li&gt;
+&lt;li&gt;  Email is a very popular &lt;strong&gt;identity system&lt;/strong&gt;. It&amp;#39;s decentralised, difficult to censor, and extremely well understood. Slack (and most other software) piggy-backs on email as its identity system.&lt;/li&gt;
+&lt;li&gt;  &lt;a href="https://tools.ietf.org/html/rfc4880"&gt;OpenPGP is an open standard&lt;/a&gt; which can link an identifier like an &lt;strong&gt;email address&lt;/strong&gt; to a &lt;strong&gt;public key.&lt;/strong&gt; This can be a foundation for a &lt;strong&gt;public key distribution&lt;/strong&gt; system.&lt;/li&gt;
+&lt;li&gt;  We need to make OpenPGP usable as a foundation for Fluidkeys to build more offer useful end-to-end encryption features.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With that realisation, we can separate features into two classes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt; Features which make OpenPGP easier to use, such as:
+
+&lt;ol&gt;
+&lt;li&gt; &lt;strong&gt;make a new PGP key&lt;/strong&gt; according to best practice&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;make a &amp;quot;strong&amp;quot; password&lt;/strong&gt; and keep it safe&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;backup your PGP key&lt;/strong&gt; in case you lose it&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;publish your PGP somewhere&lt;/strong&gt; on the internet&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;automatically find your team&amp;#39;s keys&lt;/strong&gt; and keep them updated&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;automatically rotate and upgrade&lt;/strong&gt; your keys&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt; Features which build on top of OpenPGP as a foundation, such as:
+
+&lt;ol&gt;
+&lt;li&gt; &lt;strong&gt;send huge files to your team-mates&lt;/strong&gt; with end-to-end encryption and integrity checking (current workaround: password protected ZIP files, send the password via WhatsApp, hope the file didn&amp;#39;t get corrupted)&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;send encrypted messages via Slack&lt;/strong&gt; while transparently end-to-end encryptiong and decrypting them the other side&lt;/li&gt;
+&lt;li&gt; &lt;strong&gt;quickly share a password to another team-mate&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Improving usability of PGP with Fluidkeys v0.1.0&lt;/h2&gt;
+
+&lt;p&gt;With that in mind, we started working towards our first mini-release of Fluidkeys. The aim of version 0.1.0 is simple:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&amp;quot;Make a best-practice PGP key that I can use with GnuPG&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This release is aimed at developers and sysadmins, and we wanted to tackle these specific usability issues in other software:&lt;/p&gt;
+
+&lt;h3&gt;People don&amp;#39;t know how to answer questions about cryptography&lt;/h3&gt;
+
+&lt;p&gt;It&amp;#39;s just silly to expect non-cryptographers to tell you what key size they want, so we don&amp;#39;t ask them. We deferred to &lt;a href="https://infosec.mozilla.org/guidelines/key_management.html"&gt;Mozilla&amp;#39;s Infosec team&amp;#39;s key management guidance&lt;/a&gt; and went with a 4096-bit RSA key.&lt;/p&gt;
+
+&lt;p&gt;As a usability principle, we plan to ask as few questions as possible, and be opinionated with (strong) defaults instead. (Hypothesis: teams will defer to our expertise over their own — we&amp;#39;ll have to earn this credibility.)&lt;/p&gt;
+
+&lt;h3&gt;People don&amp;#39;t know what&amp;#39;s meant by a &amp;quot;strong password&amp;quot;, and we aren&amp;#39;t good at inventing passwords&lt;/h3&gt;
+
+&lt;p&gt;It&amp;#39;s a heavy mental burden to be asked to come up with a new password, &lt;strong&gt;and&lt;/strong&gt; decide what&amp;#39;s meant by &amp;quot;secure&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ve tried to side-step both issues by &lt;strong&gt;just&lt;/strong&gt; &lt;strong&gt;making a password for them&lt;/strong&gt;. We&amp;#39;ve used the &lt;a href="http://world.std.com/%7Ereinhold/diceware.html"&gt;6-word Diceware technique&lt;/a&gt; with &lt;a href="https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases"&gt;EFF&amp;#39;s wordlist&lt;/a&gt; which provides a number of usability improvements. It generates relatively memorable passwords like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;shindig.fernlike.primarily.rind.denim.cake&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ve also dropped the word &amp;quot;passphrase&amp;quot; because… WTF.&lt;/p&gt;
+
+&lt;h3&gt;People make a password, then forget it and lose access to their key.&lt;/h3&gt;
+
+&lt;p&gt;We took some inspiration from Bitcoin wallets here which use an intriguing design pattern.&lt;/p&gt;
+
+&lt;p&gt;After presenting the password, we ask them to put it in their password manager or write it on a piece of paper and keep it on them. We ask them to hit enter once they&amp;#39;ve recorded it.&lt;/p&gt;
+
+&lt;p&gt;Then we clear the screen, and ask for one of the words from the password. If they type in the word correctly, we assume they did write it down.&lt;/p&gt;
+
+&lt;p&gt;If they get it wrong, we give them another chance to write it down before bailing out.&lt;/p&gt;
+
+&lt;p&gt;This isn&amp;#39;t infallible — I suspect people might just paste the password into a text editor and subsequently lose it. But at least they can&amp;#39;t copy-paste the whole password, since they need to give a single word.&lt;/p&gt;
+
+&lt;p&gt;Hopefully with time and testing we&amp;#39;ll figure out how to make this bit as reliable as possible.&lt;/p&gt;
+
+&lt;h3&gt;It&amp;#39;s boring waiting 30s or more for a 4096-bit RSA key to be generated.&lt;/h3&gt;
+
+&lt;p&gt;Having chosen to generate 4096-bit keys, we made the user experience worse by introducing a potentially long delay. (It takes a lot of entropy to securely generate a 4096-bit key, and computers generate entropy quite slowly from sources like mouse movements and hard disk timings).&lt;/p&gt;
+
+&lt;p&gt;The solution&amp;#39;s obvious: do it in the background!&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys asks the person to write down their password and come back when they&amp;#39;re done, so we use that dead-time to generate the key behind the scenes.&lt;/p&gt;
+
+&lt;h3&gt;People don&amp;#39;t back up their PGP key&lt;/h3&gt;
+
+&lt;p&gt;Understandably, because it&amp;#39;s complicated and boring. Most of us never quite get round to making a backup until it&amp;#39;s too late.&lt;/p&gt;
+
+&lt;p&gt;Again, we just do it automatically. Fluidkeys makes a ZIP file with a sensible name and saves it to your &lt;code&gt;~/.fluidkeys/&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;Inside the ZIP file, it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluidkeys-2018-08-17-paul-paulfurley-com.zip
+├── 2018-08-17-paul-paulfurley-com.private-encrypted.txt
+├── 2018-08-17-paul-paulfurley-com.public.txt
+├── 2018-08-17-paul-paulfurley-com.revoke.txt
+└── README.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Set up Jenkins for continuous deployment&lt;/h2&gt;
+
+&lt;p&gt;We wanted v0.1.0 to be properly &lt;em&gt;releasable&lt;/em&gt;, and that meant packaging it properly from the start. We took some upfront effort to properly package Fluidkeys for macOS and Debian/Ubuntu:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/fluidkeys/fluidkeys#install-on-macos"&gt;Install on macOS with Homebrew&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/fluidkeys/fluidkeys#install-on-debian--ubuntu"&gt;Install on Debian/Ubuntu with apt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;We&amp;#39;re signing commits and releases&lt;/h3&gt;
+
+&lt;p&gt;To set an example, we&amp;#39;re signing (almost) all our commits on Github, and we&amp;#39;re strictly signing releases as version tags&lt;/p&gt;
+
+&lt;p&gt;When Jenkins prepares to build a new DEB package and Homebrew formula, it gets the most recent tag and check that it&amp;#39;s properly signed by me or Ian, and blows up if not.&lt;/p&gt;
+
+&lt;p&gt;Finally, Jenkins has its own automatic signing key which it uses to sign the apt repo.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s not infallible, but it protects against attacks on Github accounts like the one recently suffered by &lt;a href="https://gentoo.org/news/2018/06/28/Github-gentoo-org-hacked.html"&gt;Gentoo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;We&amp;#39;d appreciate your feedback&lt;/h2&gt;
+
+&lt;p&gt;Fluidkeys v0.1.0 is &lt;em&gt;furiously minimal&lt;/em&gt;, but we&amp;#39;d really appreciate your thoughts on what we&amp;#39;ve built so far.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;d like to test drive it, head over to &lt;a href="https://github.com/fluidkeys/fluidkeys"&gt;Github&lt;/a&gt; and follow the install instructions there.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:paul@paulfurley.com"&gt;paul@paulfurley.com&lt;/a&gt; and &lt;a href="mailto:idrysdale@gmail.com"&gt;idrysdale@gmail.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 1</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-1/"/>
+    <id>https://www.fluidkeys.com/blog/week-1/</id>
+    <published>2018-08-10T00:00:00+00:00</published>
+    <updated>2018-08-23T15:42:44+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;h1&gt;Week 1:&lt;/h1&gt;
+
+&lt;h2&gt;Flashback 🔮&lt;/h2&gt;
+
+&lt;p&gt;This time last year, Paul built &lt;a href="https://www.expirybot.com/"&gt;a bot that emails you a reminder if you’re PGP key is about to expire&lt;/a&gt;. To date it’s sent out around 125,000 emails, received (&lt;a href="https://twitter.com/search?q=expirybot&amp;amp;src=typd"&gt;plenty of praise&lt;/a&gt;) and raised enough in donations to cover its server costs.&lt;/p&gt;
+
+&lt;p&gt;Since then we’ve quit our day jobs in the pursuit of building digital products that give you back control of your online information (read: life). &lt;strong&gt;Privacy is a basic human right&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We’ve had a few weeks of working on and off at this over the summer, but for the sake of simplicity we’re calling this week 1…&lt;/p&gt;
+
+&lt;h2&gt;This week&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;We’ve summarised what we learnt from interviewing 5 people who use PGP within their teams&lt;/strong&gt;. We wanted to understand why they use PGP, what works and what doesn’t.&lt;/p&gt;
+
+&lt;p&gt;We discovered that these are people who really &lt;em&gt;care&lt;/em&gt; about privacy and security. They’re the crypto champions within their organisations. ✊&lt;/p&gt;
+
+&lt;p&gt;They found explaining what PGP is, why it’s useful and how it works to others excruciating and fraught with challenges. No surprises there!&lt;/p&gt;
+
+&lt;p&gt;They’re adopting tools like &lt;a href="https://www.lastpass.com/enterprise"&gt;LastPass Enterprise&lt;/a&gt; or going all in on &lt;a href="https://tutanota.com/"&gt;Tutanota&lt;/a&gt; for handling internal secrets within the team. There’s no broadly adopted way of sharing secrets with someone from outside the organisation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Sometimes you still have to send secrets to a client. You end up doing half on email, half by Whatsapp. It’s far from ideal!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;They were pragmatic about security and generally comfortable with the idea of a desktop app integrating with their keys:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I want security to get out the way. It has to if we’re to get others behind it&lt;/p&gt;
+
+&lt;p&gt;I’d want it to show me what it’s doing in the background, it’s an extension of my identity. It should ask me my password each time&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We also showed them &lt;a href="https://www.fluidkeys.com/"&gt;mockup of a homepage for a product&lt;/a&gt; that could help them automate PGP for stronger, simpler security. We’re calling it Fluidkeys.&lt;/p&gt;
+
+&lt;p&gt;From them looking at this, we’ve learnt &lt;strong&gt;we’re good at defining the problems and pain that people face when trying to use PGP within their teams&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our description of the problem and the feature we’re thinking of offering resonated with everyone we showed them to (that said we’ve kept it broad, offering to do everything!)&lt;/p&gt;
+
+&lt;p&gt;However a video showing how Fluidkeys would analyse a teams’ keys and provide recommendations either confused our interviewees or left them wondering what they should do next. Was this something they then would have to act on, or would the software just fix it? We’re starting to learn that &lt;strong&gt;people want something that takes care of security management for for them&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Are we building a library or a product?&lt;/h2&gt;
+
+&lt;p&gt;There are numerous applications that implement the OpenPGP standard, but GnuPG is the one we encounter most.&lt;/p&gt;
+
+&lt;p&gt;We’ve realised that GnuPG is confusing because it tries to be both a low level cryptography library, &lt;strong&gt;and&lt;/strong&gt; an end user application. It gives you the power to do a number of different things: signing code or emails (proving you identify) and encrypting emails or files (keeping secrets). It feels like it can’t decide what it’s trying to be.&lt;/p&gt;
+
+&lt;p&gt;In contrast, take Signal, a messaging app that focuses on the single task of enabling you to send encrypted messages to other people. By focusing on this one thing, it can be really good at it. It’s easy to setup and to use.&lt;/p&gt;
+
+&lt;p&gt;That said, GnuPG has much wider application and as a standard has  become integrated into a number of other products or services. For example, it’s used on Github to enable code signing and there are clients for all the popular email clients.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We believe what GnuPG is missing is a decent user interface and an opinionated set of principles for how it should be used within a team.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Our first move is to build Fluidkeys, a wrapper for GnuPG. Our aim is to get a first release out in the next two weeks which will make it a doddle for you to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Generate a key pair&lt;/li&gt;
+&lt;li&gt;Make and remember a great passphrase&lt;/li&gt;
+&lt;li&gt;Backup of these keys and create a revocation certificate&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ll then get it into the hands of some developers and see what they make of it.&lt;/p&gt;
+
+&lt;p&gt;If it sounds like something you’re interesting in trying out and your on a Mac or Linux machine, &lt;a href="mailto:idrysdale@gmail.com"&gt;we’d love your feedback&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+</content>
+  </entry>
+</feed>
