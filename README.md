@@ -1,6 +1,8 @@
-# Fluidkeys Marketing Page
+# Fluidkeys Home Page
 
-A simple brochure page for Fluidkeys.
+The home page for Fluidkeys, hosted at www.fluidkeys.com.
+
+Fluidkeys builds on OpenPGP and makes it easy to implement great security across your organisation.
 
 ## How to use this
 
