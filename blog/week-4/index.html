@@ -1,0 +1,145 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 4</title>
+    <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+    <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+      <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <link href="../../stylesheets/pre.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500,700" rel="stylesheet">
+    <link href="../../stylesheets/site.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Weeknotes</a></li>
+          <li><a href="/about">About&nbsp;us</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+        <section class="blog">
+      <div class="container">
+        <div class="content">
+            <h1>Week 4</h1>
+    <p>Paul and I are building Fluidkeys, software that helps teams protect themselves with strong encryption.</p>
+
+<h2>The short version</h2>
+
+<p>This week&#39;s been a short one. 🏝 Paul&#39;s on holiday. Meanwhile I&#39;ve:</p>
+
+<ul>
+<li>  started sketching what a <strong>command line interface</strong> for Fluidkeys could look like for administrators and their team members</li>
+<li>  made keys generated with Fluidkeys expire in 60 days</li>
+</ul>
+
+<h2>Prototyping a command line interface 📺</h2>
+
+<p>We&#39;re starting to build Fluidkeys by focusing on security conscious <em>developers</em> and <em>sysadmins</em>. We think we can make something that helps them get their teams using strong encryption. Therefore our first release will be an application they&#39;ll run from the terminal. We imagine they&#39;ll use this to get setup, then start inviting other members of their team to install it.</p>
+
+<p>Last week, <a href="https://www.fluidkeys.com/blog/week-3/">Paul introduced two personas</a> that were helpful in sketching out how this could work at a high level.</p>
+
+<p>While he&#39;s been off in France, I&#39;ve taken this thinking a little further and began writing some example commands they could run and the accompanying output they&#39;d receive. You can <a href="https://www.fluidkeys.com/cli-prototype/team">take a look here</a>.</p>
+
+<pre class="terminal">
+<span class="prompt">➜</span>  <span class="directory">~</span> fk
+
+<span>Start with a key locker</span>
+====
+In Fluidkeys, everything starts with a locker. This is the place you and others in your organisation place their keys for safe keeping.
+
+Is your group already using Fluidkeys?
+
+1. Find your Fluidkeys locker 🔎
+2. Create a new locker ✨
+
+[1/2] : <span class="directory">_</span>
+
+Creating a new locker <span class="spinner">\</span>... <span class="positive">[done]</span>
+
+We'll now store your key in the new locker and set you up as an adminsitrator
+
+<span class="information">Found GnuPGP, would you like to import an existing key from there? </span> [Y/n] <span class="cursor">_</span>
+</pre>
+
+<p>All of these are <em>very</em> early doodles, but I think we&#39;ll find them useful next week as we start to work up the interface for this release.</p>
+
+<h2>Continuing to lay the foundation 🏗️</h2>
+
+<p>Meanwhile, we&#39;ve also made keys generated using Fluidkeys expire in 60 days. Later we&#39;ll implement some sort of <a href="https://www.owasp.org/index.php/Key_Management_Cheat_Sheet#Key_Rotation">key rotation</a>, but I found getting this working useful for improving my understanding of how <a href="https://godoc.org/golang.org/x/crypto/openpgp">Go&#39;s openpgp library</a> works. 🕵️‍♂️</p>
+
+<p>Despite being on holiday, I&#39;ve seen Paul is pushing the odd work in progress commit to git... He&#39;s been dabbling with making it so each time you generate a key with Fluidkeys you also automatically create a revocation certificate and this gets zipped as part of your backup.</p>
+
+<p>We also opened a joint bank account in under 3 days. <em>Rapid</em>. Well done <a href="https://monzo.com/">Monzo</a>.</p>
+
+<p>Thanks for reading.</p>
+
+<p>— Ian</p>
+
+<p><em>All</em> feedback is welcome, pop us an email to <a href="mailto:paul@paulfurley.com">paul@paulfurley.com</a> and <a href="mailto:idrysdale@gmail.com">idrysdale@gmail.com</a></p>
+
+
+  <hr />
+  <p><a href="/blog">Back to all posts</a></p>
+  <h2>Subscribe to the weeknotes</h2>
+  <form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
+  <div class="input">
+    <label for="email-address">Email address:</label>
+    <input id="email-address" type="email" name="entry.78386960" required placeholder="">
+  </div>
+  <div class="button">
+    <input type="submit" value="Sign up">
+  </div>
+</form>
+
+
+        </div>
+      </div>
+    </section>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+                <a href="../feed.xml"><img src="../../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+
+        </p>
+      </div>
+    </footer>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>

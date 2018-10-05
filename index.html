@@ -4,29 +4,37 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PGP Software for Teams | Fluidkeys</title>
-    <meta name="description" content="Implement Best Security Practices and Demonstrate Your Team’s Expertise With PGP. Sign Up Now!">
+    <title></title>
     <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
     <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500,700" rel="stylesheet">
     <link href="stylesheets/site.css" rel="stylesheet" />
   </head>
   <body>
-    <header class="typeset">
-  <h1>Fluidkeys</h1>
-</header>
-
-<section class="typeset hero">
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Weeknotes</a></li>
+          <li><a href="/about">About&nbsp;us</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="hero">
   <div class="container">
     <div class="content">
-      <h1>Master PGP for your team</h1>
-      <p>Implement best security practices and demonstrate your team’s expertise with PGP.</p>
+      <h1>Protect your team with strong encryption</h1>
+      <p>Fluidkeys builds on OpenPGP and makes it easy to implement great security across your organisation</p>
+      <p>We’re building a better way to do PGP, you can <a href="#current_release">test the current release</a> or sign up for release announcements:</p>
       <form id="header-sign-up" action="https://docs.google.com/forms/d/e/1FAIpQLSd_tCWldCCAzrq0tA-CT0Odxche5gnBb6UHSoUf1ryXt9VUDg/formResponse" method="post">
   <div>
     <label for="email-address">Email address:</label>
     <input id="email-address" type="email" name="entry.2082822863" required placeholder="e.g. sandra@flextech.com">
   </div>
   <div>
-    <input type="submit" value="Sign up for early access">
+    <input type="submit" value="Sign up for release announcements">
   </div>
 </form>
 
@@ -37,36 +45,29 @@
   </div>
 </section>
 
-<section class="typeset challenge">
+<section class="pain">
   <div class="container">
-    <h2>Supporting PGP in a team is time consuming and error&#8209;prone</h2>
     <div class="content">
+      <h2>Supporting PGP in a team is time consuming and error&#8209;prone</h2>
       <p>The steep learning curve means supporting new team members is time consuming and costly.
       <p>Keys get out of sync, leading to confusing errors. Verifying, retrieving and refreshing keys is a repetitive, manual process.
       <p>A lack of agreed best practice means lots of keys use old, insecure algorithms. Auditing a team’s keys often gets forgotten.</p>
     </div>
     <div class="illustration">
-      <img src="images/pain.png" alt="An illustration of the world of pain and confusion managing PGP." />
+      <img src="images/pain.jpg" alt="An illustration of the world of pain and confusion managing PGP." />
     </div>
-
   </div>
 </section>
 
-<section class="typeset solution">
+<section class="solution">
   <div class="container">
-    <div class="content">
-      <h2 style="padding-bottom: 1rem;">Automate PGP for stronger, simpler&nbsp;security</h2>
-      <img src="images/fluidkeys-command-line.gif" class="screencast" alt="An animation of the command line interface for Fluidkeys" />
-    </div>
+    <h2>Automate PGP for stronger, simpler&nbsp;security</h2>
   </div>
-</section>
-
-<section class="typeset features">
   <div class="container">
     <div class="feature">
       <img src="images/new-team-member.svg" alt="Icon for a new key and backup" />
       <h3>Onboard new team members</h3>
-      <p>Guide new starters through generating a key, creating encrypted backups and revocation certificates.</p>
+      <p>Automatically create a key for new starters, along with an encrypted backup and revocation certificate.</p>
     </div>
     <div class="feature">
       <img src="images/sync.svg" alt="Icon for syncronising keys" />
@@ -93,23 +94,105 @@
       <h3>Rotate keys periodically</h3>
       <p>Automatically generate new encryption keys every quarter for forward secrecy.</p>
     </div>
-  </div>
-
 </section>
 
-<section class="typeset final-cta">
+<section class="release" id="current_release">
   <div class="container">
-    <h2>Sign up for early access and get a free report about your team’s PGP&nbsp;practices</h2>
-    <form id="footer-sign-up" action="https://docs.google.com/forms/d/e/1FAIpQLSd_tCWldCCAzrq0tA-CT0Odxche5gnBb6UHSoUf1ryXt9VUDg/formResponse" method="post">
+    <div class="content">
+      <h2>Current release: 0.1</h2>
+      <p>Make a best-practice PGP key, automatically creating a backup and revocation certificate.</p>
+      <p class="button"><a href="https://download.fluidkeys.com">Download now</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="progress">
+  <div class="container">
+    <div class="content">
+      <h2>Our progress</h2>
+      <div class="card complete">
+        <ul>
+          <li class="checklist-item checked"><h3>Get started with OpenPGP (v0.1)</h3></li>
+        </ul>
+        <p>You can now create a best practice PGP key from the command line. Fluidkeys backs it up and pushes it into GnuPG so you can start using it right away.</p>
+      </div>
+
+      <div class="card">
+        <h3>Level up your legacy keys (v0.2)</h3>
+        <ul>
+          <li class="checklist-item">Allow Fluidkeys to manage your existing key in GnuPG</li>
+          <li class="checklist-item">Rotate your encryption subkey every month to limit the damage of keys being compromised</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <ul>
+          <li class="checklist-item"><h3>Synchronise keys across your technical team (v0.3)</h3></li>
+        </ul>
+        <p>You’ll be able to add and remove team members and their keys will be automatically synchronised across the whole team.</p>
+      </div>
+
+      <div class="card">
+        <ul>
+          <li class="checklist-item"><h3>Level up your git security</h3></li>
+        </ul>
+        <p>Your team will be signing git commits, and verifying commits from other team mates. Fluidkeys will configure git for you, and everyone’s keys will be synchronised with Github automatically.</p>
+      </div>
+
+      <div class="card">
+        <ul>
+          <li class="checklist-item"><h3>Send secret text snippets</h3></li>
+        </ul>
+        <p>You can send and receive passwords and tokens to team mates right from the command line. Fluidkeys will handle the encryption so only your team-mate can access it.</p>
+      </div>
+
+      <div class="card">
+        <ul>
+          <li class="checklist-item"><h3>Send sensitive files</h3></li>
+        </ul>
+        <p>You can send files of any size to team mates from the command line. Fluidkeys will handle the encryption, delivery and verify that the file arrived ok.</p>
+      </div>
+
+      <div class="card">
+        <ul>
+          <li class="checklist-item"><h3>Integrate with Slack</h3></li>
+        </ul>
+        <p>You can use the convenience of Slack with the added protection of end to end encryption. You’ll no longer have to worry about Slack’s security.</p>
+      </div>
+
+      <div class="card major">
+        <ul>
+          <li class="checklist-item"><h3>Synchronise keys across your organisation (v1)</h3></li>
+        </ul>
+        <p>You’ll have a graphical interface for people less familiar with the command line.</p>
+      </div>
+
+      <div class="subscribe">
+        <p>
+          View our <a href="https://trello.com/b/dB9j4JaG/fluidkeys?menu=filter&amp;filter=label:release">release roadmap on Trello</a>
+          or read our <a href="/blog">weeknotes</a>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <div class="content">
+      <p>We’re building a better way to do PGP, you can <a href="#current_release">test the current release</a> or sign up for release announcements:</p>
+      <form id="footer-sign-up" action="https://docs.google.com/forms/d/e/1FAIpQLSd_tCWldCCAzrq0tA-CT0Odxche5gnBb6UHSoUf1ryXt9VUDg/formResponse" method="post">
   <div>
     <label for="email-address">Email address:</label>
     <input id="email-address" type="email" name="entry.2082822863" required placeholder="e.g. sandra@flextech.com">
   </div>
   <div>
-    <input type="submit" value="Sign up for early access">
+    <input type="submit" value="Sign up for release announcements">
   </div>
 </form>
 
+    </div>
   </div>
 </section>
 
@@ -180,10 +263,19 @@ function handleFormSubmit(event) {
   }
 
 }
-
 ready(setupEventHandlers);
 
 </script>
+
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+          
+        </p>
+      </div>
+    </footer>
     <script>
   var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
   if (dnt != "1" && dnt != "yes") {

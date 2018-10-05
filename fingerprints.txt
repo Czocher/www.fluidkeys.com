@@ -1,0 +1,6 @@
+# Team
+B79F 0840 DEF1 2EBB A72F  F72D 7327 A44C 2157 A758  # paul@fluidkeys.com
+E63A F0E7 4EB5 DE3F B72D  C981 C991 7093 18EC BDE7  # ian@fluidkeys.com
+
+# Bots
+36D4 6F41 F57A 1DF6 7673  0BE4 EA53 2124 50A8 9809  # Jenkins automatic release signing key

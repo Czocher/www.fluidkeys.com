@@ -4,22 +4,357 @@
   <id>https://www.fluidkeys.com/blog</id>
   <link href="https://www.fluidkeys.com/blog"/>
   <link href="https://www.fluidkeys.com/blog/feed.xml" rel="self"/>
-  <updated>2018-08-24T00:00:00+00:00</updated>
+  <updated>2018-10-05T00:00:00+00:00</updated>
   <author>
     <name>Fluidkeys</name>
   </author>
+  <entry>
+    <title>Week 9, Fixing existing keys</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-9-fixing-existing-keys/"/>
+    <id>https://www.fluidkeys.com/blog/week-9-fixing-existing-keys/</id>
+    <published>2018-10-05T00:00:00+00:00</published>
+    <updated>2018-10-05T14:11:11+00:00</updated>
+    <author>
+      <name>Paul Fawkesley</name>
+    </author>
+    <content type="html">&lt;p&gt;This week I&amp;#39;ve been on my own, spending some quiet time with my head in the OpenPGP spec.&lt;/p&gt;
+
+&lt;h2&gt;Golang crypto/openpgp makes keys without preferences&lt;/h2&gt;
+
+&lt;p&gt;At the start of the week we realised that there&amp;#39;s a subtle (recoverable) problem with the keys we&amp;#39;ve been generating with Fluidkeys.&lt;/p&gt;
+
+&lt;p&gt;We use Golang&amp;#39;s crypto/openpgp library which has a &lt;a href="https://godoc.org/golang.org/x/crypto/openpgp#NewEntity"&gt;function for generating a key&lt;/a&gt;. Unfortunately it seems that this function neglects to set &lt;em&gt;preferences&lt;/em&gt; on the new key.&lt;/p&gt;
+
+&lt;p&gt;There are &lt;a href="https://tools.ietf.org/html/rfc4880#section-5.2.3.7"&gt;3 types of preferences&lt;/a&gt; (hash, symmetric key and compression) and these are there to tell other people what encryption algorithms like AES-256 you accept. The idea is you put the strongest ones first, then when the other person tries to encrypt to you, their software finds the most preferred, mutually supported algorithm.&lt;/p&gt;
+
+&lt;h2&gt;No preferences defaults to bad security&lt;/h2&gt;
+
+&lt;p&gt;Unfortunately, the OpenPGP specification says that if two implementations can&amp;#39;t agree on an algorithm they fall back to the &lt;strong&gt;lowest common denominator&lt;/strong&gt;, Triple DES and SHA1, which you &lt;strong&gt;must&lt;/strong&gt; support. These are old, weak algorithms, so it&amp;#39;s not ideal.&lt;/p&gt;
+
+&lt;p&gt;Because newly generated keys didn&amp;#39;t have any preferences set, any messages encrypted to them were indeed using Triple DES. It wasn&amp;#39;t straightforward to actually observe this, but once I had a sneaky suspicion it might be happening I managed to get GnuPG to spit out some debug and take a look.&lt;/p&gt;
+
+&lt;h2&gt;Our key rotation allows us to fix this&lt;/h2&gt;
+
+&lt;p&gt;The last two weeks we&amp;#39;ve been talking about key rotation — we&amp;#39;ve managed to get Fluidkeys automatically expiring and re-generating encryption subkeys. (Release 0.2 coming very soon, promise!)&lt;/p&gt;
+
+&lt;p&gt;Since we&amp;#39;ve built Fluidkeys to automatically, regularly inspect the key this is the ideal mechanism for looking for poorly &lt;em&gt;configured&lt;/em&gt; keys too. Alongside key rotation, we can tweak the key&amp;#39;s configuration and generate new self-signatures.&lt;/p&gt;
+
+&lt;p&gt;So this week I&amp;#39;ve been hard at work collating best practice to work out, what &lt;em&gt;is&lt;/em&gt;the ideal configuration? And how much deviation should Fluidkeys tolerate from that?&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://riseup.net/en/security/message-security/openpgp/best-practices"&gt;Riseup&amp;#39;s OpenPGP best practices&lt;/a&gt; guide came in handy as usual, and mostly I&amp;#39;ve been encoding their rules into actual code. You can see that working in the screenshot below (the text hasn&amp;#39;t been designed yet):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-04-05-fluidkeys-key-list-with-missing-preferences.png" alt="A table of PGP keys with warnings about missing preferences" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This builds on the ideas in a previous prototype I hacked up earlier in the year which allows you to &lt;a href="https://www.expirybot.com/test-pgp-key/"&gt;test your PGP key&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our hunch is that it will be valuable for Fluidkeys to bring together and codify best practice — not just for individual keys, but &lt;a href="https://www.fluidkeys.com/patterns-for-using-pgp-in-teams/"&gt;ways of using PGP together in a team&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next week we&amp;#39;ll turn those warnings into actions so Fluidkeys can just fix them for you, then continue racing towards our next release 0.2...&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 8</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-8/"/>
+    <id>https://www.fluidkeys.com/blog/week-8/</id>
+    <published>2018-09-28T00:00:00+00:00</published>
+    <updated>2018-10-05T13:59:54+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#39;ve got key rotation working! When you run &lt;code&gt;fk key rotate&lt;/code&gt; Fluidkeys now goes off and checks your PGP keys. If you’ve got one set to expire years in the future, or one that is imminently expiring, it’ll helpfully offer to update them. In doing so it sets them to be valid until the end of next month. The gist of it is that doing this regularly means you end up using encryption keys that rotate every month. Nice and secure.&lt;/p&gt;
+
+&lt;p&gt;“Roll VT”&lt;/p&gt;
+
+&lt;div class="terminal-wrapper"&gt;
+  &lt;img class="my-class" src="/images/fk-0.1.5-rotate-demo.svg" alt="a screen recording of `fk key rotate` in action"&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A couple of weeks back we got this short and helpful bit of feedback:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I don&amp;#39;t want to have to do anything.&lt;/p&gt;
+
+&lt;p&gt;Can&amp;#39;t it just rotate it for me?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Yes, absolutely! Next up we&amp;#39;ll focus on making all this magic happen in the background.&lt;/p&gt;
+
+&lt;p&gt;That’s it for this week.&lt;/p&gt;
+
+&lt;p&gt;Despite &lt;a href="https://www.bbc.co.uk/news/business-45667370"&gt;Ryanair&amp;#39;s best efforts&lt;/a&gt;, I&amp;#39;m off to Portugal for a week. So we&amp;#39;ll both hear from Paul next time to see what he gets up to.&lt;/p&gt;
+
+&lt;p&gt;See you in a fortnight.&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;P.S. Paul and I are hosting a &lt;a href="https://www.eventbrite.co.uk/e/digital-self-defence-reduce-your-facebook-footprint-tickets-50366286920"&gt;digital self defence class&lt;/a&gt; on October 9th in Liverpool. Come and learn how to reduce your Facebook footprint! 🙅🏽‍♀️&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 7</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-7/"/>
+    <id>https://www.fluidkeys.com/blog/week-7/</id>
+    <published>2018-09-21T00:00:00+00:00</published>
+    <updated>2018-09-24T09:50:46+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;I&amp;#39;ll keep it short this week...&lt;/p&gt;
+
+&lt;p&gt;We got plenty of excellent feedback on the &lt;a href="/blog/week-6"&gt;technical detail of how we see key rotation working in Fluidkeys&lt;/a&gt; that we shared last week. Thank you all for that! It&amp;#39;s nice to know there are people out there that care about this stuff and who are up for taking the time to think it through with us. 🙏&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re cracking on with v0.2 and have been deep in the bowels of GPG and Go. Having identified a bunch of warnings about a key, we&amp;#39;re now translating those into actions that Fluidkeys can take to remedy them. Hopefully we&amp;#39;ll have something for you to play with next week.&lt;/p&gt;
+
+&lt;p&gt;We worked together from Manchester on Tuesday. This meant we got to have lunch with the old &lt;a href="http://dpr.coop.co.uk"&gt;DPR crew&lt;/a&gt;. 💗&lt;/p&gt;
+
+&lt;p&gt;Oh, and we&amp;#39;ve started writing a series of patterns for &lt;a href="https://docs.google.com/document/d/1suiNvAHVyI0fDBUd_Z6oFwrh5PrbcrhIt9zFb4KcHuA"&gt;how we think you should use PGP as part of your team&lt;/a&gt;. I&amp;#39;ve begun documenting how you can implement these patterns today  using GnuPG.... But good grief, it&amp;#39;s far from easy! 🤢  It&amp;#39;s no wonder people give up on it all!&lt;/p&gt;
+
+&lt;p&gt;Lastly, two related tidbits:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://lists.gnupg.org/pipermail/gnupg-users/2018-September/060987.html"&gt;GnuPG can now be used to perform notarial acts in the State of Washington&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If you happen to be in Liverpool on October 9, Paul and I will be hosting a &lt;a href="https://www.eventbrite.co.uk/e/digital-self-defence-reduce-your-facebook-footprint-tickets-50366286920"&gt;digital self defence class&lt;/a&gt;. Come and learn how to reduce your Facebook footprint! 🙅🏽‍♀️&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 6</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-6/"/>
+    <id>https://www.fluidkeys.com/blog/week-6/</id>
+    <published>2018-09-14T00:00:00+00:00</published>
+    <updated>2018-09-14T16:32:25+00:00</updated>
+    <author>
+      <name>Paul Furley</name>
+    </author>
+    <content type="html">&lt;p&gt;The short version:&lt;/p&gt;
+
+&lt;p&gt;This week we:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  Designed how key rotation will work&lt;/li&gt;
+&lt;li&gt;  Built a command for listing your keys&lt;/li&gt;
+&lt;li&gt;  Found &amp;amp; fixed a bug in Go&amp;#39;s openpgp library&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Please give us feedback on key rotation&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://www.fluidkeys.com/blog/week-5/"&gt;Last week&lt;/a&gt; Ian teased that Fluidkeys 0.2 will do key rotation for you. This week, we came up with a draft design and started implementing this.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;But&lt;/strong&gt; your feedback would be incredibly helpful!&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s the technical detail of what we&amp;#39;re thinking:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  Every month, from the 1st, you&amp;#39;ll be invited to rotate your keys&lt;/li&gt;
+&lt;li&gt;  You rotate by typing &lt;code&gt;fk key rotate&lt;/code&gt;, ideally before the 10th and definitely by the end of the month&lt;/li&gt;
+&lt;li&gt;  A new encryption subkey is created, valid for &lt;strong&gt;30 days after the 1st of the next month&lt;/strong&gt; — so if you rotate on the 1st (or any day) in February, your new subkey will be valid until the 30th March (March 1st + 30)&lt;/li&gt;
+&lt;li&gt;  Your primary key expiry is extended to the same date (technically, your User ID self signatures, but hey).&lt;/li&gt;
+&lt;li&gt;  &lt;strong&gt;You can use cron to do it for you&lt;/strong&gt; (by storing your password in your system keyring). It&amp;#39;ll only rotate keys which need rotating.&lt;/li&gt;
+&lt;li&gt;  Your backup ZIP file is automatically updated with your new subkey&lt;/li&gt;
+&lt;li&gt;  (not yet) Your updated public key is seamlessly distributed to your team mates (and theirs are downloaded to your system, too)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There&amp;#39;s a couple of things to point out with this scheme:&lt;/p&gt;
+
+&lt;h3&gt;Rotation doesn&amp;#39;t affect your primary key&lt;/h3&gt;
+
+&lt;p&gt;We&amp;#39;re actually trying to move away from long lived keys, but if you &lt;em&gt;do&lt;/em&gt; have a well-known key, and perhaps you&amp;#39;ve published your fingerprint far and wide (like me), that&amp;#39;s fine.&lt;/p&gt;
+
+&lt;p&gt;In this scheme, it&amp;#39;s only the encryption subkey that&amp;#39;s affected.&lt;/p&gt;
+
+&lt;h3&gt;Short-lived keys sidestep the painful revocation process&lt;/h3&gt;
+
+&lt;p&gt;Revocation — when you announce that a key is no longer valid — has proven to be a bit of a nightmare in practice. It&amp;#39;s tricky to generate a revocation message, especially if you&amp;#39;ve lost your key, and it&amp;#39;s tricky to reliably ensure everyone sees it. Because revocation is not practised often, it&amp;#39;s not reliable at the time when you do try to use it.&lt;/p&gt;
+
+&lt;p&gt;Short-lived keys sidestep the difficulties of revocation. Instead of a long-lived key with a &lt;em&gt;possible&lt;/em&gt; revocation notice, use a short-lived key and constantly refresh it.&lt;/p&gt;
+
+&lt;p&gt;The refresh message is a bit like a heartbeat — &amp;quot;this key&amp;#39;s still OK! I haven&amp;#39;t lost it!&amp;quot;&lt;/p&gt;
+
+&lt;h3&gt;Team members will rotate keys around the same time&lt;/h3&gt;
+
+&lt;p&gt;By triggering rotation on the 1st of the month, all team members will be in sync which we think helps with team members supporting each other.&lt;/p&gt;
+
+&lt;p&gt;Provided we make it incredibly quick and easy, I think it could be a bit of a ceremony … that security thing we do each month.&lt;/p&gt;
+
+&lt;p&gt;Also, because &lt;em&gt;all&lt;/em&gt; your keys (if you have more than one) trigger on the same day, you only need to rotate every month as a maximum.&lt;/p&gt;
+
+&lt;h3&gt;Key rotation relies on a solid method for updating keys&lt;/h3&gt;
+
+&lt;p&gt;Rotating your keys regularly is a really powerful feature for security.&lt;/p&gt;
+
+&lt;p&gt;For members of your team, Fluidkeys will take care of distributing your updated key to everyone else, and vice versa.&lt;/p&gt;
+
+&lt;p&gt;People &lt;em&gt;outside&lt;/em&gt; the team, whose software you don&amp;#39;t control, may have difficulty if their software doesn&amp;#39;t automatically update your key. We&amp;#39;re still thinking about this, and would value your input.&lt;/p&gt;
+
+&lt;h3&gt;What do you think?&lt;/h3&gt;
+
+&lt;p&gt;I&amp;#39;d love to hear your thoughts on the key rotation strategy I&amp;#39;ve just described.&lt;/p&gt;
+
+&lt;p&gt;Do please send us an email to &lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;. Thank you!&lt;/p&gt;
+
+&lt;h2&gt;Now you can actually list your keys!&lt;/h2&gt;
+
+&lt;p&gt;Most of the work we did this week was displaying back the keys you&amp;#39;ve created or linked from GnuPG. Here&amp;#39;s how we&amp;#39;re looking:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-09-14-fluidkeys-list-pgp-keys.png" alt="a table with three columns displaying keys" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The status column is starting to shape up… that&amp;#39;s where we&amp;#39;re starting to surface issues with the key, and below the table we&amp;#39;ll put simple, plain-English instructions on how to fix the issue.&lt;/p&gt;
+
+&lt;h2&gt;We submitted another fix to golang/x/crypto&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve got all-too-familiar with Go&amp;#39;s crypto/openpgp library. This week we bumped into &lt;a href="https://github.com/golang/go/issues/15353"&gt;a known bug&lt;/a&gt; relating to subkeys. The way I&amp;#39;ve used my key in the past is to repeatedly extend the expiry date of my subkeys. Unfortunately crypto/openpgp couldn&amp;#39;t handle that case, taking only the first subkey binding signature, rather than the most recent.&lt;/p&gt;
+
+&lt;p&gt;We made a working patch on our fork and &lt;a href="https://github.com/golang/crypto/pull/57"&gt;submitted a pull request to Google&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As ever, thanks for reading, and your feedback is greatly appreciated.&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 5</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-5/"/>
+    <id>https://www.fluidkeys.com/blog/week-5/</id>
+    <published>2018-09-07T00:00:00+00:00</published>
+    <updated>2018-09-12T17:12:28+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;h2&gt;The short version&lt;/h2&gt;
+
+&lt;p&gt;This week we:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;got Fluidkeys to make a revocation certificate for your key and back it up&lt;/li&gt;
+&lt;li&gt;refreshed our homepage showing our planned roadmap&lt;/li&gt;
+&lt;li&gt;presented at the Liverpool Linux User Group meetup&lt;/li&gt;
+&lt;li&gt;decided 0.2 will allow you to setup key rotation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Fluidkeys now automatically creates and backs up revocation certificates when creating a key&lt;/h2&gt;
+
+&lt;p&gt;Two years ago I created a PGP Key, pushed it to a key server and then forgot about it. I also forgot my password that I used to secure it 🤦‍ This basically renders the key useless. Worse still, it didn&amp;#39;t have an expiry date! Fortunately, PGP has a way you can mark such a dud key as &lt;code&gt;revoked&lt;/code&gt;. The catch is that in order to do this, you need to have generated a revocation certificate... which is impossible if you&amp;#39;ve forgotten your password! 😡&lt;/p&gt;
+
+&lt;p&gt;We figured it&amp;#39;d be sensible for Fluidkeys to automatically create this revocation certificate for you when you create a key and back it up for you. That way, if you do ever run in to problems with they key it&amp;#39;s easy to mark it as revoked.&lt;/p&gt;
+
+&lt;h2&gt;Fluidkeys roadmap is now online&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve refreshed our homepage at www.fluidkeys.com. On it we now have a checklist of features working towards our 1.0 release. We also decided to make our Trello board (of prioritised tasks) public. If you &lt;em&gt;really&lt;/em&gt; want to snoop on us, this is the detail 🔎&lt;/p&gt;
+
+&lt;h2&gt;Paul presented at Liverpool Linux User Group (LivLUG)&lt;/h2&gt;
+
+&lt;p&gt;On Wednesday evening, Paul presented at the monthly Liverpool Linux User Group. He spoke about the superpowers that PGP can give people, but the challenges they face in using it. We also demoed Fluidkeys. Thanks to everyone who came along we had a great discussion afterwards. We were looking for connections to sysadmins that might want to test it and for introductions to open source entrepreneurs who&amp;#39;d successfully built businesses around their software.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Here at the &lt;a href="https://twitter.com/livlug?ref_src=twsrc%5Etfw"&gt;@livlug&lt;/a&gt; meeting at &lt;a href="https://twitter.com/DoESLiverpool?ref_src=twsrc%5Etfw"&gt;@DoESLiverpool&lt;/a&gt; this evening to hear about &lt;a href="https://twitter.com/hashtag/PGP?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#PGP&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/encryption?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#encryption&lt;/a&gt; and &lt;a href="https://twitter.com/hashtag/privacy?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#privacy&lt;/a&gt; and FluidKeys (their new project) from &lt;a href="https://twitter.com/paul_furley?ref_src=twsrc%5Etfw"&gt;@paul_furley&lt;/a&gt; and &lt;a href="https://twitter.com/idrysdale?ref_src=twsrc%5Etfw"&gt;@idrysdale&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/weeknotes?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#weeknotes&lt;/a&gt; &lt;a href="https://t.co/FQiVghujaW"&gt;pic.twitter.com/FQiVghujaW&lt;/a&gt;&lt;/p&gt;&amp;mdash; Adrian McEwen (@amcewen) &lt;a href="https://twitter.com/amcewen/status/1037412682947874816?ref_src=twsrc%5Etfw"&gt;September 5, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2&gt;Fluidkeys 0.2 will automatically rotate your keys each month&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve got Fluidkeys generating new keys, or linking to keys you&amp;#39;ve already made in GPG. Now time for something more useful: key rotation!&lt;/p&gt;
+
+&lt;p&gt;Key rotation is what it sounds like, tossing out an old one, and replacing it with a new one. OpenPGP allows you to do key rotation without having to make a whole new key, but it involves fiddly subkeys and in practice very few people do it.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;If your key becomes compromised the amount of data you&amp;#39;ve exposed will be limited.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;With some ciphers, the more data that you&amp;#39;ve encrypted with your key, the easier it will be to crack. By rotating the key you limit the amount of data you&amp;#39;ll ever use against each one. (&lt;a href="https://www.crypteron.com/blog/pci-dss-key-rotations-simplified/]"&gt;more on that on crypteron.com&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Confession time: I don&amp;#39;t rotate my key. 😈&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys 0.2, by automatically rotating my key, would be instantly useful... And it&amp;#39;s a step towards a team service that would do this and keep them all in sync across your organisation. But I&amp;#39;m getting ahead of myself. More on that soon...&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:paul@paulfurley.com"&gt;paul@paulfurley.com&lt;/a&gt; and &lt;a href="mailto:idrysdale@gmail.com"&gt;idrysdale@gmail.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 4</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-4/"/>
+    <id>https://www.fluidkeys.com/blog/week-4/</id>
+    <published>2018-08-31T00:00:00+00:00</published>
+    <updated>2018-09-12T17:12:28+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;Paul and I are building Fluidkeys, software that helps teams protect themselves with strong encryption.&lt;/p&gt;
+
+&lt;h2&gt;The short version&lt;/h2&gt;
+
+&lt;p&gt;This week&amp;#39;s been a short one. 🏝 Paul&amp;#39;s on holiday. Meanwhile I&amp;#39;ve:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;  started sketching what a &lt;strong&gt;command line interface&lt;/strong&gt; for Fluidkeys could look like for administrators and their team members&lt;/li&gt;
+&lt;li&gt;  made keys generated with Fluidkeys expire in 60 days&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Prototyping a command line interface 📺&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;re starting to build Fluidkeys by focusing on security conscious &lt;em&gt;developers&lt;/em&gt; and &lt;em&gt;sysadmins&lt;/em&gt;. We think we can make something that helps them get their teams using strong encryption. Therefore our first release will be an application they&amp;#39;ll run from the terminal. We imagine they&amp;#39;ll use this to get setup, then start inviting other members of their team to install it.&lt;/p&gt;
+
+&lt;p&gt;Last week, &lt;a href="https://www.fluidkeys.com/blog/week-3/"&gt;Paul introduced two personas&lt;/a&gt; that were helpful in sketching out how this could work at a high level.&lt;/p&gt;
+
+&lt;p&gt;While he&amp;#39;s been off in France, I&amp;#39;ve taken this thinking a little further and began writing some example commands they could run and the accompanying output they&amp;#39;d receive. You can &lt;a href="https://www.fluidkeys.com/cli-prototype/team"&gt;take a look here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;➜&lt;/span&gt;  &lt;span class="directory"&gt;~&lt;/span&gt; fk
+
+&lt;span&gt;Start with a key locker&lt;/span&gt;
+====
+In Fluidkeys, everything starts with a locker. This is the place you and others in your organisation place their keys for safe keeping.
+
+Is your group already using Fluidkeys?
+
+1. Find your Fluidkeys locker 🔎
+2. Create a new locker ✨
+
+[1/2] : &lt;span class="directory"&gt;_&lt;/span&gt;
+
+Creating a new locker &lt;span class="spinner"&gt;\&lt;/span&gt;... &lt;span class="positive"&gt;[done]&lt;/span&gt;
+
+We'll now store your key in the new locker and set you up as an adminsitrator
+
+&lt;span class="information"&gt;Found GnuPGP, would you like to import an existing key from there? &lt;/span&gt; [Y/n] &lt;span class="cursor"&gt;_&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;All of these are &lt;em&gt;very&lt;/em&gt; early doodles, but I think we&amp;#39;ll find them useful next week as we start to work up the interface for this release.&lt;/p&gt;
+
+&lt;h2&gt;Continuing to lay the foundation 🏗️&lt;/h2&gt;
+
+&lt;p&gt;Meanwhile, we&amp;#39;ve also made keys generated using Fluidkeys expire in 60 days. Later we&amp;#39;ll implement some sort of &lt;a href="https://www.owasp.org/index.php/Key_Management_Cheat_Sheet#Key_Rotation"&gt;key rotation&lt;/a&gt;, but I found getting this working useful for improving my understanding of how &lt;a href="https://godoc.org/golang.org/x/crypto/openpgp"&gt;Go&amp;#39;s openpgp library&lt;/a&gt; works. 🕵️‍♂️&lt;/p&gt;
+
+&lt;p&gt;Despite being on holiday, I&amp;#39;ve seen Paul is pushing the odd work in progress commit to git... He&amp;#39;s been dabbling with making it so each time you generate a key with Fluidkeys you also automatically create a revocation certificate and this gets zipped as part of your backup.&lt;/p&gt;
+
+&lt;p&gt;We also opened a joint bank account in under 3 days. &lt;em&gt;Rapid&lt;/em&gt;. Well done &lt;a href="https://monzo.com/"&gt;Monzo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:paul@paulfurley.com"&gt;paul@paulfurley.com&lt;/a&gt; and &lt;a href="mailto:idrysdale@gmail.com"&gt;idrysdale@gmail.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Week 3</title>
     <link rel="alternate" href="https://www.fluidkeys.com/blog/week-3/"/>
     <id>https://www.fluidkeys.com/blog/week-3/</id>
     <published>2018-08-24T00:00:00+00:00</published>
-    <updated>2018-08-24T17:31:13+00:00</updated>
+    <updated>2018-09-12T17:12:28+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
-    <content type="html">&lt;h1&gt;Week 3:&lt;/h1&gt;
-
-&lt;h2&gt;The short version&lt;/h2&gt;
+    <content type="html">&lt;h2&gt;The short version&lt;/h2&gt;
 
 &lt;p&gt;This week we:&lt;/p&gt;
 
@@ -114,13 +449,11 @@
     <link rel="alternate" href="https://www.fluidkeys.com/blog/release-0-1/"/>
     <id>https://www.fluidkeys.com/blog/release-0-1/</id>
     <published>2018-08-23T00:00:00+00:00</published>
-    <updated>2018-08-23T16:25:13+00:00</updated>
+    <updated>2018-09-12T17:12:28+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
-    <content type="html">&lt;h1&gt;Announcing Fluidkeys v0.1!&lt;/h1&gt;
-
-&lt;p&gt;Ian and I are extremely proud to announce the very first (extremely minimal) release of Fluidkeys.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ian and I are extremely proud to announce the very first (extremely minimal) release of Fluidkeys.&lt;/p&gt;
 
 &lt;p&gt;We&amp;#39;re building Fluidkeys to help teams protect themselves with strong encryption. Fluidkeys builds on the OpenPGP standard and is compatible with other OpenPGP software.&lt;/p&gt;
 
@@ -169,13 +502,11 @@
     <link rel="alternate" href="https://www.fluidkeys.com/blog/week-2/"/>
     <id>https://www.fluidkeys.com/blog/week-2/</id>
     <published>2018-08-17T00:00:00+00:00</published>
-    <updated>2018-08-24T16:57:58+00:00</updated>
+    <updated>2018-09-12T17:12:28+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
-    <content type="html">&lt;h1&gt;Week 2:&lt;/h1&gt;
-
-&lt;p&gt;Recap: Ian and I are building Fluidkeys, software that helps teams protect themselves with strong encryption. Fluidkeys builds on the OpenPGP standard and is compatible with other OpenPGP software.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Recap: Ian and I are building Fluidkeys, software that helps teams protect themselves with strong encryption. Fluidkeys builds on the OpenPGP standard and is compatible with other OpenPGP software.&lt;/p&gt;
 
 &lt;h2&gt;The short version&lt;/h2&gt;
 
@@ -322,13 +653,11 @@
     <link rel="alternate" href="https://www.fluidkeys.com/blog/week-1/"/>
     <id>https://www.fluidkeys.com/blog/week-1/</id>
     <published>2018-08-10T00:00:00+00:00</published>
-    <updated>2018-08-23T15:42:44+00:00</updated>
+    <updated>2018-09-12T17:12:28+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>
-    <content type="html">&lt;h1&gt;Week 1:&lt;/h1&gt;
-
-&lt;h2&gt;Flashback 🔮&lt;/h2&gt;
+    <content type="html">&lt;h2&gt;Flashback 🔮&lt;/h2&gt;
 
 &lt;p&gt;This time last year, Paul built &lt;a href="https://www.expirybot.com/"&gt;a bot that emails you a reminder if you’re PGP key is about to expire&lt;/a&gt;. To date it’s sent out around 125,000 emails, received (&lt;a href="https://twitter.com/search?q=expirybot&amp;amp;src=typd"&gt;plenty of praise&lt;/a&gt;) and raised enough in donations to cover its server costs.&lt;/p&gt;
 

@@ -1,0 +1,175 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 6</title>
+    <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+    <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+      <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <link href="../../stylesheets/pre.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500,700" rel="stylesheet">
+    <link href="../../stylesheets/site.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Weeknotes</a></li>
+          <li><a href="/about">About&nbsp;us</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+        <section class="blog">
+      <div class="container">
+        <div class="content">
+            <h1>Week 6</h1>
+    <p>The short version:</p>
+
+<p>This week we:</p>
+
+<ul>
+<li>  Designed how key rotation will work</li>
+<li>  Built a command for listing your keys</li>
+<li>  Found &amp; fixed a bug in Go&#39;s openpgp library</li>
+</ul>
+
+<h2>Please give us feedback on key rotation</h2>
+
+<p><a href="https://www.fluidkeys.com/blog/week-5/">Last week</a> Ian teased that Fluidkeys 0.2 will do key rotation for you. This week, we came up with a draft design and started implementing this.</p>
+
+<p><strong>But</strong> your feedback would be incredibly helpful!</p>
+
+<p>Here&#39;s the technical detail of what we&#39;re thinking:</p>
+
+<ul>
+<li>  Every month, from the 1st, you&#39;ll be invited to rotate your keys</li>
+<li>  You rotate by typing <code>fk key rotate</code>, ideally before the 10th and definitely by the end of the month</li>
+<li>  A new encryption subkey is created, valid for <strong>30 days after the 1st of the next month</strong> — so if you rotate on the 1st (or any day) in February, your new subkey will be valid until the 30th March (March 1st + 30)</li>
+<li>  Your primary key expiry is extended to the same date (technically, your User ID self signatures, but hey).</li>
+<li>  <strong>You can use cron to do it for you</strong> (by storing your password in your system keyring). It&#39;ll only rotate keys which need rotating.</li>
+<li>  Your backup ZIP file is automatically updated with your new subkey</li>
+<li>  (not yet) Your updated public key is seamlessly distributed to your team mates (and theirs are downloaded to your system, too)</li>
+</ul>
+
+<p>There&#39;s a couple of things to point out with this scheme:</p>
+
+<h3>Rotation doesn&#39;t affect your primary key</h3>
+
+<p>We&#39;re actually trying to move away from long lived keys, but if you <em>do</em> have a well-known key, and perhaps you&#39;ve published your fingerprint far and wide (like me), that&#39;s fine.</p>
+
+<p>In this scheme, it&#39;s only the encryption subkey that&#39;s affected.</p>
+
+<h3>Short-lived keys sidestep the painful revocation process</h3>
+
+<p>Revocation — when you announce that a key is no longer valid — has proven to be a bit of a nightmare in practice. It&#39;s tricky to generate a revocation message, especially if you&#39;ve lost your key, and it&#39;s tricky to reliably ensure everyone sees it. Because revocation is not practised often, it&#39;s not reliable at the time when you do try to use it.</p>
+
+<p>Short-lived keys sidestep the difficulties of revocation. Instead of a long-lived key with a <em>possible</em> revocation notice, use a short-lived key and constantly refresh it.</p>
+
+<p>The refresh message is a bit like a heartbeat — &quot;this key&#39;s still OK! I haven&#39;t lost it!&quot;</p>
+
+<h3>Team members will rotate keys around the same time</h3>
+
+<p>By triggering rotation on the 1st of the month, all team members will be in sync which we think helps with team members supporting each other.</p>
+
+<p>Provided we make it incredibly quick and easy, I think it could be a bit of a ceremony … that security thing we do each month.</p>
+
+<p>Also, because <em>all</em> your keys (if you have more than one) trigger on the same day, you only need to rotate every month as a maximum.</p>
+
+<h3>Key rotation relies on a solid method for updating keys</h3>
+
+<p>Rotating your keys regularly is a really powerful feature for security.</p>
+
+<p>For members of your team, Fluidkeys will take care of distributing your updated key to everyone else, and vice versa.</p>
+
+<p>People <em>outside</em> the team, whose software you don&#39;t control, may have difficulty if their software doesn&#39;t automatically update your key. We&#39;re still thinking about this, and would value your input.</p>
+
+<h3>What do you think?</h3>
+
+<p>I&#39;d love to hear your thoughts on the key rotation strategy I&#39;ve just described.</p>
+
+<p>Do please send us an email to <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>. Thank you!</p>
+
+<h2>Now you can actually list your keys!</h2>
+
+<p>Most of the work we did this week was displaying back the keys you&#39;ve created or linked from GnuPG. Here&#39;s how we&#39;re looking:</p>
+
+<p><img src="../../images/2018-09-14-fluidkeys-list-pgp-keys.png" alt="a table with three columns displaying keys" /></p>
+
+<p>The status column is starting to shape up… that&#39;s where we&#39;re starting to surface issues with the key, and below the table we&#39;ll put simple, plain-English instructions on how to fix the issue.</p>
+
+<h2>We submitted another fix to golang/x/crypto</h2>
+
+<p>We&#39;ve got all-too-familiar with Go&#39;s crypto/openpgp library. This week we bumped into <a href="https://github.com/golang/go/issues/15353">a known bug</a> relating to subkeys. The way I&#39;ve used my key in the past is to repeatedly extend the expiry date of my subkeys. Unfortunately crypto/openpgp couldn&#39;t handle that case, taking only the first subkey binding signature, rather than the most recent.</p>
+
+<p>We made a working patch on our fork and <a href="https://github.com/golang/crypto/pull/57">submitted a pull request to Google</a>.</p>
+
+<p>As ever, thanks for reading, and your feedback is greatly appreciated.</p>
+
+<p>— Paul</p>
+
+<p><em>All</em> feedback is welcome, pop us an email to <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a></p>
+
+
+  <hr />
+  <p><a href="/blog">Back to all posts</a></p>
+  <h2>Subscribe to the weeknotes</h2>
+  <form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
+  <div class="input">
+    <label for="email-address">Email address:</label>
+    <input id="email-address" type="email" name="entry.78386960" required placeholder="">
+  </div>
+  <div class="button">
+    <input type="submit" value="Sign up">
+  </div>
+</form>
+
+
+        </div>
+      </div>
+    </section>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+                <a href="../feed.xml"><img src="../../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+
+        </p>
+      </div>
+    </footer>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>

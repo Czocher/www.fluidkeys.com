@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta name="description" content="Prototyping the command line interface for Fluidkeys">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Inconsolata" rel="stylesheet">
+    <link href="../../stylesheets/cli.css" rel="stylesheet" />
+    <link href="../../stylesheets/pre.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="notes">
+  <h1>Prototyping a CLI for Fluidkeys</h1>
+  <p>
+    We're working on the interface for the command line for
+    <a href="https://www.fluidkeys.com">Fluidkeys</a>.
+  </p>
+  <h2>Running Fluidkeys for the first time</h2>
+  <p>
+    We're assuming this is someone who's security conscious, prehaps a developer or a sysadmin
+    at an organisation.
+  </p>
+</div>
+
+<pre class="terminal">
+<span class="prompt">➜</span>  <span class="directory">~</span> fk
+
+<span>Start with a key locker</span>
+====
+In Fluidkeys, everything starts with a locker. This is the place you and others
+in your organisation place their keys for safe keeping.
+
+Is your group already using Fluidkeys?
+
+1. Find your Fluidkeys locker 🔎
+2. Create a new locker ✨
+
+[1/2] : <span class="directory">_</span>
+
+Creating a new locker <span class="spinner">\</span>... <span class="positive">[done]</span>
+
+We'll now store your key in the new locker and set you up as an adminsitrator
+
+<span class="information">Found GnuPGP, would you like to import an existing key from there? </span> [Y/n] <span class="cursor">_</span>
+</pre>
+
+<div class="notes">
+  <p>We'll only look for secret/public pairings...</p>
+</div>
+
+<pre class="terminal">
+Two secret keys found in GnuPG:
+
+1.  Ian Drysdale &lt;idrysdale@example.com&gt; [expires: 2019-07-05]
+    93AE 4365 5BB8 FF24 B021  1685 FD06 24C5 C179 7053
+
+2.  &lt;idrysdale@Fluidkeys.com&gt; [expires: 2019-07-05]
+    BBA5 A835 6280 E0C5 9BDA  6C96 CC3C FF4A 2698 0C2A
+
+Which key would you like to import: [1/2] <span class="cursor">_</span>
+</pre>
+
+<pre class="terminal">
+Analysing key against best practices...
+    Ensuring key is a good size... <span class="positive">[done]</span>
+    Cipher preferences configured correctly... <span class="positive">[done]</span>
+Importing key into locker... <span class="positive">[done]</span>
+
+All setup ✅
+====
+You can invite team members to join this locker by asking them to download <span class="bold">fk</span>
+and using the following invite code:
+
+    <span class="information">truss.exhale.kindle.rivet.amino</span>
+
+Once they join, you'll still have to authorize their access.
+
+<span class="prompt">➜</span>  <span class="directory">~</span> <span class="directory">_</span>
+</pre>
+
+<div class="notes">
+<h3>If Fluidkeys doesn't find GnuPG</h3>
+</div>
+
+<pre class="terminal">
+First you'll need to create a key.
+
+Enter your email address, this will help other people find your key.
+
+[email] : <span class="cursor">_</span>
+</pre>
+
+<pre class="terminal">
+This is your password:
+
+<span class="information">cube.suitcase.walmart.compactor.backpack.barbell</span>
+
+* If you use a password manager, save it there now
+* Otherwise write it on a piece of paper and keep it with you
+
+Press enter when you've written it down. <span class="cursor">_</span>
+</pre>
+
+<pre class="terminal">
+Enter the 3rd word from your password
+
+[3rd word] : <span class="cursor">_</span>
+</pre>
+
+<pre class="terminal">
+Generating key for idrysdale@example.com... <span class="positive">[done]</span>
+Backing up key to '/Users/idrysdale/.config/fluidkeys'... <span class="positive">[done]</span>
+Importing key into GnuPG... <span class="positive">[done]</span>
+Importing key into Fluidkeys locker... <span class="positive">[done]</span>
+
+All setup ✅
+====
+You can invite team members to join this locker by asking them to download <span class="bold">fk</span>
+and using the following invite code:
+
+    <span class="information">truss.exhale.kindle.rivet.amino</span>
+
+Once they join, you'll still have to authorize their access.
+
+<span class="prompt">➜</span>  <span class="directory">~</span> <span class="directory">_</span>
+</pre>
+
+<div class="notes">
+  <h2>Key management</h2>
+</div>
+
+<pre class="terminal">
+<span class="prompt">➜</span>  <span class="directory">~</span> fk keys
+NAME:
+ fk keys - Manage your keys
+
+USAGE:
+ fk keys &lt;command&gt;
+
+COMMANDS:
+ remove	  Remove a key
+ list     List keys
+ create   Create a new key
+ help, h  Shows a list of commands or help for one command
+
+<span class="prompt">➜</span>  <span class="directory">~</span> fk keys list
+Email address           Created                Status
+==========              ==========             ==========
+idrysdale@example.com   2018 Aug 16 10:27:10   <span class="positive">Good</span>
+
+<span class="prompt">➜</span>  <span class="directory">~</span> fk key idrysdale@example.com inspect
+Email address : idrysdale@example.com
+Fingerprint   : BF73 8C31 C237 1948 FD0A  0FDC 926A 8DE8 9CCF DD9B
+Last rotated  : 2018 Aug 16 10:27:10
+
+<span class="prompt">➜</span>  <span class="directory">~</span> fk key idrysdale@example.com clip-public
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBFs99GcBEADUaZ5oYVLO05yGfWtdTzLWRdkeiw0GxQlvh4kNvNBfxlUzed3e
+rbbsXErwEYwLeZOusTdEhP9Sob1zZD9xGT1Lj0fAM20MtrjXhKru5x9nzYuWHccR
+6Nb1agCGdaW1ve9OqzLQzMpxOB0GSZzrsLHstM2X8xwobOj3TnZZ0sDvhRCBGEA+
+H1bYxjawYGQg+f... <span class="positive">Copied to clipboard 📋</span>
+
+<span class="prompt">➜</span>  <span class="directory">~ _</span>
+</pre>
+
+<div class="notes">
+  <h2>Errors</h2>
+  <p>Before exiting `fk` we should strive to provide users with a clear and consise message as to why.</p>
+</div>
+
+<pre class="terminal">
+<span class="error">[!] Expected to find 'db.json' in './config/fastlane'</span>
+<span class="prompt">➜</span>  <span class="directory">~ _</span>
+</pre>
+
+<script>
+    var icons = [
+      "|","/","-","\\"
+    ]
+
+    var spinners = document.querySelectorAll('.spinner');
+
+    function startSpinning(icons,spinner) {
+        var i = 0;
+        setInterval(function() {
+            spinner.innerHTML = icons[i];
+            i = (i + 1) % icons.length;
+        }, 100);
+    };
+
+    startSpinning(icons,spinners[0]);
+
+</script>
+
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>

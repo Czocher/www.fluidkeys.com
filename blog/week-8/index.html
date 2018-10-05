@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Week 8</title>
     <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
     <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
     
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500,700" rel="stylesheet">
-    <link href="../stylesheets/site.css" rel="stylesheet" />
+    <link href="../../stylesheets/site.css" rel="stylesheet" />
   </head>
   <body>
     <header>
@@ -25,11 +25,41 @@
         <section class="blog">
       <div class="container">
         <div class="content">
-          <h1>Week notes</h1>
+            <h1>Week 8</h1>
+  <p>We&#39;ve got key rotation working! When you run <code>fk key rotate</code> Fluidkeys now goes off and checks your PGP keys. If you’ve got one set to expire years in the future, or one that is imminently expiring, it’ll helpfully offer to update them. In doing so it sets them to be valid until the end of next month. The gist of it is that doing this regularly means you end up using encryption keys that rotate every month. Nice and secure.</p>
 
-<p>We send out a update on our work each week. You can sign up or read the archives below.</p>
+<p>“Roll VT”</p>
 
-<form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
+<div class="terminal-wrapper">
+  <img class="my-class" src="../../images/fk-0.1.5-rotate-demo.svg" alt="a screen recording of `fk key rotate` in action">
+</div>
+
+<p>A couple of weeks back we got this short and helpful bit of feedback:</p>
+
+<blockquote>
+<p>I don&#39;t want to have to do anything.</p>
+
+<p>Can&#39;t it just rotate it for me?</p>
+</blockquote>
+
+<p>Yes, absolutely! Next up we&#39;ll focus on making all this magic happen in the background.</p>
+
+<p>That’s it for this week.</p>
+
+<p>Despite <a href="https://www.bbc.co.uk/news/business-45667370">Ryanair&#39;s best efforts</a>, I&#39;m off to Portugal for a week. So we&#39;ll both hear from Paul next time to see what he gets up to.</p>
+
+<p>See you in a fortnight.</p>
+
+<p>— Ian</p>
+
+<p><em>All</em> feedback is welcome, pop us an email to <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a></p>
+
+<p>P.S. Paul and I are hosting a <a href="https://www.eventbrite.co.uk/e/digital-self-defence-reduce-your-facebook-footprint-tickets-50366286920">digital self defence class</a> on October 9th in Liverpool. Come and learn how to reduce your Facebook footprint! 🙅🏽‍♀️</p>
+
+  <hr />
+  <p><a href="/blog">Back to all posts</a></p>
+  <h2>Subscribe to the weeknotes</h2>
+  <form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
   <div class="input">
     <label for="email-address">Email address:</label>
     <input id="email-address" type="email" name="entry.78386960" required placeholder="">
@@ -39,20 +69,6 @@
   </div>
 </form>
 
-<h2>Archives</h2>
-
-<ul>
-  <li class="blog-index"><a href="/blog/week-9-fixing-existing-keys/">Week 9, Fixing existing keys — Friday 5th Oct 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-8/">Week 8 — Friday 28th Sep 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-7/">Week 7 — Friday 21st Sep 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-6/">Week 6 — Friday 14th Sep 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-5/">Week 5 — Friday 7th Sep 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-4/">Week 4 — Friday 31st Aug 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-3/">Week 3 — Friday 24th Aug 2018</a></li>
-  <li class="blog-index"><a href="/blog/release-0-1/">Announcing Fluidkeys v0.1! — Thursday 23rd Aug 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-2/">Week 2 — Friday 17th Aug 2018</a></li>
-  <li class="blog-index"><a href="/blog/week-1/">Week 1 — Friday 10th Aug 2018</a></li>
-</ul>
 
         </div>
       </div>
@@ -76,7 +92,7 @@
       <div class="content">
         <p>
           <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
-                <a href="feed.xml"><img src="../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+                <a href="../feed.xml"><img src="../../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
 
         </p>
       </div>
