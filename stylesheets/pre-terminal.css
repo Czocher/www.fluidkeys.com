@@ -24,3 +24,5 @@ pre.terminal {
     color: #65B5F6; }
   pre.terminal .bold {
     font-weight: bold; }
+  pre.terminal .comment {
+    color: #7C7C7C; }

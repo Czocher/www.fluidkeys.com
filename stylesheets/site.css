@@ -60,27 +60,51 @@ h1, h2, h3, h4 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500; }
 
-.blog h3 {
-  font-family: 'Merriweather', sans-serif;
-  font-weight: bold; }
+h2 {
+  font-size: 2.2rem;
+  line-height: 3rem;
+  margin-top: 0rem;
+  margin-bottom: 1.5rem;
+  color: #d33d5c; }
 
-p, li {
+p, ul, ol {
   font-size: 1rem;
   line-height: 1.5rem;
   margin-top: 0rem;
   margin-bottom: 1.5rem;
   font-family: 'Merriweather', sans-serif; }
+  p em, ul em, ol em {
+    font-style: italic; }
 
 a {
   color: #d33d5c; }
 
-code {
+pre {
   font-family: 'Inconsolata', monospace;
-  color: #F05350;
+  background: #efefef;
+  border: 1px solid #CCCCCC;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word; }
+
+p code {
+  font-family: 'Inconsolata', monospace;
   background: #efefef;
   padding: 3px;
   margin: 0 4px;
-  border: 1px solid #CCCCCC; }
+  border-radius: 2px; }
 
 .terminal-wrapper {
   background: #1C1C1C;
@@ -119,13 +143,6 @@ p.button a {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), #505050 0px 0px 1px inset;
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), #505050 0px 0px 1px inset; }
 
-h2 {
-  font-size: 2.2rem;
-  line-height: 3rem;
-  margin-top: 0rem;
-  margin-bottom: 1.5rem;
-  color: #d33d5c; }
-
 label, input {
   font-family: 'Merriweather', sans-serif; }
 
@@ -146,7 +163,7 @@ header {
     margin-top: 0rem;
     margin-bottom: 0rem;
     font-weight: 700;
-    padding: 1.5rem; }
+    padding: 1.5rem 0.75rem; }
     header h1 a {
       text-decoration: none;
       color: #ffffff; }
@@ -162,7 +179,8 @@ header {
             justify-content: space-between;
     width: 100%;
     overflow-x: hidden;
-    border-bottom: 1px solid #d33d5c; }
+    border-bottom: 1px solid #d33d5c;
+    margin-bottom: 0; }
     @media screen and (min-width: 40em) {
       header nav ul {
         border: none;
@@ -174,7 +192,7 @@ header {
       margin: 0; }
       header nav ul li a {
         display: block;
-        padding: 0 1.5rem 1.5rem 1.5rem;
+        padding: 0 0.75rem 1.5rem 0.75rem;
         color: #ffffff;
         text-decoration: none; }
         @media screen and (min-width: 40em) {
@@ -188,58 +206,55 @@ header {
               background: #d33d5c; } }
 
 @media screen and (min-width: 0em) {
-  section {
+  #home-page section {
     padding: 1.5rem; } }
 @media screen and (min-width: 50em) {
-  section {
+  #home-page section {
     padding: 4.5rem 7.5rem; } }
-section .container {
+#home-page section .container {
   max-width: 100%;
   margin: 0 auto; }
   @media screen and (min-width: 50em) {
-    section .container {
+    #home-page section .container {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; } }
   @media screen and (min-width: 50em) {
-    section .container .content {
+    #home-page section .container .content {
       width: 50%; } }
   @media screen and (min-width: 50em) {
-    section .container .illustration {
+    #home-page section .container .illustration {
       width: 50%;
       margin-left: 3rem; } }
-  section .container .illustration img {
+  #home-page section .container .illustration img {
     max-width: 100%; }
-
-.hero {
+#home-page .hero {
   background: #232732;
   color: #ffffff; }
-  .hero a {
+  #home-page .hero a {
     color: #ffffff; }
   @media screen and (min-width: 50em) {
-    .hero .container .illustration {
+    #home-page .hero .container .illustration {
       width: 50%;
       margin-left: 3rem; } }
-  .hero .container .illustration img {
+  #home-page .hero .container .illustration img {
     max-width: 100%;
     max-height: 100%; }
     @media screen and (min-width: 50em) {
-      .hero .container .illustration img {
+      #home-page .hero .container .illustration img {
         max-width: 60%;
         position: absolute; } }
-  .hero h1 {
+  #home-page .hero h1 {
     font-size: 2.5rem;
     line-height: 3rem;
     margin-top: 0rem;
     margin-bottom: 1.5rem; }
-
-.pain .container .illustration {
+#home-page .pain .container .illustration {
   max-height: 27rem; }
-  .pain .container .illustration img {
+  #home-page .pain .container .illustration img {
     max-height: 100%; }
-
 @media screen and (min-width: 40em) {
-  .solution .container {
+  #home-page .solution .container {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -248,55 +263,53 @@ section .container {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between; } }
-.solution .container .feature {
+#home-page .solution .container .feature {
   width: 100%; }
   @media screen and (min-width: 40em) {
-    .solution .container .feature {
+    #home-page .solution .container .feature {
       margin-bottom: 1.5rem; } }
   @media screen and (min-width: 40em) {
-    .solution .container .feature {
+    #home-page .solution .container .feature {
       width: 31%; } }
-  .solution .container .feature img {
+  #home-page .solution .container .feature img {
     display: block;
     height: 3.75rem;
     margin-bottom: 0.75rem; }
-  .solution .container .feature h3 {
+  #home-page .solution .container .feature h3 {
     font-size: 1.2rem;
     line-height: 1.5rem;
     margin-top: 0rem;
     margin-bottom: 1.5rem;
     font-weight: bold; }
-
-.release {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url(../images/release01-1000x500.jpg) center no-repeat;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/release01-1000x500.jpg) center no-repeat;
+#home-page .release {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url(../images/release02-1000x500.jpg) center no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/release02-1000x500.jpg) center no-repeat;
   background-size: cover; }
   @media screen and (min-width: 50em) {
-    .release {
-      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(transparent)), url(../images/release01-2000x1000.jpg) center no-repeat;
-      background: linear-gradient(transparent, transparent), url(../images/release01-2000x1000.jpg) center no-repeat;
+    #home-page .release {
+      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(transparent)), url(../images/release02-2000x1000.jpg) center no-repeat;
+      background: linear-gradient(transparent, transparent), url(../images/release02-2000x1000.jpg) center no-repeat;
       background-size: cover; } }
-  .release h2, .release p, .release a {
+  #home-page .release h2, #home-page .release p, #home-page .release a {
     color: #ffffff; }
   @media screen and (min-width: 50em) {
-    .release .container .content {
+    #home-page .release .container .content {
       width: 40%; } }
-
-.progress .container {
+#home-page .progress .container {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
-  .progress .container .content .card {
+  #home-page .progress .container .content .card {
     border-radius: 5px;
     background: #efefef;
     padding: 0 1.5rem 1.5rem 1.5rem;
     margin-bottom: 1.5rem; }
-    .progress .container .content .card.complete {
+    #home-page .progress .container .content .card.complete {
       background: #3DA450;
       color: #ffffff; }
-    .progress .container .content .card.major {
+    #home-page .progress .container .content .card.major {
       border: 2px solid #d33d5c; }
-    .progress .container .content .card h3 {
+    #home-page .progress .container .content .card h3 {
       font-size: 1rem;
       line-height: 1.5rem;
       margin-top: 0rem;
@@ -305,71 +318,104 @@ section .container {
       font-weight: 800;
       padding-top: 1.5rem;
       margin-bottom: 0; }
-    .progress .container .content .card ul li.checklist-item {
+    #home-page .progress .container .content .card ul li.checklist-item {
       padding-top: 1.5rem;
       background-image: url(../images/checklist-item.svg);
       background-repeat: no-repeat;
       background-position: -5px 20px;
       padding-left: 32px;
       margin-bottom: 0; }
-      .progress .container .content .card ul li.checklist-item h3 {
+      #home-page .progress .container .content .card ul li.checklist-item h3 {
         padding-top: 0; }
-      .progress .container .content .card ul li.checklist-item.checked {
+      #home-page .progress .container .content .card ul li.checklist-item.checked {
         background-image: url(../images/checklist-item-light-checked.svg); }
-    .progress .container .content .card p {
+    #home-page .progress .container .content .card p {
       margin-top: 1.5rem;
       margin-bottom: 0; }
-
-.final-cta {
+#home-page .final-cta {
   background: #232732;
   color: #ffffff; }
-  .final-cta a {
+  #home-page .final-cta a {
     color: #ffffff; }
-  .final-cta .container {
+  #home-page .final-cta .container {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center; }
 
-.blog .container {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center; }
-  .blog .container .content {
+div.full-width {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem; }
+  @media screen and (min-width: 40em) {
+    div.full-width {
+      padding-left: 0;
+      padding-right: 0; } }
+  div.full-width section.variable-width-container {
+    margin: 1.5rem auto;
     width: 100%; }
-    @media screen and (min-width: 64em) {
-      .blog .container .content {
-        width: 70%; } }
-    .blog .container .content h1 {
-      font-size: 2rem;
+    @media screen and (min-width: 40em) {
+      div.full-width section.variable-width-container {
+        width: 640px; } }
+    div.full-width section.variable-width-container h1 {
+      font-size: 1.7rem;
       line-height: 3rem;
       margin-top: 0.75rem;
       margin-bottom: 0.75rem; }
-    .blog .container .content h2 {
-      font-size: 1.7rem;
-      line-height: 3rem;
+    div.full-width section.variable-width-container h2 {
+      font-size: 1.4rem;
+      line-height: 1.5rem;
       margin-top: 2.25rem;
       margin-bottom: 0.75rem; }
-    .blog .container .content hr {
+    div.full-width section.variable-width-container h3 {
+      font-family: 'Merriweather', sans-serif;
+      font-weight: bold; }
+    div.full-width section.variable-width-container hr {
       margin-bottom: 3rem; }
-    .blog .container .content pre.terminal {
+    div.full-width section.variable-width-container img {
+      max-width: 100%;
+      width: 100%; }
+    div.full-width section.variable-width-container pre.terminal {
       font-size: 1.1rem;
       line-height: 1.5rem;
       margin-top: 0rem;
       margin-bottom: 1.5rem;
       padding: 1.5rem; }
-    .blog .container .content img {
-      max-width: 100%; }
-    .blog .container .content ul li {
+    div.full-width section.variable-width-container ul li {
       list-style: disc;
       margin-left: 1.5rem; }
-      .blog .container .content ul li.blog-index {
+      div.full-width section.variable-width-container ul li.blog-index {
         font-size: 1rem;
         line-height: 1.5rem;
         margin-top: 0rem;
         margin-bottom: 0.75rem; }
-    .blog .container .content ul ol {
+    div.full-width section.variable-width-container ul ol {
       list-style: decimal;
       margin-left: 1.5rem; }
+    div.full-width section.variable-width-container p.date {
+      text-align: right; }
+
+.download .operating-system {
+  padding: 1.5rem;
+  border: 1px solid #949494;
+  margin-bottom: 3rem; }
+  .download .operating-system .logos {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    .download .operating-system .logos img.logo {
+      display: block;
+      height: 4.5rem;
+      width: auto;
+      margin-right: 0.5rem; }
+.download h1 {
+  font-size: 1.7rem;
+  line-height: 3rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem; }
+.download h2 {
+  font-size: 1.7rem;
+  line-height: 3rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem; }
 
 form div label {
   font-size: 1rem;
@@ -447,7 +493,7 @@ footer {
           justify-content: center; }
   @media screen and (min-width: 0em) {
     footer {
-      padding: 1.5rem; } }
+      padding: 1.5rem 0.75rem; } }
   @media screen and (min-width: 50em) {
     footer {
       padding: 1.5rem 7.5rem; } }

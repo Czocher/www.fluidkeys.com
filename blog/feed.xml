@@ -1,19 +1,441 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Fluidkeys Blog</title>
-  <id>https://www.fluidkeys.com/blog</id>
-  <link href="https://www.fluidkeys.com/blog"/>
-  <link href="https://www.fluidkeys.com/blog/feed.xml" rel="self"/>
-  <updated>2018-10-05T00:00:00+00:00</updated>
+  <updated>2018-10-26T00:00:00+00:00</updated>
   <author>
     <name>Fluidkeys</name>
   </author>
   <entry>
+    <title>Week 12: Fluidkeys v0.2 and the OpenPGP Email summit</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-12/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-12/</id>
+    <published>2018-10-26T00:00:00+00:00</published>
+    <updated>2018-10-30T14:41:13+00:00</updated>
+    <author>
+      <name>Paul Fawkesley</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: we&amp;#39;re building a product that makes it easy for software teams to
+implement great security across their organisations. We’re currently coding a
+command line application that&amp;#39;ll be a foundation for further functionality.&lt;/p&gt;
+
+&lt;h2&gt;This week&lt;/h2&gt;
+
+&lt;p&gt;This week has been incredible and exhausting. At the weekend I was at the
+ &lt;a href="https://blog.mailfence.com/openpgp-email-summit/"&gt;OpenPGP Email Summit&lt;/a&gt; in
+Brussels, and right now I&amp;#39;m on my way to MozFest in London.&lt;/p&gt;
+
+&lt;p&gt;Midweek, I joined Ian in Sheffield where we hit a major milestone: we released Fluidkeys v0.2!&lt;/p&gt;
+
+&lt;h2&gt;Ian led a UI crit&lt;/h2&gt;
+
+&lt;p&gt;In Wednesday Ian pulled us through an extremely thorough review of &lt;em&gt;every&lt;/em&gt; bit of content in Fluidkeys.&lt;/p&gt;
+
+&lt;p&gt;Looking at everything in one place with fresh eyes was illuminating. We re-wrote loads of things and created a collection of design patterns and nomenclature. Things like, Fluidkeys &lt;em&gt;makes a backup&lt;/em&gt; rather than Fluidkeys &lt;em&gt;backs up&lt;/em&gt;. It&amp;#39;s amazing how many different ways we were talking about the same things. After the crit Fluidkeys is feeling a lot more consistent and clear.&lt;/p&gt;
+
+&lt;h2&gt;We released v0.2&lt;/h2&gt;
+
+&lt;p&gt;It&amp;#39;s been a long time coming, but we did it. This version of Fluidkeys can create, import and automatically maintain and rotate PGP keys.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m delighted with it. Take a look at the &lt;a href="/blog/release-0-2/"&gt;the release notes&lt;/a&gt;, including a very cool terminal animation Ian knocked up.&lt;/p&gt;
+
+&lt;h2&gt;Observations from the OpenPGP summit&lt;/h2&gt;
+
+&lt;p&gt;It was an absolute pleasure to catch up with others from the community in Brussels. It was non-stop thinking, chatting, learning, hacking and socialising. It was also an incredibly warm and friendly scene which is lovely to see.&lt;/p&gt;
+
+&lt;p&gt;While it&amp;#39;s still fresh, I&amp;#39;m going to use this weeknote to jot down some thoughts from the summit.&lt;/p&gt;
+
+&lt;h2&gt;Usability is top of the agenda&lt;/h2&gt;
+
+&lt;p&gt;My favourite quote from the weekend was:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The threat model for email encryption is that no-one uses it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It&amp;#39;s absolutely clear that most people acknowledge that past approaches have failed: only a few million people worldwide use email encryption.&lt;/p&gt;
+
+&lt;p&gt;The old idea that you need to deeply understand cryptography in order to use has been scrapped. People are thinking hard how to hide and automate everything.&lt;/p&gt;
+
+&lt;p&gt;This is &lt;em&gt;great news.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Autocrypt looks more promising than ever&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://autocrypt.org/"&gt;Autocrypt&lt;/a&gt; is a set of guidelines that describes how mail programmes can &lt;em&gt;automatically&lt;/em&gt; negotiate encryption with other email contacts.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s mind-blowing to see two Autocrypt-enabled mail clients transparently discover keys and start encrypting. This is exactly how it should be.&lt;/p&gt;
+
+&lt;p&gt;Another great quote from Autocrypt&amp;#39;s design principles:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Don&amp;#39;t talk about keys. Ever.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Yep.&lt;/p&gt;
+
+&lt;h2&gt;Automatic key discovery is where it&amp;#39;s at&lt;/h2&gt;
+
+&lt;p&gt;Key discovery means finding a public key from an email address.&lt;/p&gt;
+
+&lt;p&gt;Autocrypt achieves this by embedding keys in the header of outgoing emails.&lt;/p&gt;
+
+&lt;p&gt;Additional discovery mechanisms are emerging. &lt;a href="https://tools.ietf.org/html/draft-koch-openpgp-webkey-service-06"&gt;Web Key Discovery (WKD)&lt;/a&gt; uses the &lt;code&gt;/.well-known/openpgpkey&lt;/code&gt; directory over HTTPS. If a client has an email address, they map it to a specific URL, and request that URL for a key.&lt;/p&gt;
+
+&lt;p&gt;We &lt;a href="https://github.com/fluidkeys/web-key-discovery"&gt;implemented this today&lt;/a&gt; using a Github repository as the backend.&lt;/p&gt;
+
+&lt;p&gt;WKD has some issues and the documentation is challenging, but it&amp;#39;s a great concept. We sent out our release note with a &lt;code&gt;reply-to&lt;/code&gt; header pointing to &lt;code&gt;hello@fluidkeys.com&lt;/code&gt;. Any WKD-enabled mail client will automatically find the key and use it to encrypt to us.&lt;/p&gt;
+
+&lt;p&gt;(The git-repo concept won&amp;#39;t scale since we&amp;#39;re rotating keys every month. Fluidkeys will publish to WKD automatically, sooner or later...)&lt;/p&gt;
+
+&lt;h2&gt;OpenPGP is finally bigger than GnuPG&lt;/h2&gt;
+
+&lt;p&gt;I found it great to see the OpenPGP standard actually being used &lt;em&gt;as a standard&lt;/em&gt;, with multiple implementations talking the same language.&lt;/p&gt;
+
+&lt;p&gt;It used to feel like OpenPGP meant GnuPG. That meant applications bundling a binary of gpg then calling it via its command-line interface.&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s still plenty of that, but some decent first-class implementations have emerged too:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#"&gt;OpenPGP.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://sequoia-pgp.org/"&gt;Sequoia&lt;/a&gt;, a new Rust implemtation&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/golang/crypto/"&gt;golang/crypto&lt;/a&gt; (ProtonMail maintain a &lt;a href="https://github.com/protonmail/crypto"&gt;significant fork&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Delta chat is my favourite new app&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="#"&gt;Delta chat&lt;/a&gt; looks just like your favorite messaging app, but it &lt;em&gt;sends messages via email&lt;/em&gt;. I didn&amp;#39;t get why this was a big deal initially until I started using it.&lt;/p&gt;
+
+&lt;p&gt;I find it strangely delightful that everything&amp;#39;s an email. There&amp;#39;s no centralised service snooping on my contacts. It&amp;#39;s difficult for censors to block it (other than blocking email itself, with the collateral damage that involves)&lt;/p&gt;
+
+&lt;p&gt;Delta chat has a cunning (experimental?) feature where you can scan a special QR code, and somehow you get a throwaway email account, and the app seamlessly logs in to it. I think it does some key exchange, and perhaps joins a chat group too (not sure on the detail here).&lt;/p&gt;
+
+&lt;p&gt;I can imagine this being useful for events like the &lt;a href="https://internetfreedomfestival.org"&gt;Internet Freedom Festival.&lt;/a&gt; Participants could scan a barcode on the door and have a super-secure, anonymous chat group while they&amp;#39;re at the event. Afterwards, the accounts could be thrown away.&lt;/p&gt;
+
+&lt;h2&gt;The keyserver network needs some love&lt;/h2&gt;
+
+&lt;p&gt;The public keyserver network is run by a group of volunteers mostly using software called &lt;a href="https://bitbucket.org/skskeyserver/sks-keyserver"&gt;SKS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Keyservers are used to fetch updates for keys, for example new subkeys and revocation signatures.&lt;/p&gt;
+
+&lt;p&gt;(They&amp;#39;re also widely used for key &lt;em&gt;discovery&lt;/em&gt; from an email address, but this is less than ideal since there&amp;#39;s no validation of email addresses.)&lt;/p&gt;
+
+&lt;p&gt;In recent months the cracks began to show when a researcher uploaded a specially crafted key which broke many SKS instances.&lt;/p&gt;
+
+&lt;p&gt;SKS is written in the obscure language OCaml, using the obscure source control system mercurial, and an extremely obscure key reconciliation protocol descibed in pages of mathspeak.&lt;/p&gt;
+
+&lt;p&gt;All this obscurity means no-one is confident to make any major changes to SKS. And so it remains broken.&lt;/p&gt;
+
+&lt;p&gt;The result to end-users is that key lookups can hang and time-out, giving an overall bad impression of the software and email encryption in general.&lt;/p&gt;
+
+&lt;h2&gt;Most of us want to simplify the standard&lt;/h2&gt;
+
+&lt;p&gt;On the second day of the summit a number of us got together to discuss how to slash the standard.&lt;/p&gt;
+
+&lt;p&gt;The standard is enormous. There are multiple ways of doing the same thing and way too many choices of algorithms. Why do we need AES192 when we&amp;#39;ve got AES256? This bloat makes it difficult for new people to enter the community and it&amp;#39;s extremely daunting to build a new implementation.&lt;/p&gt;
+
+&lt;p&gt;A number of us agreed a strategy for dropping the cruft over time. We started defining what &amp;quot;simplified openpgp&amp;quot; would look like, and we&amp;#39;ll commit to &lt;em&gt;only&lt;/em&gt; outputting data within that subset. Over time, we&amp;#39;ll be able to measure how many times obsolete features are used and make an informed decision when to remove it altogether.&lt;/p&gt;
+
+&lt;p&gt;The outstanding issue with dropping obsolute features &lt;em&gt;completely&lt;/em&gt; is being able to decrypt old email archives. &lt;em&gt;Someone&lt;/em&gt; has to maintain software that can open those old formats. But for many apps like Delta Chat, I don&amp;#39;t think there&amp;#39;ll be any point supporting obsolete features.&lt;/p&gt;
+
+&lt;p&gt;Wow, that was quite a braindump. Hopefully I&amp;#39;ll be able to sleep better now that&amp;#39;s all out :)&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+
+&lt;p&gt;Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com*&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;bonus points if it comes encrypted&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Announcing Fluidkeys v0.2!</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/release-0-2/"/>
+    <id>https://www.fluidkeys.com/blog/release-0-2/</id>
+    <published>2018-10-25T00:00:00+00:00</published>
+    <updated>2018-10-30T14:40:16+00:00</updated>
+    <author>
+      <name>Paul Fawkesley &amp; Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;Today we&amp;#39;re excited to announce Fluidkeys 0.2 😄&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re building Fluidkeys to help teams protect themselves with strong encryption. For now, Fluidkeys is aimed at software development teams who are comfortable using the command line.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/release-0-2-0-animation.svg" alt="Animation of the command line interface for Fluidkeys" /&gt;&lt;/p&gt;
+
+&lt;p&gt;In these first releases we&amp;#39;re building a foundation for getting team members started with PGP. We&amp;#39;ve tried hard to make it extremely simple and automated by default.&lt;/p&gt;
+
+&lt;p&gt;With this foundation in place, we&amp;#39;ll be able to start building more directly useful features. We need your feedback: more on that later.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;re keen to get started, head to &lt;a href="https://download.fluidkeys.com"&gt;download.fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Fluidkeys v0.2 lets you create, import, maintain and rotate keys&lt;/h2&gt;
+
+&lt;h3&gt;Create a new best practice key&lt;/h3&gt;
+
+&lt;p&gt;Fluidkeys can create a best-practice OpenPGP key for you, giving you a strong,
+memorable password and importing it into &lt;code&gt;gpg&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys doesn&amp;#39;t ask you any difficult questions. It focuses on making a good key that you can use as soon as possible.&lt;/p&gt;
+
+&lt;h3&gt;Import an existing key from gpg&lt;/h3&gt;
+
+&lt;p&gt;If you&amp;#39;ve already got a key in &lt;code&gt;gpg&lt;/code&gt;, you can connect that to Fluidkeys.&lt;/p&gt;
+
+&lt;p&gt;Lots of keys out there use outdated preferences and old cryptography. When you connect a key to Fluidkeys, it immediately identifies a number of issues that can be fixed.&lt;/p&gt;
+
+&lt;h3&gt;Maintain and rotate your keys&lt;/h3&gt;
+
+&lt;p&gt;This is where we&amp;#39;ve spent the most time, and I&amp;#39;m confident we&amp;#39;re laying strong groundwork.&lt;/p&gt;
+
+&lt;p&gt;Keys aren&amp;#39;t static - things change over time. Ciphers are broken and new ones are introduced.&lt;/p&gt;
+
+&lt;p&gt;Keys shouldn&amp;#39;t be used forever: they should be rotated regularly to limit the damage caused by a compromise.&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys looks for issues with your key and offers to fix them. So far, it identifies weak signature hashes, algorithm preferences which could be stronger, and expiry dates.&lt;/p&gt;
+
+&lt;p&gt;As well as fixing &lt;em&gt;issues&lt;/em&gt;, Fluidkeys also starts rotating your key. It tries to create a new encryption subkey every 30 days and expire the old one. This ensures the new subkey is used for encrypting new data, while keeping the old one around for decrypting old data.&lt;/p&gt;
+
+&lt;p&gt;Similarly, Fluidkeys sets the expiry on the primary key too, extending it by 30 days on the first of each month.&lt;/p&gt;
+
+&lt;p&gt;Thanks to everyone who responded to our request for feedback on rotation 😊&lt;/p&gt;
+
+&lt;h3&gt;Fluidkeys automates by default&lt;/h3&gt;
+
+&lt;p&gt;Several people urged us to be bolder with automation, and we were convinced.&lt;/p&gt;
+
+&lt;p&gt;As a design principle, Fluidkeys defaults to automating everything. People shouldn&amp;#39;t have to answer questions, or care about maintaining their key.&lt;/p&gt;
+
+&lt;p&gt;If you create a brand new key with Fluidkeys, by default it&amp;#39;ll save the (generated) password in your system keyring and configure &lt;code&gt;cron&lt;/code&gt; to run itself periodically.&lt;/p&gt;
+
+&lt;p&gt;If you &lt;em&gt;import&lt;/em&gt; a key from &lt;code&gt;gpg&lt;/code&gt;, we&amp;#39;re more cautious, but you&amp;#39;ll be prompted if you&amp;#39;d like to save your password and enable automation.&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys adds a line like this to your &lt;code&gt;crontab&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@hourly fk key maintain automatic --cron-output
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We specify hourly because we don&amp;#39;t know when your machine will be on, though usually Fluidkeys will exit quickly with nothing to do.&lt;/p&gt;
+
+&lt;h2&gt;Things you should be aware of&lt;/h2&gt;
+
+&lt;p&gt;We hope you&amp;#39;ll start using Fluidkeys and it won&amp;#39;t have any surprises. That said, there are a couple of things we feel you should know:&lt;/p&gt;
+
+&lt;h3&gt;Fluidkeys stores keys in gpg&lt;/h3&gt;
+
+&lt;p&gt;Currently Fluidkeys doesn&amp;#39;t implement its own storage of keys: it pushes them into &lt;code&gt;gpg&lt;/code&gt;. If you delete a key from &lt;code&gt;gpg&lt;/code&gt;, there&amp;#39;s no copy in Fluidkeys. We don&amp;#39;t modify the &lt;code&gt;GNUPGHOME&lt;/code&gt; directory: we push and pull straight from your default &lt;code&gt;gpg2&lt;/code&gt; installation.&lt;/p&gt;
+
+&lt;p&gt;Future versions of Fluidkeys will probably implement their own key store.&lt;/p&gt;
+
+&lt;h3&gt;Fluidkeys doesn&amp;#39;t upload your key anywhere&lt;/h3&gt;
+
+&lt;p&gt;Currently, when you create a key or update an existing one, the key doesn&amp;#39;t go anywhere except &lt;code&gt;gpg&lt;/code&gt;. We don&amp;#39;t push to the public keyserver network.&lt;/p&gt;
+
+&lt;p&gt;This means Fluidkeys rotates your key, but there&amp;#39;s no mechanism to synchronise it to other team members.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re still working out what to do about this (a lot of the OpenPGP community are thinking about this too).&lt;/p&gt;
+
+&lt;p&gt;In the meantime, you could configure &lt;code&gt;gpg&lt;/code&gt; to push your key to the keyservers.&lt;/p&gt;
+
+&lt;p&gt;Edit your crontab by running &lt;code&gt;crontab -e&lt;/code&gt; and add this line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@daily gpg --keyserver pool.sks-keyservers.net --send-key &amp;lt;email address&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Fluidkeys stores your password in the system login keychain&lt;/h3&gt;
+
+&lt;p&gt;For &lt;em&gt;new&lt;/em&gt; keys Fluidkeys stores the password automatically. We feel OK about doing this without asking since the password is brand new.&lt;/p&gt;
+
+&lt;p&gt;For &lt;em&gt;imported&lt;/em&gt; keys, we only store the password after asking you.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;d like the see how the keys are stored,&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;on macOS, open Keychain Access&lt;/li&gt;
+&lt;li&gt;on GNOME, open &lt;code&gt;seahorse&lt;/code&gt; or anything else using &lt;code&gt;libsecretservice&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;On macOS we can&amp;#39;t yet automate keychain access&lt;/h3&gt;
+
+&lt;p&gt;On macOS the Keychain will prompt you every time Fluidkeys tries to access your stored password.&lt;/p&gt;
+
+&lt;p&gt;Clicking &lt;em&gt;Always allow&lt;/em&gt; works until the next time Fluidkeys is run.&lt;/p&gt;
+
+&lt;p&gt;In order for Fluidkeys to have prompt-free access to the keychain, we need to sign up to the Apple Developer Programme. We plan to do this but it&amp;#39;s not a 5 minute job, so we&amp;#39;re deferring it for now.&lt;/p&gt;
+
+&lt;p&gt;In the meantime, we&amp;#39;ve built a workaround where you can store passwords in a text file.&lt;/p&gt;
+
+&lt;p&gt;To use the password file add this line to your &lt;code&gt;~/.zshrc&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export FLUIDKEYS_PASSWORDS_TOML_FILE=&amp;quot;$HOME/.fluidkeys_passwords.toml&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And add these lines to that file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Fluidkeys password file.
+[pgpkeys]
+
+    # replace AAAA... with your key fingerprint which you can find by running:
+    # $ gpg --list-secret-keys --fingerprint
+
+    [pgpkeys.&amp;quot;AAAA1111AAAA1111AAAA1111AAAA1111AAAA1111&amp;quot;]
+    password = &amp;quot;the quick brown fox&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Download Fluidkeys v0.2&lt;/h2&gt;
+
+&lt;p&gt;On to business: head on over to &lt;a href="https://download.fluidkeys.com"&gt;download.fluidkeys.com&lt;/a&gt; to get started.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; fk --help
+Fluidkeys 0.2.1
+
+Configuration file: /home/paul/.config/fluidkeys/config.toml
+
+Usage:
+        fk key create
+        fk key from-gpg
+        fk key list
+        fk key maintain [--dry-run]
+        fk key maintain automatic [--cron-output]
+
+Options:
+        -h --help         Show this screen
+           --dry-run      Don't change anything: only output what would happen
+           --cron-output  Only print output on errors
+&lt;/pre&gt;
+
+&lt;h2&gt;What shall we do next?&lt;/h2&gt;
+
+&lt;p&gt;What would you like to see in v0.3?&lt;/p&gt;
+
+&lt;p&gt;Here are some features we&amp;#39;re thinking about:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Send large files between team members quickly and securely&lt;/li&gt;
+&lt;li&gt;Send secret snippets between team members&lt;/li&gt;
+&lt;li&gt;Turn on code signing and validation for all team members&lt;/li&gt;
+&lt;li&gt;Configure a mail program for encrypted email&lt;/li&gt;
+&lt;li&gt;Archive data with PGP encryption&lt;/li&gt;
+&lt;li&gt;Send encrypted emails to your users from your SaaS product&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We&amp;#39;re particularly interested in hearing from:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;people working in a professional development team&lt;/li&gt;
+&lt;li&gt;with problems that cause the team pain&lt;/li&gt;
+&lt;li&gt;with budget to spend on solving those problems&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks for reading. You rock.&lt;/p&gt;
+
+&lt;p&gt;— Paul &amp;amp; Ian&lt;/p&gt;
+
+&lt;p&gt;We love hearing from you. &lt;a href="mailto:hello@fluidkeys.com"&gt;Email us now&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 11, Automation 🤖</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-11/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-11/</id>
+    <published>2018-10-19T00:00:00+00:00</published>
+    <updated>2018-10-30T14:40:16+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: we&amp;#39;re building a tool that makes it easy for software teams to
+implement great security across their organisations. We’re currently coding a
+command line application that&amp;#39;ll be a foundation for further functionality.&lt;/p&gt;
+
+&lt;h2&gt;This week&lt;/h2&gt;
+
+&lt;p&gt;Paul’s off to the &lt;a href="https://blog.mailfence.com/openpgp-email-summit/"&gt;OpenPGP Email Summit&lt;/a&gt; 
+in Brussels this weekend and racing to get his plane! ✈️ Sadly for you, this
+means you’ve got me on week notes again! I’ll keep it short.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This week has all been about getting Fluidkeys to do things automatically for you&lt;/em&gt; 🤖&lt;/p&gt;
+
+&lt;p&gt;We’ve had key rotation working for a couple of weeks now, but each time you did
+it the application would need to prompt you. This was either to check that 
+you were happy with what it was about to do, or for a password
+(so as to be able to edit your keys).&lt;/p&gt;
+
+&lt;p&gt;All this is now a thing of the past. &lt;/p&gt;
+
+&lt;p&gt;Fluidkeys now allows you to store your key passwords safely in your operating
+system’s keychain. You specify which of your keys you want to rotate 
+automatically and it’ll schedule a &lt;a href="https://en.wikipedia.org/wiki/Cron"&gt;Cron&lt;/a&gt;
+task and take care of the rest! 🏖&lt;/p&gt;
+
+&lt;p&gt;Hmmmm, how do I show the thing? How about the &lt;code&gt;config.toml&lt;/code&gt; file?&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="comment"&gt;# Fluidkeys configuration file for 'fk' command&lt;/span&gt;
+run_from_cron = true
+
+[pgpkeys]
+  [pgpkeys.0CE71C96A2E08215ECD9F85C5FC2686F65FA1ABC]
+    store_password = true
+    rotate_automatically = true
+&lt;/pre&gt;
+
+&lt;p&gt;0.2 should be out next week and we’ll be looking for testers!&lt;/p&gt;
+
+&lt;p&gt;See you then!&lt;/p&gt;
+
+&lt;p&gt;Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 10, We put on a Digital Self Defence class!</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-10/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-10/</id>
+    <published>2018-10-12T00:00:00+00:00</published>
+    <updated>2018-10-30T14:40:16+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: we&amp;#39;re building a tool that makes it easy for software teams to implement great security across their organisations. We’re currently coding a command line application that&amp;#39;ll be a foundation for further functionality.&lt;/p&gt;
+
+&lt;h1&gt;This week&lt;/h1&gt;
+
+&lt;p&gt;I&amp;#39;ve been on the road a bit this week, across to Liverpool to see Paul, then down to London to meet a few folk and get feedback on what we&amp;#39;re up to. Thank you &lt;a href="https://bethnalgreenventures.com"&gt;Bethnal Green Ventures&lt;/a&gt; for letting me work from your base yesterday!&lt;/p&gt;
+
+&lt;h2&gt;We put on a Digital Self Defence class&lt;/h2&gt;
+
+&lt;p&gt;On Tuesday evening Paul and I put on a free &lt;em&gt;digital self defence class&lt;/em&gt;. We wanted to teach people some moves that could help them counter Facebook’s pervasive tracking.&lt;/p&gt;
+
+&lt;p&gt;We made up three exercises that showed people how Facebook track you across the whole of the web, know how you spend your money, and know about &lt;em&gt;all&lt;/em&gt; your relationships.&lt;/p&gt;
+
+&lt;p&gt;We also made a &lt;a href="https://docs.google.com/presentation/d/1wEVZ_TKKyXFESBtNd2yKJbl8ydPedZG15ytcPzvNDrA"&gt;deck of six cards, each with a move you could use against Facebook&lt;/a&gt;. They encourage you to do stuff like &lt;em&gt;mix up your email address&lt;/em&gt; or &lt;em&gt;block browser tracking&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;It was a lovely evening with lots of interesting chat, as you might imagine. Thank you Lisa for helping run it with us! In respect of people&amp;#39;s privacy, we didn&amp;#39;t take photos, but here&amp;#39;s one of the prototype cards:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-10-12-facebook-self-defence-cards.jpg" alt="Three of the self defence cards" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;More work on Fluidkeys&lt;/h2&gt;
+
+&lt;p&gt;Amidst all that fun, we&amp;#39;ve been continuing to beaver away trying to get towards our 0.2 release of Fluidkeys. This&amp;#39;ll allow you to rotate your keys, and improve their preferences.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ll have more to show you on where we&amp;#39;ve got to with that next week.&lt;/p&gt;
+
+&lt;p&gt;Until then, have a lovely weekend.&lt;/p&gt;
+
+&lt;p&gt;Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to &lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>Week 9, Fixing existing keys</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-9-fixing-existing-keys/"/>
-    <id>https://www.fluidkeys.com/blog/week-9-fixing-existing-keys/</id>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-9/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-9/</id>
     <published>2018-10-05T00:00:00+00:00</published>
-    <updated>2018-10-05T14:11:11+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Paul Fawkesley</name>
     </author>
@@ -59,11 +481,11 @@
 </content>
   </entry>
   <entry>
-    <title>Week 8</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-8/"/>
-    <id>https://www.fluidkeys.com/blog/week-8/</id>
+    <title>Week 8, We've got key rotation working!</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-8/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-8/</id>
     <published>2018-09-28T00:00:00+00:00</published>
-    <updated>2018-10-05T13:59:54+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>
@@ -99,11 +521,11 @@
 </content>
   </entry>
   <entry>
-    <title>Week 7</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-7/"/>
-    <id>https://www.fluidkeys.com/blog/week-7/</id>
+    <title>Week 7, Patterns for PGP in teams</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-7/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-7/</id>
     <published>2018-09-21T00:00:00+00:00</published>
-    <updated>2018-09-24T09:50:46+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>
@@ -126,11 +548,11 @@
 </content>
   </entry>
   <entry>
-    <title>Week 6</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-6/"/>
-    <id>https://www.fluidkeys.com/blog/week-6/</id>
+    <title>Week 6, Building Key Rotation</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-6/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-6/</id>
     <published>2018-09-14T00:00:00+00:00</published>
-    <updated>2018-09-14T16:32:25+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
@@ -222,11 +644,11 @@
 </content>
   </entry>
   <entry>
-    <title>Week 5</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-5/"/>
-    <id>https://www.fluidkeys.com/blog/week-5/</id>
+    <title>Week 5, Backups</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-5/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-5/</id>
     <published>2018-09-07T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>
@@ -280,11 +702,11 @@
 </content>
   </entry>
   <entry>
-    <title>Week 4</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-4/"/>
-    <id>https://www.fluidkeys.com/blog/week-4/</id>
+    <title>Week 4, Sketching a command line interface</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-4/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-4/</id>
     <published>2018-08-31T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>
@@ -346,11 +768,11 @@ We'll now store your key in the new locker and set you up as an adminsitrator
 </content>
   </entry>
   <entry>
-    <title>Week 3</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-3/"/>
-    <id>https://www.fluidkeys.com/blog/week-3/</id>
+    <title>Week 3, Released 0.1 🎉</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-3/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-3/</id>
     <published>2018-08-24T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
@@ -449,7 +871,7 @@ We'll now store your key in the new locker and set you up as an adminsitrator
     <link rel="alternate" href="https://www.fluidkeys.com/blog/release-0-1/"/>
     <id>https://www.fluidkeys.com/blog/release-0-1/</id>
     <published>2018-08-23T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
@@ -498,11 +920,11 @@ We'll now store your key in the new locker and set you up as an adminsitrator
 </content>
   </entry>
   <entry>
-    <title>Week 2</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-2/"/>
-    <id>https://www.fluidkeys.com/blog/week-2/</id>
+    <title>Week 2, Starting Fluidkeys</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-2/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-2/</id>
     <published>2018-08-17T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Paul Furley</name>
     </author>
@@ -649,11 +1071,11 @@ We'll now store your key in the new locker and set you up as an adminsitrator
 </content>
   </entry>
   <entry>
-    <title>Week 1</title>
-    <link rel="alternate" href="https://www.fluidkeys.com/blog/week-1/"/>
-    <id>https://www.fluidkeys.com/blog/week-1/</id>
+    <title>Week 1, Researching privacy and security</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-1/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-1/</id>
     <published>2018-08-10T00:00:00+00:00</published>
-    <updated>2018-09-12T17:12:28+00:00</updated>
+    <updated>2018-10-30T14:40:16+00:00</updated>
     <author>
       <name>Ian Drysdale</name>
     </author>

@@ -5,24 +5,28 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
     <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
-    
-    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500,700" rel="stylesheet">
+          <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900|Montserrat:500,700|Inconsolata" rel="stylesheet">
     <link href="stylesheets/site.css" rel="stylesheet" />
+    <link href="stylesheets/pre-terminal.css" rel="stylesheet" />
   </head>
-  <body>
+  <body id="home-page">
     <header>
       <h1><a href="/">Fluidkeys</a></h1>
       <nav>
         <ul>
-          <li><a href="/blog">Weeknotes</a></li>
-          <li><a href="/about">About&nbsp;us</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/weeknotes">Weeknotes</a></li>
+          <li><a href="/about">About</a></li>
           <li><a href="https://download.fluidkeys.com">Download</a></li>
         </ul>
       </nav>
     </header>
-    <section class="hero">
+    
+
+<section class="hero">
   <div class="container">
     <div class="content">
       <h1>Protect your team with strong encryption</h1>
@@ -99,8 +103,8 @@
 <section class="release" id="current_release">
   <div class="container">
     <div class="content">
-      <h2>Current release: 0.1</h2>
-      <p>Make a best-practice PGP key, automatically creating a backup and revocation certificate.</p>
+      <h2>Current release: 0.2</h2>
+      <p>Make and import PGP keys, then automatically maintain and rotate them.</p>
       <p class="button"><a href="https://download.fluidkeys.com">Download now</a></p>
     </div>
   </div>
@@ -117,11 +121,12 @@
         <p>You can now create a best practice PGP key from the command line. Fluidkeys backs it up and pushes it into GnuPG so you can start using it right away.</p>
       </div>
 
-      <div class="card">
+      <div class="card complete">
         <h3>Level up your legacy keys (v0.2)</h3>
         <ul>
-          <li class="checklist-item">Allow Fluidkeys to manage your existing key in GnuPG</li>
-          <li class="checklist-item">Rotate your encryption subkey every month to limit the damage of keys being compromised</li>
+          <li class="checklist-item checked">Connect Fluidkeys to your existing key in GnuPG</li>
+          <li class="checklist-item checked">Fix issues like weak signatures and out of date preferences</li>
+          <li class="checklist-item checked">Automatically rotate your encryption subkey to limit the impact of key compromise</li>
         </ul>
       </div>
 
@@ -170,7 +175,7 @@
       <div class="subscribe">
         <p>
           View our <a href="https://trello.com/b/dB9j4JaG/fluidkeys?menu=filter&amp;filter=label:release">release roadmap on Trello</a>
-          or read our <a href="/blog">weeknotes</a>
+          or read our <a href="weeknotes">weeknotes</a>
       </div>
 
 
@@ -272,7 +277,7 @@ ready(setupEventHandlers);
       <div class="content">
         <p>
           <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
-          
+          <a href="/blog/feed.xml"><img src="images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
         </p>
       </div>
     </footer>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Enable pinentry mode 'loopback' on GnuPG 2.1.11</title>
     <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
           <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
 
@@ -26,38 +26,35 @@
     </header>
         <div class="full-width">
         <section class="variable-width-container">
-            <h1>About us</h1>
-<p>
-  <a href="https://www.paulfurley.com/">Paul</a> and
-  <a href="https://twitter.com/idrysdale">Ian</a> keep themselves
-  busy fighting internet surveillance and censorship.
-</p>
+            <h1>Enable pinentry mode &#39;loopback&#39; on GnuPG 2.1.11</h1>
 
-<p>
-  They run a <a href="https://metrics.torproject.org/rs.html#details/165FEA8476A02296DD8C6281CD02AC80319F8ACA">Tor node</a> and
-  maintain <a href="https://www.paulfurley.com/expirybot-emails-pgp-users-before-their-key-expires/">a bot that reminds you if your PGP key is about to expire</a>.
-</p>
+<p>Add this line to <code>~/.gnupg/gpg-agent.conf</code>:</p>
 
-<p>
-  Previously they’ve run <a href="https://digitalblog.coop.co.uk/2017/04/26/cryptoparty-a-fun-way-to-learn-about-security/">cryptoparties</a>
-  at the UK’s largest consumer Co-op and helped setup
-  <a href="https://www.goodgym.org/">a gym that puts people’s physical energy to use in their local communities</a>.
-</p>
+<pre><code>allow-loopback-pinentry
+</code></pre>
 
-<hr />
+<p>Then restart <code>gpg-agent</code>:</p>
 
-<h2>Sign up for release notes</h2>
-<p>We’re building a better way to do PGP sign up to hear more.</p>
-<form id="footer-sign-up" action="https://docs.google.com/forms/d/e/1FAIpQLSd_tCWldCCAzrq0tA-CT0Odxche5gnBb6UHSoUf1ryXt9VUDg/formResponse" method="post">
-  <div>
-    <label for="email-address">Email address:</label>
-    <input id="email-address" type="email" name="entry.2082822863" required placeholder="e.g. sandra@flextech.com">
-  </div>
-  <div>
-    <input type="submit" value="Sign up for release announcements">
-  </div>
-</form>
+<pre><code>$ gpgconf --reload gpg-agent
+</code></pre>
 
+<p>That&#39;s all 🙌</p>
+
+<hr>
+
+<h2>Fluidkeys uses loopback mode to maintain keys automatically</h2>
+
+<p>Loopback mode allows Fluidkeys to send a password directly to GnuPG, rather
+than GnuPG itself prompting for the password.</p>
+
+<p>This lets Fluidkeys store the password in the system keyring, then run automatic maintenance from cron (see <code>fk key maintain automatic</code>)</p>
+
+<p>Unfortunately GnuPG 2.1.11 throws an error if you try to use loopback mode:</p>
+
+<pre><code>gpg: setting pinentry mode &#39;loopback&#39; failed: Not supported
+</code></pre>
+
+<p>This was <a href="https://lists.gt.net/gnupg/devel/77927#77927">fixed in GnuPG 2.1.12</a>, but if you&#39;re using Ubuntu 16.04 you&#39;re stuck with the affected version.</p>
 
         </section>
     </div>

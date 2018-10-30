@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+          <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900|Montserrat:500,700|Inconsolata" rel="stylesheet">
+    <link href="../stylesheets/site.css" rel="stylesheet" />
+    <link href="../stylesheets/pre-terminal.css" rel="stylesheet" />
+  </head>
+  <body id="">
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/weeknotes">Weeknotes</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+        <div class="full-width">
+        <section class="variable-width-container">
+            <div class="download">
+    <h1>Download Fluidkeys</h1>
+    <div class="systems">
+        <div class="operating-system" id="debian-ubuntu">
+            <div class="logos">
+                <img src="../images/logos/debian-logo.svg" alt="Debian logo" class="logo" />
+                <img src="../images/logos/ubuntu-logo.svg" alt="Debian logo" class="logo" />
+            </div>
+            <h2>Debian / Ubuntu</h2>
+            <p>1. Get our public key:</p>
+            <pre>curl --silent https://www.fluidkeys.com/release.asc | sudo apt-key add -</pre>
+            <p>2. Add our apt repository:</p>
+            <pre>echo 'deb [arch=amd64] https://download.fluidkeys.com/desktop/apt any main' | sudo tee /etc/apt/sources.list.d/fluidkeys.list</pre>
+            <p>3. Install:</p>
+            <pre>sudo apt update
+    sudo apt install fluidkeys</pre>
+        </div>
+        <div class="operating-system" id="mac">
+            <div class="logos">
+                <img src="../images/logos/apple-logo.svg" alt="Apple logo" class="logo" />
+            </div>
+            <h2>macOS</h2>
+            <p>You can use <a href="https://brew.sh/">Homebrew</a> to install Fluidkeys:</p>
+            <pre>brew tap fluidkeys/tap
+    brew update
+    brew install fluidkeys</pre>
+        </div>
+        <div class="operating-system" id="source">
+            <h2>Source install</h2>
+            <p><a href="https://github.com/fluidkeys/fluidkeys/blob/master/README.md#install-from-source">Install from source</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+function detectBestOperatingSystem() {
+    var operatingSystem="unknown",
+        userAgent = navigator.userAgent;
+
+    if (userAgent.indexOf("Debian")!=-1) {
+        // Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1 (KHTML, like Gecko)
+        // Version/11.0 Safari/605.1 Debian/9.0 (3.22.7-1) Epiphany/3.22.7
+
+        operatingSystem = "debian";
+    } else if (userAgent.indexOf("Ubuntu")!=-1) {
+        // Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:62.0) Gecko/20100101
+        // Firefox/62.0
+
+        operatingSystem = "ubuntu";
+    } else if (userAgent.indexOf("Android")!=-1) {
+        // Mozilla/5.0 (Linux; Android 7.0; Moto G (5) Plus Build/NPNS25.137-93-14)
+        // AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Mobile Safari/537.36
+
+        operatingSystem = "android";
+    } else if (userAgent.indexOf("Linux")!=-1) {
+        // Mozilla/5.0 (X11; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0
+
+        operatingSystem="linux";
+    } else if (userAgent.indexOf("Mac")!=-1) {
+        // Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36
+        // (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36
+
+        operatingSystem="mac";
+    } else if (userAgent.indexOf("iPhone")!=-1) {
+        // Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X)
+        // AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/69.0.3497.105
+        // Mobile/15E148 Safari/605.1
+
+        operatingSystem="iphone";
+    }
+
+    console.debug("operating system: ", operatingSystem);
+
+    switch(operatingSystem) {
+        case "mac":
+        case "iphone":
+            moveOperatingSystemToTop("mac");
+            break
+
+        case "ubuntu":
+        case "debian":
+        case "android":
+            moveOperatingSystemToTop("debian-ubuntu");
+            break
+
+        case "linux":
+            moveOperatingSystemToTop("source");
+            break
+    }
+};
+
+function moveOperatingSystemToTop(operatingSystem) {
+    console.debug("moving ", operatingSystem, " to top")
+    var content = document.getElementById(operatingSystem);
+    var parentElement = content.parentNode;
+    parentElement.insertBefore(content, parentElement.firstChild);
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+
+ready(detectBestOperatingSystem);
+</script>
+
+        </section>
+    </div>
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+          <a href="/blog/feed.xml"><img src="../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>
