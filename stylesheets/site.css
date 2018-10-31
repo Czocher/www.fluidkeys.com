@@ -507,3 +507,126 @@ footer {
       footer .content p a {
         color: #ffffff;
         margin-right: 1.5rem; }
+
+#pricing-page section.variable-width-plans-container {
+  margin: 1.5rem auto;
+  width: 100%; }
+  @media screen and (min-width: 50em) {
+    #pricing-page section.variable-width-plans-container {
+      width: 800px; } }
+  #pricing-page section.variable-width-plans-container div.top {
+    padding-bottom: 1.5rem; }
+    #pricing-page section.variable-width-plans-container div.top h1 {
+      font-size: 2.8rem;
+      line-height: 3rem;
+      margin-top: 3rem;
+      margin-bottom: 0rem; }
+    #pricing-page section.variable-width-plans-container div.top p.lead {
+      font-size: 1.7;
+      line-height: 3;
+      margin-top: 0rem;
+      margin-bottom: 0rem;
+      font-weight: bold; }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container div.top h1, #pricing-page section.variable-width-plans-container div.top p.lead {
+        text-align: center; } }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container div.top {
+        padding-bottom: 3rem; } }
+  @media screen and (min-width: 50em) {
+    #pricing-page section.variable-width-plans-container .plans {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; } }
+  #pricing-page section.variable-width-plans-container .plans .plan {
+    border: 1px solid #8c8c8c;
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem; }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container .plans .plan {
+        margin: 0 0.75rem;
+        width: 33%; } }
+    #pricing-page section.variable-width-plans-container .plans .plan h2 {
+      font-size: 1.7rem;
+      line-height: 3rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem; }
+    #pricing-page section.variable-width-plans-container .plans .plan p.team-size {
+      padding-bottom: 1.5rem; }
+    #pricing-page section.variable-width-plans-container .plans .plan p.price {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      margin-top: 0rem;
+      margin-bottom: 0.75rem; }
+    #pricing-page section.variable-width-plans-container .plans .plan p.timeframe {
+      color: #8c8c8c;
+      font-size: 0.75rem;
+      line-height: 1.5rem;
+      margin-top: 0rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase; }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container .plans .plan h2, #pricing-page section.variable-width-plans-container .plans .plan p.team-size, #pricing-page section.variable-width-plans-container .plans .plan p.price, #pricing-page section.variable-width-plans-container .plans .plan p.timeframe {
+        text-align: center; } }
+    #pricing-page section.variable-width-plans-container .plans .plan .team-size {
+      border-bottom: 1px solid #8c8c8c; }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container .plans .plan p.button {
+        margin: 1.5rem; } }
+    #pricing-page section.variable-width-plans-container .plans .plan p.button a {
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
+      display: block;
+      margin: 0 auto; }
+  #pricing-page section.variable-width-plans-container .features {
+    outline: 1px solid #8c8c8c; }
+    #pricing-page section.variable-width-plans-container .features ul {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      padding: 2.25rem;
+      margin-bottom: 0;
+      padding-bottom: 0; }
+      #pricing-page section.variable-width-plans-container .features ul li {
+        background-image: url(../images/tick.svg);
+        background-repeat: no-repeat;
+        background-position: 0px 0px;
+        padding-left: 32px;
+        font-size: 1;
+        line-height: 1.5;
+        margin-top: 0rem;
+        margin-bottom: 1.5rem; }
+        @media screen and (min-width: 50em) {
+          #pricing-page section.variable-width-plans-container .features ul li {
+            display: block;
+            width: 25%; } }
+    #pricing-page section.variable-width-plans-container .features p {
+      font-size: 1;
+      line-height: 1.5;
+      margin-top: 0rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      text-align: center; }
+  #pricing-page section.variable-width-plans-container div.open-source-offer {
+    padding: 1.5rem 0; }
+    @media screen and (min-width: 50em) {
+      #pricing-page section.variable-width-plans-container div.open-source-offer {
+        text-align: center; } }
+    #pricing-page section.variable-width-plans-container div.open-source-offer h2 {
+      color: #232732;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem; }
+      @media screen and (min-width: 50em) {
+        #pricing-page section.variable-width-plans-container div.open-source-offer h2 {
+          font-size: 1.7rem;
+          line-height: 3rem;
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem; } }
