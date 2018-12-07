@@ -1,16 +1,466 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Fluidkeys Blog</title>
-  <updated>2018-10-26T00:00:00+00:00</updated>
+  <updated>2018-12-07T00:00:00+00:00</updated>
   <author>
     <name>Fluidkeys</name>
   </author>
+  <entry>
+    <title>Week 18: Send secrets with Fluidkeys</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-18/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-18/</id>
+    <published>2018-12-07T00:00:00+00:00</published>
+    <updated>2018-12-07T15:19:17+00:00</updated>
+    <author>
+      <name>Paul Fawkesley</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We&amp;#39;re building Fluidkeys to make it easy for teams to implement great security across their organisations. We’ve built a command line app that helps you make strong PGP keys and automatically rotate them.&lt;/p&gt;
+
+&lt;h2&gt;The short version:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ian&amp;#39;s been taking lots of calls&lt;/li&gt;
+&lt;li&gt;You can send a secret through Fluidkeys&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Learning through listening&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href="https://fluidkeys-dashboard.herokuapp.com"&gt;dashboard&lt;/a&gt; Ian showed last week has put a fire under both of us: Ian&amp;#39;s been chasing the numbers and madly arranging phone calls with people.&lt;/p&gt;
+
+&lt;p&gt;These are proving valuable: some are validating that what we&amp;#39;re doing is useful, some are revealing whole new areas we aren&amp;#39;t thinking about.&lt;/p&gt;
+
+&lt;p&gt;This routine of regular calls with potential customers is healthy: we had a dry patch while we were working on 0.2, and we were a little uncertain where to go with 0.3.&lt;/p&gt;
+
+&lt;p&gt;Since last week we&amp;#39;re more confident that sharing secrets &lt;em&gt;is&lt;/em&gt; useful. We&amp;#39;re still excited about key management for teams, but that&amp;#39;s bigger and less well-understood at the moment.&lt;/p&gt;
+
+&lt;h2&gt;Sending secrets through Fluidkeys&lt;/h2&gt;
+
+&lt;p&gt;&amp;quot;43 days since last release&amp;quot; is looming heavy, and it&amp;#39;s projected us firmly back into building territory.&lt;/p&gt;
+
+&lt;p&gt;Fluid 0.3 will let you send secrets to team mates. We&amp;#39;ve stripped it back to the simplest useful thing, and this week we&amp;#39;ve made huge leaps forward.&lt;/p&gt;
+
+&lt;p&gt;Today, you can send a secret to an email address:&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;➜&lt;/span&gt; fk secret send paul@fluidkeys.com
+
+[type or paste your message, ending by typing Ctrl-D]
+
+&lt;span class="information"&gt;SECRET_ACCESS_TOKEN="7d10c9b8-f48e-11e8-9b90-a74f356d2ad5"&lt;/span&gt;
+
+ &lt;span class="positive"&gt;▸ Found public key for paul@fluidkeys.com&lt;/span&gt;
+ &lt;span class="positive"&gt;▸ Successfully sent secret to paul@fluidkeys.com&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Fluidkeys finds the public key, encrypts the message and sends it via our API. Then, the other person can receive it:&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;➜&lt;/span&gt; fk secret receive
+
+&lt;span class="information"&gt;Downloading secrets...&lt;/span&gt;
+
+For paul@fluidkeys.com:
+
+---
+SECRET_ACCESS_TOKEN="7d10c9b8-f48e-11e8-9b90-a74f356d2ad5"
+---
+&lt;/pre&gt;
+
+&lt;p&gt;We&amp;#39;re getting there!&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s a bit to do still behind the scenes: we need to verify the link between email addresses and keys, and this isn&amp;#39;t straightforward. I&amp;#39;ve been thinking about how to do &amp;quot;key discovery&amp;quot; safely and conveniently for a long time, so next week we should have something to show.&lt;/p&gt;
+
+&lt;p&gt;So today, you can send a secret (to me or Ian), but you can&amp;#39;t receive one just yet.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;re feeling brave, you could compile Fluidkeys&amp;#39; &lt;code&gt;master&lt;/code&gt; branch and send us a secret message. Otherwise, hold tight, v0.3 won&amp;#39;t be long :)&lt;/p&gt;
+
+&lt;p&gt;Until next week...&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 17: Rejigging our roadmap</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-17/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-17/</id>
+    <published>2018-11-30T00:00:00+00:00</published>
+    <updated>2018-12-07T14:19:37+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We&amp;#39;re building Fluidkeys to make it easy for teams to implement great security across their organisations. We’ve built a command line app that helps you make strong PGP keys and automatically rotate them.&lt;/p&gt;
+
+&lt;p&gt;Paul’s back from his holiday, but I’ve not managed to stop him coding for long enough to write these. Sorry, me again.&lt;/p&gt;
+
+&lt;h2&gt;The short version:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We’ve built a dashboard to hold ourselves to account&lt;/li&gt;
+&lt;li&gt;We’ve decided to prioritise building a way to send a secrets to someone, rather than setup your team with PGP keys&lt;/li&gt;
+&lt;li&gt;We’re scheduling chats with people to learn more about their infosec woes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;A dashboard to help us focus&lt;/h2&gt;
+
+&lt;p&gt;This week we spent two days designing and building a dashboard that we now proudly display on our desks in our respective cities. Here’s Paul’s in Liverpool:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-11-30-dashboard.jpg" alt="A photo of the dashboard on an Android tablet on a table" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The theory is that by tracking some key numbers, we’ll improve! Firstly, we’re measuring the number of people signing up to our release notes, hopefully by looking at this every day we’ll then start to prioritise work to increase it. Currently it’s one every few days, most of this coming from &lt;a href="https://www.expirybot.com/"&gt;Expirybot&lt;/a&gt;. Next, we want to speak to at least 4 people every week, so next week’s looking good! We want to do a minor release every 30 days, so not so great there. And then ultimately we’re trying to make a living out of this. As you can see, there’s still some room for improvement.&lt;/p&gt;
+
+&lt;p&gt;If week notes aren’t regular enough for you, now you can follow along with our progress in realtime: &lt;a href="https://fluidkeys-dashboard.herokuapp.com"&gt;https://fluidkeys-dashboard.herokuapp.com&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h2&gt;Deciding to build a way to send secrets next 🤫&lt;/h2&gt;
+
+&lt;p&gt;Today was a productive day…&lt;/p&gt;
+
+&lt;p&gt;While we’ve been thinking about how people using Fluidkeys invite others to join their team, and get keys synced and up to date, it isn’t feeling like this proposition is valuable enough in and of itself.&lt;/p&gt;
+
+&lt;p&gt;We revisited our notes from our research and pulled out some of the pains they’re feeling:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I hate to think how much [sensitive information] stuff gets sent around Slack!&lt;/p&gt;
+
+&lt;p&gt;We use a shared services@[…] google inbox/group to manage access to AWS, it works, but it’s a pain to setup and… it’s Google!&lt;/p&gt;
+
+&lt;p&gt;It’s hard getting new developers to setup PGP to receive login credentials&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We’ve decided to address these next. With Fluidkeys you can send secret snippets to your team-mates. They&amp;#39;ll be end-to-end encrypted, so safe from any prying eyes and data-breaches.&lt;/p&gt;
+
+&lt;p&gt;Some of the things we’ve heard people are nervous pinging around are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;customer personal identifiable information to colleagues when helping with technical debugging&lt;/li&gt;
+&lt;li&gt;API login credentials with a developer outside the team&lt;/li&gt;
+&lt;li&gt;database dumps&lt;/li&gt;
+&lt;li&gt;keys for servers when developers join the project&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Our MVP will focus on letting you send small snippets:&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;➜&lt;/span&gt; fk secret send ian@fluidkeys.com
+
+[type or paste your message, ending by typing Ctrl-D]
+
+&lt;span class="information"&gt;SECRET_ACCESS_TOKEN="7d10c9b8-f48e-11e8-9b90-a74f356d2ad5"&lt;/span&gt;
+
+ ▸ Searching for a public key for ian@fluidkeys.com... [&lt;span class="positive"&gt;found&lt;/span&gt;]
+ &lt;span class="positive"&gt;▸ Successfully sent secret to ian@fluidkeys.com&lt;/span&gt;
+
+&lt;span class="prompt"&gt;➜&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;h2&gt;Next week we’ll see if we’re closer to the mark&lt;/h2&gt;
+
+&lt;p&gt;As you can see, we’ve five calls lined up next week with people either using PGP in their organisations or interested in it. Again we’re going to use those calls to try to understand what sorts of pains they’re feeling and what how their organisations are structured before trying to see if what we’re building might be useful.&lt;/p&gt;
+
+&lt;p&gt;Tune in next week!
+— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;*&lt;/p&gt;
+
+&lt;p&gt;*&lt;em&gt;bonus points if it comes encrypted&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 16: Getting started with teams</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-16/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-16/</id>
+    <published>2018-11-23T00:00:00+00:00</published>
+    <updated>2018-12-07T14:19:37+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We&amp;#39;re building Fluidkeys to make it easy for teams to implement great security across their organisations. We’ve built a command line app that helps you make strong PGP keys and automatically rotate them. We been speaking with teams who are using PGP in their organisations and planning for trials.&lt;/p&gt;
+
+&lt;p&gt;Inspired by &lt;a href="https://medium.com/@cassierobinson"&gt;Cassie Robinson&lt;/a&gt;&amp;#39;s weeknotes, this week I&amp;#39;m going to tell you what I&amp;#39;ve been doing, what I&amp;#39;ve learnt and what I&amp;#39;m celebrating.&lt;/p&gt;
+
+&lt;h2&gt;What I&amp;#39;ve been doing...&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#39;ve been on my own again this week as Paul&amp;#39;s on holiday. It&amp;#39;s been a peaceful and productive. I&amp;#39;ve spent a lot of it with my head down &lt;a href="https://github.com/fluidkeys"&gt;coding&lt;/a&gt; wrangling with Go and JSON. I also spoke to two people working in organisations that are using PGP and organising to speak to others. (Thanks to those of you that have put me in touch with others! 🙏)&lt;/p&gt;
+
+&lt;h2&gt;What I’ve learnt…&lt;/h2&gt;
+
+&lt;p&gt;Interesting how the two people I spoke to had quite different needs: for one, it’d be massively useful for them to simplify the way they onboard people and keep all their keys in sync. For the other, this wouldn’t be enough and they’d need a way to also send secret ‘snippets’ to colleagues.&lt;/p&gt;
+
+&lt;p&gt;I’ve learnt that I’m still unsure as to whether shipping something that simply improves the setup and administration of PGP is useful enough as a product in and of itself. That said, we’re nearly ready to release this, so we can experiment with finding a market for that while we build additional features on this foundation.&lt;/p&gt;
+
+&lt;h2&gt;What I’m celebrating…&lt;/h2&gt;
+
+&lt;p&gt;I’ve got a ‘team-server’ working… almost.&lt;/p&gt;
+
+&lt;p&gt;Check it out!&lt;/p&gt;
+
+&lt;pre class="terminal" style="font-size: 0.9em;"&gt;
+&lt;span class="prompt"&gt;➜&lt;/span&gt;  &lt;span class="directory"&gt;~&lt;/span&gt; fk team create Flextech
+
+What’s your Flextech email address?
+
+[email] : joan@flextech.com
+
+You should use a separate key for each team.
+
+1.  A55F 8AD9 EA17 A097 CB6C  AE49 A46A 7A39 9252 036A
+    Created on 23 November 2018
+      joan@flextech.com
+
+Use this key for Flextech? [Y/n] Y
+
+&lt;span class="positive"&gt; ▸   Successfully connected key to Fluidkeys
+ ▸   Successfully created Flextechteam&lt;/span&gt;
+
+Edit and send the invite below to your team:
+
+---
+  Hello! Come and join our Flextech team on Fluidkeys
+  Download Fluidkeys from download.fluidkeys.com then run:
+  &gt; fk team join aeab4301-3084-4156-bf97-bbaa9d17cf3a
+---
+
+You’ll need to approve new team members by running:
+
+&gt; fk team approve
+
+&lt;span class="prompt"&gt;➜&lt;/span&gt;  &lt;span class="directory"&gt;~&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;I say almost as I&amp;#39;ve not quite finished wiring up the approval command, but the rest is there. People can create new teams, then team members can request to join those teams.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s worth celebrating as I&amp;#39;ve really enjoyed having a chance to write a webserver in Go. I&amp;#39;ve also enjoyed taking time over the code such that I hope it&amp;#39;s easy enough for Paul to jump in when he gets back next week. &lt;/p&gt;
+
+&lt;p&gt;Until then!&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 15: Can you help intro us to infosec people?</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-15/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-15/</id>
+    <published>2018-11-16T00:00:00+00:00</published>
+    <updated>2018-12-07T14:19:37+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We&amp;#39;re building Fluidkeys to make it easy for teams to implement
+great security across their organisations.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m on my own this week, Paul&amp;#39;s on his hols...&lt;/p&gt;
+
+&lt;h2&gt;This week:&lt;/h2&gt;
+
+&lt;h3&gt;1. I went to DEFCON Sheffield ☠️&lt;/h3&gt;
+
+&lt;p&gt;On Monday evening I went to a regular meetup here in Sheffield for people
+interested in information security. Jonny Huxtable talked about some exploits
+in Etheruem Smart Contracts that led to millions of dollars being lost.
+It&amp;#39;s crazy, the stakes are so high for bugs in code that&amp;#39;s becoming a financial
+institution!&lt;/p&gt;
+
+&lt;p&gt;Then Neil Richardson showed how simple it is to spoof SMS messages and how
+phishing is evolving.&lt;/p&gt;
+
+&lt;p&gt;A great night, despite us being locked out of the first venue, and none of the
+30 or so security nerds being able to break in!&lt;/p&gt;
+
+&lt;h3&gt;2. I&amp;#39;ve been contacting people responsible for security in their companies ☎️&lt;/h3&gt;
+
+&lt;p&gt;Some lovely responses to our week notes, with some sage advice. Thank you, it
+means a lot when you take time to offer us some feedback. 🙏&lt;/p&gt;
+
+&lt;p&gt;The consensus is that it&amp;#39;s almost impossible to be selling too early! So,
+this week I&amp;#39;ve been reaching out to speak to various teams and organisations
+trying to schedule meetings to learn more about their problems and see if we
+can sell them something valuable.&lt;/p&gt;
+
+&lt;p&gt;This is where you can help, dear reader:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Please could you introduce me to someone working in information security or
+devops in either a finance company or a government department?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Tell that person that we&amp;#39;ve developed software that makes it super easy to
+implement PGP, and get great security practices going across the organisation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;3. I&amp;#39;m starting to build a webserver 👨‍💻&lt;/h3&gt;
+
+&lt;p&gt;Besides that, I&amp;#39;ve also been experimenting with how to get the next part of the
+puzzle working: syncing keys across teams. (A reminder: Fluidkeys currently
+only maintains your individual keys)&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve built a small webserver, with a simple API, again all in Go. It&amp;#39;s connected
+to a Postgresql database, where we start to record teams, users and fingerprints.
+It&amp;#39;s fun working with HTTP again. I&amp;#39;m beginning to get somewhere, and hopefully
+I&amp;#39;ll have something show you next week!&lt;/p&gt;
+
+&lt;p&gt;That&amp;#39;s it for this week, see you next Friday!&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 14: Want to use Fluidkeys in your team?</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-14/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-14/</id>
+    <published>2018-11-09T00:00:00+00:00</published>
+    <updated>2018-12-07T14:19:37+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We&amp;#39;re building Fluidkeys to make it easy for teams to implement
+great security across their organisations.&lt;/p&gt;
+
+&lt;h2&gt;This week&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve decided to pin the price of Fluidkeys to the size of team, not on features.&lt;/p&gt;
+
+&lt;p&gt;We also plan to offer it for free or discounted to eligible NGOs / open source projects.&lt;/p&gt;
+
+&lt;p&gt;We then interviewed 4 people about how their currently using PGP in their organisations.
+We&amp;#39;re still trying to learn whether there&amp;#39;s value enough in Fluidkeys as a piece of
+software that &amp;quot;just makes PGP work&amp;quot;, or whether we need to make it do things like 
+configure Git or Thunderbird / Enigmail for you too.&lt;/p&gt;
+
+&lt;p&gt;To test this we used some screenshots of how this &lt;em&gt;could&lt;/em&gt; look.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s how it could make using PGP in your team easier:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-11-09-tested-features/onboarding.png" alt="Screenshots of how to join a team on Fluidkeys" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-11-09-tested-features/team-management.png" alt="Screenshots of how an admin can manage their team" /&gt;&lt;/p&gt;
+
+&lt;p&gt;And here&amp;#39;s some of the other things it might configure (like Git, or Email):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-11-09-tested-features/git-pull-request.png" alt="Screenshots of how Fluidkeys could verify your Git commits" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-11-09-tested-features/email-encryption.png" alt="Screenshots of how Fluidkeys could just make encryption work" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next week, I&amp;#39;m going to turn those sketches into a revised landing page, and measure see what draws peoples attention.&lt;/p&gt;
+
+&lt;h2&gt;Want to test Fluidkeys in your team?&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve contacted a few teams to see if they&amp;#39;re up for testing it with us
+once it&amp;#39;s ready in a few weeks.&lt;/p&gt;
+
+&lt;p&gt;What it&amp;#39;ll do for you:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a new best-practice key for anyone who doesn&amp;#39;t have one&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then automatically:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Suggest &amp;amp; fix issues with any existing keys&lt;/li&gt;
+&lt;li&gt;Rotate everyone&amp;#39;s encryption subkey each month (old encrypted data is accessible!)&lt;/li&gt;
+&lt;li&gt;Synchronise public keys between team members&lt;/li&gt;
+&lt;li&gt;Integrate with GnuPG so you can use Enigmail, Git signing, etc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Do you want a go? Let me know! 🙌&lt;/p&gt;
+
+&lt;p&gt;See you next week!&lt;/p&gt;
+
+&lt;p&gt;Ian&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 13: Working on Fluidkeys the Business</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-13/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-13/</id>
+    <published>2018-11-02T00:00:00+00:00</published>
+    <updated>2018-12-07T14:19:37+00:00</updated>
+    <author>
+      <name>Paul Fawkesley</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: we&amp;#39;re building Fluidkeys to make it easy for software teams to
+implement great security across their organisations. We’re currently building a
+command line application that&amp;#39;ll be a foundation for further functionality.&lt;/p&gt;
+
+&lt;h2&gt;This week&lt;/h2&gt;
+
+&lt;p&gt;This was another stimulating week with Mozfest at the weekend, some bug-bashing after our 0.2 release, arranging some more research interviews and thinking about the business we&amp;#39;re trying to build.&lt;/p&gt;
+
+&lt;h2&gt;Listening to potential users&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve had our heads down in the code recently and it felt like long time since we last listened in depth to prospective users (at least in a user research interview format).&lt;/p&gt;
+
+&lt;p&gt;I won&amp;#39;t say too much in order not to taint the research, but we&amp;#39;re confident that it&amp;#39;s the right approach to do this regularly: listen to people, adjust course, repeat.&lt;/p&gt;
+
+&lt;p&gt;The last round of interviews was invigorating so I&amp;#39;m looking forward to next Thursday.&lt;/p&gt;
+
+&lt;p&gt;Thanks to everyone who responded to our call for feedback!&lt;/p&gt;
+
+&lt;h2&gt;Three Sales Mistakes Software Engineers Make&lt;/h2&gt;
+
+&lt;p&gt;Yesterday I hesitantly opened this blog post with a suspicion that it might be uncomfortable reading. It was!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://www.pipelinedb.com/blog/three-sales-mistakes-software-engineers-make"&gt;Three Sales Mistakes Software Engineers Make&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I think we&amp;#39;re doing OK on mistake 2, &lt;em&gt;listening&lt;/em&gt;. Mistake 3 felt a little uncomfortable:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If you’re building a product that delivers any incremental value, you’ll likely be able to win the interest of potential users, but that does not mean that you have created enough incremental value for customers to make them willing to pay you a meaningful amount of money for your product.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We&amp;#39;re getting warm, positive feedback on what we&amp;#39;re doing which is great. We&amp;#39;re asking for feedback often, and getting quite a bit of it, but we have to be &lt;em&gt;extremely careful&lt;/em&gt; we don&amp;#39;t treat that as validation that people want to &lt;em&gt;pay anything&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;At this stage we&amp;#39;re confident we&amp;#39;ve building something new and useful, but we really don&amp;#39;t know what companies might pay for it, if anything.&lt;/p&gt;
+
+&lt;p&gt;To that end, we&amp;#39;ve taken two actions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Reached out in our network for a mentor who can help hold us to account on this. We need someone that can tell us if we&amp;#39;re kidding ourselves.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Started listing some specific organisations to reach out to and start asking the money / value question.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Can you really do selling before you building anything?&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;re completely on board with validating demand before building. Heck, I wrote a &lt;a href="https://www.paulfurley.com/resisting-the-urge-to-build/"&gt;soul-searching piece about this in 2013&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But when it comes to &lt;em&gt;selling&lt;/em&gt; something: say, offering a free trial, getting a committment, is that &lt;em&gt;really&lt;/em&gt; possible without building &lt;em&gt;anything&lt;/em&gt;?&lt;/p&gt;
+
+&lt;p&gt;Can we &amp;quot;sell&amp;quot; something that doesn&amp;#39;t exist while remaining credible? Is it different because we&amp;#39;re initially focusing on developers, who might see right through that?&lt;/p&gt;
+
+&lt;p&gt;Or am I making excused because I just love making things?&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;ve got any thoughts about that, we&amp;#39;d love to hear them.&lt;/p&gt;
+
+&lt;p&gt;Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Week 12: Fluidkeys v0.2 and the OpenPGP Email summit</title>
     <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-12/"/>
     <id>https://www.fluidkeys.com/weeknotes/week-12/</id>
     <published>2018-10-26T00:00:00+00:00</published>
-    <updated>2018-10-30T14:41:13+00:00</updated>
+    <updated>2018-12-07T14:19:37+00:00</updated>
     <author>
       <name>Paul Fawkesley</name>
     </author>
@@ -78,9 +528,9 @@ Brussels, and right now I&amp;#39;m on my way to MozFest in London.&lt;/p&gt;
 
 &lt;p&gt;Autocrypt achieves this by embedding keys in the header of outgoing emails.&lt;/p&gt;
 
-&lt;p&gt;Additional discovery mechanisms are emerging. &lt;a href="https://tools.ietf.org/html/draft-koch-openpgp-webkey-service-06"&gt;Web Key Discovery (WKD)&lt;/a&gt; uses the &lt;code&gt;/.well-known/openpgpkey&lt;/code&gt; directory over HTTPS. If a client has an email address, they map it to a specific URL, and request that URL for a key.&lt;/p&gt;
+&lt;p&gt;Additional discovery mechanisms are emerging. &lt;a href="https://tools.ietf.org/html/draft-koch-openpgp-webkey-service-06"&gt;Web Key Directory (WKD)&lt;/a&gt; uses the &lt;code&gt;/.well-known/openpgpkey&lt;/code&gt; directory over HTTPS. If a client has an email address, they map it to a specific URL, and request that URL for a key.&lt;/p&gt;
 
-&lt;p&gt;We &lt;a href="https://github.com/fluidkeys/web-key-discovery"&gt;implemented this today&lt;/a&gt; using a Github repository as the backend.&lt;/p&gt;
+&lt;p&gt;We &lt;a href="https://github.com/fluidkeys/web-key-directory"&gt;implemented this today&lt;/a&gt; using a Github repository as the backend.&lt;/p&gt;
 
 &lt;p&gt;WKD has some issues and the documentation is challenging, but it&amp;#39;s a great concept. We sent out our release note with a &lt;code&gt;reply-to&lt;/code&gt; header pointing to &lt;code&gt;hello@fluidkeys.com&lt;/code&gt;. Any WKD-enabled mail client will automatically find the key and use it to encrypt to us.&lt;/p&gt;
 
@@ -95,7 +545,7 @@ Brussels, and right now I&amp;#39;m on my way to MozFest in London.&lt;/p&gt;
 &lt;p&gt;There&amp;#39;s still plenty of that, but some decent first-class implementations have emerged too:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="#"&gt;OpenPGP.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://openpgpjs.org/"&gt;OpenPGP.js&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://sequoia-pgp.org/"&gt;Sequoia&lt;/a&gt;, a new Rust implemtation&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/golang/crypto/"&gt;golang/crypto&lt;/a&gt; (ProtonMail maintain a &lt;a href="https://github.com/protonmail/crypto"&gt;significant fork&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;

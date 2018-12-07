@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 16: Getting started with teams</title>
+    <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+          <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900|Montserrat:500,700|Inconsolata" rel="stylesheet">
+    <link href="../../stylesheets/site.css" rel="stylesheet" />
+    <link href="../../stylesheets/pre-terminal.css" rel="stylesheet" />
+  </head>
+  <body id="">
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/weeknotes">Weeknotes</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+        <div class="full-width">
+        <section class="variable-width-container">
+                <p class="date">23 November 2018</p>
+    <h1>Week 16: Getting started with teams</h1>
+    <p><strong>Protecting liberty by simplifying security</strong></p>
+
+<p><em>Recap</em>: We&#39;re building Fluidkeys to make it easy for teams to implement great security across their organisations. We’ve built a command line app that helps you make strong PGP keys and automatically rotate them. We been speaking with teams who are using PGP in their organisations and planning for trials.</p>
+
+<p>Inspired by <a href="https://medium.com/@cassierobinson">Cassie Robinson</a>&#39;s weeknotes, this week I&#39;m going to tell you what I&#39;ve been doing, what I&#39;ve learnt and what I&#39;m celebrating.</p>
+
+<h2>What I&#39;ve been doing...</h2>
+
+<p>I&#39;ve been on my own again this week as Paul&#39;s on holiday. It&#39;s been a peaceful and productive. I&#39;ve spent a lot of it with my head down <a href="https://github.com/fluidkeys">coding</a> wrangling with Go and JSON. I also spoke to two people working in organisations that are using PGP and organising to speak to others. (Thanks to those of you that have put me in touch with others! 🙏)</p>
+
+<h2>What I’ve learnt…</h2>
+
+<p>Interesting how the two people I spoke to had quite different needs: for one, it’d be massively useful for them to simplify the way they onboard people and keep all their keys in sync. For the other, this wouldn’t be enough and they’d need a way to also send secret ‘snippets’ to colleagues.</p>
+
+<p>I’ve learnt that I’m still unsure as to whether shipping something that simply improves the setup and administration of PGP is useful enough as a product in and of itself. That said, we’re nearly ready to release this, so we can experiment with finding a market for that while we build additional features on this foundation.</p>
+
+<h2>What I’m celebrating…</h2>
+
+<p>I’ve got a ‘team-server’ working… almost.</p>
+
+<p>Check it out!</p>
+
+<pre class="terminal" style="font-size: 0.9em;">
+<span class="prompt">➜</span>  <span class="directory">~</span> fk team create Flextech
+
+What’s your Flextech email address?
+
+[email] : joan@flextech.com
+
+You should use a separate key for each team.
+
+1.  A55F 8AD9 EA17 A097 CB6C  AE49 A46A 7A39 9252 036A
+    Created on 23 November 2018
+      joan@flextech.com
+
+Use this key for Flextech? [Y/n] Y
+
+<span class="positive"> ▸   Successfully connected key to Fluidkeys
+ ▸   Successfully created Flextechteam</span>
+
+Edit and send the invite below to your team:
+
+---
+  Hello! Come and join our Flextech team on Fluidkeys
+  Download Fluidkeys from download.fluidkeys.com then run:
+  > fk team join aeab4301-3084-4156-bf97-bbaa9d17cf3a
+---
+
+You’ll need to approve new team members by running:
+
+> fk team approve
+
+<span class="prompt">➜</span>  <span class="directory">~</span>
+</pre>
+
+<p>I say almost as I&#39;ve not quite finished wiring up the approval command, but the rest is there. People can create new teams, then team members can request to join those teams.</p>
+
+<p>It&#39;s worth celebrating as I&#39;ve really enjoyed having a chance to write a webserver in Go. I&#39;ve also enjoyed taking time over the code such that I hope it&#39;s easy enough for Paul to jump in when he gets back next week. </p>
+
+<p>Until then!</p>
+
+<p>— Ian</p>
+
+<p><em>All</em> feedback is welcome, pop us an email to
+<a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a></p>
+
+    <hr />
+    <p><a href="/weeknotes">Back to all weeknotes</a></p>
+    <h2>Subscribe to the weeknotes</h2>
+    <form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
+  <div class="input">
+    <label for="email-address">Email address:</label>
+    <input id="email-address" type="email" name="entry.78386960" required placeholder="">
+  </div>
+  <div class="button">
+    <input type="submit" value="Sign up">
+  </div>
+</form>
+
+
+        </section>
+    </div>
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+          <a href="/blog/feed.xml"><img src="../../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>

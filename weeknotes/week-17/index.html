@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 17: Rejigging our roadmap</title>
+    <link rel="alternate" type="application/atom+xml" title="Fluidkeys Blog" href="/blog/feed.xml" />
+          <meta name="description" content="Fluidkeys makes it easy to implement the best security practices and demonstrate your team's expertise with PGP. Sign up now!" />
+
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900|Montserrat:500,700|Inconsolata" rel="stylesheet">
+    <link href="../../stylesheets/site.css" rel="stylesheet" />
+    <link href="../../stylesheets/pre-terminal.css" rel="stylesheet" />
+  </head>
+  <body id="">
+    <header>
+      <h1><a href="/">Fluidkeys</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/weeknotes">Weeknotes</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://download.fluidkeys.com">Download</a></li>
+        </ul>
+      </nav>
+    </header>
+        <div class="full-width">
+        <section class="variable-width-container">
+                <p class="date">30 November 2018</p>
+    <h1>Week 17: Rejigging our roadmap</h1>
+    <p><strong>Protecting liberty by simplifying security</strong></p>
+
+<p><em>Recap</em>: We&#39;re building Fluidkeys to make it easy for teams to implement great security across their organisations. We’ve built a command line app that helps you make strong PGP keys and automatically rotate them.</p>
+
+<p>Paul’s back from his holiday, but I’ve not managed to stop him coding for long enough to write these. Sorry, me again.</p>
+
+<h2>The short version:</h2>
+
+<ul>
+<li>We’ve built a dashboard to hold ourselves to account</li>
+<li>We’ve decided to prioritise building a way to send a secrets to someone, rather than setup your team with PGP keys</li>
+<li>We’re scheduling chats with people to learn more about their infosec woes</li>
+</ul>
+
+<h2>A dashboard to help us focus</h2>
+
+<p>This week we spent two days designing and building a dashboard that we now proudly display on our desks in our respective cities. Here’s Paul’s in Liverpool:</p>
+
+<p><img src="../../images/2018-11-30-dashboard.jpg" alt="A photo of the dashboard on an Android tablet on a table" /></p>
+
+<p>The theory is that by tracking some key numbers, we’ll improve! Firstly, we’re measuring the number of people signing up to our release notes, hopefully by looking at this every day we’ll then start to prioritise work to increase it. Currently it’s one every few days, most of this coming from <a href="https://www.expirybot.com/">Expirybot</a>. Next, we want to speak to at least 4 people every week, so next week’s looking good! We want to do a minor release every 30 days, so not so great there. And then ultimately we’re trying to make a living out of this. As you can see, there’s still some room for improvement.</p>
+
+<p>If week notes aren’t regular enough for you, now you can follow along with our progress in realtime: <a href="https://fluidkeys-dashboard.herokuapp.com">https://fluidkeys-dashboard.herokuapp.com</a>!</p>
+
+<h2>Deciding to build a way to send secrets next 🤫</h2>
+
+<p>Today was a productive day…</p>
+
+<p>While we’ve been thinking about how people using Fluidkeys invite others to join their team, and get keys synced and up to date, it isn’t feeling like this proposition is valuable enough in and of itself.</p>
+
+<p>We revisited our notes from our research and pulled out some of the pains they’re feeling:</p>
+
+<blockquote>
+<p>I hate to think how much [sensitive information] stuff gets sent around Slack!</p>
+
+<p>We use a shared services@[…] google inbox/group to manage access to AWS, it works, but it’s a pain to setup and… it’s Google!</p>
+
+<p>It’s hard getting new developers to setup PGP to receive login credentials</p>
+</blockquote>
+
+<p>We’ve decided to address these next. With Fluidkeys you can send secret snippets to your team-mates. They&#39;ll be end-to-end encrypted, so safe from any prying eyes and data-breaches.</p>
+
+<p>Some of the things we’ve heard people are nervous pinging around are:</p>
+
+<ul>
+<li>customer personal identifiable information to colleagues when helping with technical debugging</li>
+<li>API login credentials with a developer outside the team</li>
+<li>database dumps</li>
+<li>keys for servers when developers join the project</li>
+</ul>
+
+<p>Our MVP will focus on letting you send small snippets:</p>
+
+<pre class="terminal">
+<span class="prompt">➜</span> fk secret send ian@fluidkeys.com
+
+[type or paste your message, ending by typing Ctrl-D]
+
+<span class="information">SECRET_ACCESS_TOKEN="7d10c9b8-f48e-11e8-9b90-a74f356d2ad5"</span>
+
+ ▸ Searching for a public key for ian@fluidkeys.com... [<span class="positive">found</span>]
+ <span class="positive">▸ Successfully sent secret to ian@fluidkeys.com</span>
+
+<span class="prompt">➜</span>
+</pre>
+
+<h2>Next week we’ll see if we’re closer to the mark</h2>
+
+<p>As you can see, we’ve five calls lined up next week with people either using PGP in their organisations or interested in it. Again we’re going to use those calls to try to understand what sorts of pains they’re feeling and what how their organisations are structured before trying to see if what we’re building might be useful.</p>
+
+<p>Tune in next week!
+— Ian</p>
+
+<p><em>All</em> feedback is welcome, pop us an email to
+<a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>*</p>
+
+<p>*<em>bonus points if it comes encrypted</em></p>
+
+    <hr />
+    <p><a href="/weeknotes">Back to all weeknotes</a></p>
+    <h2>Subscribe to the weeknotes</h2>
+    <form class="inline-button" action="https://docs.google.com/forms/d/e/1FAIpQLSeh51TXt8IdoPAHVz-ujjue3r1VPd_qoF5eV6Xf-Ww6qyF-4w/formResponse" method="post">
+  <div class="input">
+    <label for="email-address">Email address:</label>
+    <input id="email-address" type="email" name="entry.78386960" required placeholder="">
+  </div>
+  <div class="button">
+    <input type="submit" value="Sign up">
+  </div>
+</form>
+
+
+        </section>
+    </div>
+
+    <footer>
+      <div class="content">
+        <p>
+          <a href="mailto:hello@fluidkeys.com">hello@fluidkeys.com</a>
+          <a href="/blog/feed.xml"><img src="../../images/rss-icon.svg" class="rss-icon" alt="Rss icon" />RSS feed</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+  var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+  if (dnt != "1" && dnt != "yes") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-121440356-1', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+  } else {
+    console.debug("Respecting Do-Not-Track, not loading analytics. See https://www.paulfurley.com/google-analytics-dnt/");
+  }
+</script>
+  </body>
+</html>

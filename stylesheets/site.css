@@ -76,6 +76,9 @@ p, ul, ol {
   p em, ul em, ol em {
     font-style: italic; }
 
+strong {
+  font-weight: bold; }
+
 a {
   color: #d33d5c; }
 

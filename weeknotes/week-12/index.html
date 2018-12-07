@@ -92,9 +92,9 @@ Brussels, and right now I&#39;m on my way to MozFest in London.</p>
 
 <p>Autocrypt achieves this by embedding keys in the header of outgoing emails.</p>
 
-<p>Additional discovery mechanisms are emerging. <a href="https://tools.ietf.org/html/draft-koch-openpgp-webkey-service-06">Web Key Discovery (WKD)</a> uses the <code>/.well-known/openpgpkey</code> directory over HTTPS. If a client has an email address, they map it to a specific URL, and request that URL for a key.</p>
+<p>Additional discovery mechanisms are emerging. <a href="https://tools.ietf.org/html/draft-koch-openpgp-webkey-service-06">Web Key Directory (WKD)</a> uses the <code>/.well-known/openpgpkey</code> directory over HTTPS. If a client has an email address, they map it to a specific URL, and request that URL for a key.</p>
 
-<p>We <a href="https://github.com/fluidkeys/web-key-discovery">implemented this today</a> using a Github repository as the backend.</p>
+<p>We <a href="https://github.com/fluidkeys/web-key-directory">implemented this today</a> using a Github repository as the backend.</p>
 
 <p>WKD has some issues and the documentation is challenging, but it&#39;s a great concept. We sent out our release note with a <code>reply-to</code> header pointing to <code>hello@fluidkeys.com</code>. Any WKD-enabled mail client will automatically find the key and use it to encrypt to us.</p>
 
@@ -109,7 +109,7 @@ Brussels, and right now I&#39;m on my way to MozFest in London.</p>
 <p>There&#39;s still plenty of that, but some decent first-class implementations have emerged too:</p>
 
 <ul>
-<li><a href="#">OpenPGP.js</a></li>
+<li><a href="https://openpgpjs.org/">OpenPGP.js</a></li>
 <li><a href="https://sequoia-pgp.org/">Sequoia</a>, a new Rust implemtation</li>
 <li><a href="https://github.com/golang/crypto/">golang/crypto</a> (ProtonMail maintain a <a href="https://github.com/protonmail/crypto">significant fork</a>)</li>
 </ul>
