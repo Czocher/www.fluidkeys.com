@@ -27,35 +27,55 @@
         <div class="full-width">
         <section class="variable-width-container">
             <div class="download">
-    <h1>Download Fluidkeys</h1>
+    <h1>Install Fluidkeys</h1>
     <div class="systems">
         <div class="operating-system" id="debian-ubuntu">
             <div class="logos">
                 <img src="../images/logos/debian-logo.svg" alt="Debian logo" class="logo" />
                 <img src="../images/logos/ubuntu-logo.svg" alt="Debian logo" class="logo" />
             </div>
-            <h2>Debian / Ubuntu</h2>
-            <p>1. Get our public key:</p>
-            <pre>curl --silent https://www.fluidkeys.com/release.asc | sudo apt-key add -</pre>
+            <h2>Install on Debian / Ubuntu</h2>
+            <p>1. Get our signing key:</p>
+            <pre>curl https://www.fluidkeys.com/release.asc | sudo apt-key add -</pre>
             <p>2. Add our apt repository:</p>
             <pre>echo 'deb [arch=amd64] https://download.fluidkeys.com/desktop/apt any main' | sudo tee /etc/apt/sources.list.d/fluidkeys.list</pre>
-            <p>3. Install:</p>
+            <p>3. Install and run:</p>
             <pre>sudo apt update
-sudo apt install fluidkeys</pre>
+sudo apt install fluidkeys
+
+fk setup<span class="email-address"></span></pre>
         </div>
         <div class="operating-system" id="mac">
             <div class="logos">
                 <img src="../images/logos/apple-logo.svg" alt="Apple logo" class="logo" />
             </div>
-            <h2>macOS</h2>
-            <p>You can use <a href="https://brew.sh/">Homebrew</a> to install Fluidkeys:</p>
+            <h2>Install on macOS</h2>
             <pre>brew tap fluidkeys/tap
-brew update
-brew install fluidkeys</pre>
+brew install fluidkeys
+
+fk setup<span class="email-address"></span></pre>
+
+            <p>Requires <a href="https://brew.sh/">Homebrew.</a></p>
         </div>
         <div class="operating-system" id="source">
-            <h2>Source install</h2>
-            <p><a href="https://github.com/fluidkeys/fluidkeys/blob/master/README.md#install-from-source">Install from source</a></p>
+            <h2>Install from source</h2>
+            <p>1. Install the <a href="https://golang.org/dl/#featured">Go compiler</a></p>
+
+            <p>2. Clone our repository:</p>
+            <pre>export REPO=$(go env GOPATH)/src/github.com/fluidkeys/fluidkeys
+
+git clone https://github.com/fluidkeys/fluidkeys.git $REPO
+cd $REPO</pre>
+
+            <p>3.a) Build and install to <code>/usr/local/bin/fk</code>
+            <pre>make && sudo make install
+
+fk setup <span class="email-address"></span></pre>
+
+            <p>3.b) Or without <code>sudo</code> (root):</p>
+            <pre>PREFIX=$HOME make && make install
+
+~/bin/fk setup<span class="email-address"></span></pre>
         </div>
     </div>
 </div>
@@ -125,6 +145,17 @@ function moveOperatingSystemToTop(operatingSystem) {
     parentElement.insertBefore(content, parentElement.firstChild);
 }
 
+function replaceEmailArgumentInSetup() {
+    var email = decodeURIComponent(document.URL.split('#')[1]);
+    var emailAddresses = document.querySelectorAll("span.email-address");
+    console.log(emailAddresses)
+    if (email != "") {
+        for (var i = 0; i < emailAddresses.length; i++) {
+            emailAddresses[i].innerHTML = " " + email;
+        }
+    }
+}
+
 function ready(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
         fn();
@@ -134,6 +165,8 @@ function ready(fn) {
 }
 
 ready(detectBestOperatingSystem);
+ready(replaceEmailArgumentInSetup);
+
 </script>
 
         </section>

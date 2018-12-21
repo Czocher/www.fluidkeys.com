@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Fluidkeys Blog</title>
-  <updated>2018-12-07T00:00:00+00:00</updated>
+  <updated>2018-12-14T00:00:00+00:00</updated>
   <author>
     <name>Fluidkeys</name>
   </author>
+  <entry>
+    <title>Week 19: Onboarding</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-19/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-19/</id>
+    <published>2018-12-14T00:00:00+00:00</published>
+    <updated>2018-12-21T13:24:20+00:00</updated>
+    <author>
+      <name>Paul Fawkesley</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: With Fluidkeys, you can send end-to-end encrypted secrets from the command-line, with all the power of OpenPGP and none of the hassle.&lt;/p&gt;
+
+&lt;p&gt;Using Fluidkeys reduces the impact of third-party data breaches, targeted spearphishing attacks and network compromise.&lt;/p&gt;
+
+&lt;h2&gt;The short version:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We published an intermediate &lt;code&gt;0.2.6&lt;/code&gt; release&lt;/li&gt;
+&lt;li&gt;Licensed our code as AGPLv3&lt;/li&gt;
+&lt;li&gt;Started designing the onboarding experience&lt;/li&gt;
+&lt;li&gt;Mocked up a chatbot interface&lt;/li&gt;
+&lt;li&gt;Took more calls&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Quietly released Fluidkeys 0.2.6&lt;/h2&gt;
+
+&lt;p&gt;We were keen to put &lt;code&gt;fk secret send&lt;/code&gt; into the world so people can try it out without having to build from source. After a lot of bug bashing and tweaking we released &lt;code&gt;0.2.6&lt;/code&gt;, which is now available through the normal &lt;a href="https://download.fluidkeys.com"&gt;install channels.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We only count &lt;code&gt;0.3&lt;/code&gt;, &lt;code&gt;0.4&lt;/code&gt; as &lt;em&gt;proper&lt;/em&gt; releases so this doesn&amp;#39;t count towards our &lt;a href="https://fluidkeys-dashboard.herokuapp.com"&gt;metrics&lt;/a&gt;, but it&amp;#39;s good hygiene to keep releasing.&lt;/p&gt;
+
+&lt;h2&gt;Licensed our code as GNU Affero Public License v3&lt;/h2&gt;
+
+&lt;p&gt;We think the AGPL is a good choice: it sends a strong signal that we&amp;#39;re committed to software freedom, while giving us good options for building a service business model.&lt;/p&gt;
+
+&lt;h2&gt;Started designing the onboarding experience&lt;/h2&gt;
+
+&lt;p&gt;For our upcoming &lt;code&gt;0.3&lt;/code&gt; release we realised we need to be better at guiding new users. For people who aren&amp;#39;t that familiar with PGP, it&amp;#39;s not obvious what Fluidkeys &lt;em&gt;is&lt;/em&gt;, and staring at &lt;code&gt;fk --help&lt;/code&gt; doesn&amp;#39;t answer that either.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;ve been mocking up a few ways of onboarding new people: helping them to discover what Fluidkeys can do by creating a key and actually &lt;em&gt;doing&lt;/em&gt; something with it.&lt;/p&gt;
+
+&lt;p&gt;Now that we&amp;#39;ve got &lt;code&gt;fk secret send&lt;/code&gt; and &lt;code&gt;fk secret receive&lt;/code&gt; we&amp;#39;re designing the onboarding around that: some sort of bot you can interact with to show that it&amp;#39;s working.&lt;/p&gt;
+
+&lt;h2&gt;Mocked up a chatbot interface&lt;/h2&gt;
+
+&lt;p&gt;We felt it &lt;em&gt;might&lt;/em&gt; work to use a chatbot type interface to get people started.&lt;/p&gt;
+
+&lt;p&gt;OK, take a deep breath, and take a look at this mockup:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/2018-12-17-secret-squirrel.png" alt="A cartoon squirrel with a chat bubble" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://landbot.io/u/H-112432-MJ5YDOCDSN1Y5SGH/index.html"&gt;Play with the live chatbot&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It was awesome that Ian was able to knock up the mockup in 20 minutes based on some rough docs we came up with.&lt;/p&gt;
+
+&lt;p&gt;Ultimately we felt that it comes across a little naff: even if it &lt;em&gt;is&lt;/em&gt; a good medium, we can&amp;#39;t help thinking about distasteful chatbots made by uncool supermarkets trying to enact their &amp;quot;millennial strategy&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;Once we saw it in for real and talked it over, we felt it would be better todo onboarding &lt;em&gt;inside&lt;/em&gt; Fluidkeys. So we&amp;#39;ve started work on &lt;code&gt;fk setup&lt;/code&gt;, which will probably have a chattier feel than the rest of the application.&lt;/p&gt;
+
+&lt;p&gt;Until next week!&lt;/p&gt;
+
+&lt;p&gt;— Paul&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Week 18: Send secrets with Fluidkeys</title>
     <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-18/"/>
