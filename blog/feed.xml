@@ -1,10 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Fluidkeys Blog</title>
-  <updated>2018-12-14T00:00:00+00:00</updated>
+  <updated>2019-01-08T00:00:00+00:00</updated>
   <author>
     <name>Fluidkeys</name>
   </author>
+  <entry>
+    <title>Send encrypted secrets from the command-line: Fluidkeys v0.3</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/blog/release-0-3-send-encrypted-secrets/"/>
+    <id>https://www.fluidkeys.com/blog/release-0-3-send-encrypted-secrets/</id>
+    <published>2019-01-08T00:00:00+00:00</published>
+    <updated>2019-01-08T18:06:13+00:00</updated>
+    <author>
+      <name>Paul Fawkesley &amp; Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;Today we proudly announce Fluidkeys 0.3 😄&lt;/p&gt;
+
+&lt;p&gt;With Fluidkeys v0.3 you can send passwords, keys, tokens and personal data to team-mates using end-to-end encryption.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="../../images/release-0-3-send-secret.svg" alt="Terminal showing sending a secret token to a team-mate" /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;re keen to get started, head to &lt;a href="https://download.fluidkeys.com"&gt;download.fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Send secrets safely&lt;/h2&gt;
+
+&lt;p&gt;From listening to engineering teams, we heard a number of different cases with similar characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Name and address of a customer &lt;a href="https://en.wikipedia.org/wiki/Personally_identifiable_information"&gt;(PII)&lt;/a&gt; shared with the support team&lt;/li&gt;
+&lt;li&gt;API access tokens sent to an external developer&lt;/li&gt;
+&lt;li&gt;Auto-generated SSH keys to Amazon EC2 instances shared with a freelancer&lt;/li&gt;
+&lt;li&gt;Amazon Web Services IAM credentials for S3 access&lt;/li&gt;
+&lt;li&gt;Temporary passwords sent to new team members&lt;/li&gt;
+&lt;li&gt;PGP private key to a joint hello@ inbox, shared among the team&lt;/li&gt;
+&lt;li&gt;Password to an encrypted ZIP file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are small bits of data, fairly short lived, with the potential for high impact if lost (for example a &lt;a href="https://www.quora.com/My-AWS-account-was-hacked-and-I-have-a-50-000-bill-how-can-I-reduce-the-amount-I-need-to-pay"&gt;$50,000 Amazon bill&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3&gt;How to quickly share throwaway secrets?&lt;/h3&gt;
+
+&lt;p&gt;You&amp;#39;ve got stuff to do, you need to get this thing sent, what are you going to do?&lt;/p&gt;
+
+&lt;p&gt;The easy route is to throw it into Slack and hope they aren&amp;#39;t next week&amp;#39;s big data breach.&lt;/p&gt;
+
+&lt;p&gt;Maybe you could use a messaging app like WhatsApp or Signal. But that requires you know your team-mate&amp;#39;s number, which isn&amp;#39;t the norm for many teams. And WhatsApp is determined to back itself up to Google Drive, so it&amp;#39;ll probably end up there too.&lt;/p&gt;
+
+&lt;p&gt;You could use GPG, but can you remember the command? And do you have the other person&amp;#39;s public key? And are you confident that they&amp;#39;ll copy-paste the funny text correctly on their end?&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; gpg --armor --recipient paul@fluidkeys.com --encrypt
+-----BEGIN PGP MESSAGE-----
+
+hQEMA35uuyjbagYuAQf/eqfq3MCS96ZNNQeI7S3zGs7FiAIiQ7qU5Oa1Dz6/UizC
+pQnTHjoupyGChXeDz9XDdmWtTuvYArlnjdVJfySHWGDQ66mm/IUie0jsnTOss6P1
+...
+&lt;/pre&gt;
+
+&lt;p&gt;You could put it in your shared password manager, but it&amp;#39;s a bit overkill since you only need to send it once, and sometimes you see a delay on shared items showing up.&lt;/p&gt;
+
+&lt;p&gt;With Fluidkeys you can send PGP-encrypted secrets directly from the command-line using your team-mate&amp;#39;s email address.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; fk secret send paul@fluidkeys.com
+&lt;/pre&gt;
+
+&lt;h2&gt;Fluidkeys fetches public keys automatically&lt;/h2&gt;
+
+&lt;p&gt;When you install and set up Fluidkeys, you&amp;#39;re asked for your email address. Once you&amp;#39;ve verified it, others can send you secrets. You don&amp;#39;t need to manually exchange public keys.&lt;/p&gt;
+
+&lt;p&gt;Fluidkeys automatically fetches keys based on the verified email address and encrypts the secret to the key.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; fk secret send paul@fluidkeys.com
+&lt;span class="positive"&gt; ▸   Found public key for paul@paulfurley.com&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;h2&gt;Install and set up Fluidkeys in 2 minutes&lt;/h2&gt;
+
+&lt;p&gt;We&amp;#39;ve heard from a number of teams how time consuming it is to set up new starters with PGP and we&amp;#39;ve worked hard on this.&lt;/p&gt;
+
+&lt;p&gt;It takes around 2 minutes to install Fluidkeys, verify your email and start sending and receiving encrypted secrets.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; fk setup
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="download.fluidkeys.com"&gt;Start using Fluidkeys now&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Things to be aware of&lt;/h2&gt;
+
+&lt;h3&gt;Fluidkeys stores your keys in gpg&lt;/h3&gt;
+
+&lt;p&gt;Beware that Fluidkeys doesn&amp;#39;t implement its own storage of keys: it stores them in &lt;code&gt;gpg&lt;/code&gt;. If you delete a key from &lt;code&gt;gpg&lt;/code&gt;, there&amp;#39;s no copy in Fluidkeys. We don&amp;#39;t modify the &lt;code&gt;GNUPGHOME&lt;/code&gt; directory: we push and pull straight from your default &lt;code&gt;gpg2&lt;/code&gt; installation.&lt;/p&gt;
+
+&lt;p&gt;This is helpful if you use your keys for anything else like signing commits with &lt;code&gt;git&lt;/code&gt; or encrypted email with Thunderbird.&lt;/p&gt;
+
+&lt;p&gt;Those applications will use keys made by Fluidkeys, and Fluidkeys will keep them updated.&lt;/p&gt;
+
+&lt;h3&gt;Fluidkeys stores your key&amp;#39;s password in your system keychain&lt;/h3&gt;
+
+&lt;p&gt;In order to be able to rotate your key automatically, Fluidkeys stores the password to your private key in your sysystem keychain. You can search for entries containing &amp;quot;Fluidkeys&amp;quot;.&lt;/p&gt;
+
+&lt;h3&gt;Fluidkeys doesn&amp;#39;t upload to the public keyserver network&lt;/h3&gt;
+
+&lt;p&gt;We chose not to use the public keyserver network until it supports deleting keys and cryptographic validation.&lt;/p&gt;
+
+&lt;p&gt;If you do want to upload to the public keyservers, make sure you automate it. Because Fluidkeys automatically rotates your encryption subkey every month, your key will quickly become out of sync with the keyservers. You could add cron task to upload your key regularly:&lt;/p&gt;
+
+&lt;p&gt;Edit your crontab by running &lt;code&gt;crontab -e&lt;/code&gt; and add this line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@daily gpg --keyserver pool.sks-keyservers.net --send-key &amp;lt;email address&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Download Fluidkeys v0.3&lt;/h2&gt;
+
+&lt;p&gt;On to business: head on over to &lt;a href="https://download.fluidkeys.com"&gt;download.fluidkeys.com&lt;/a&gt; to get started.&lt;/p&gt;
+
+&lt;pre class="terminal"&gt;
+&lt;span class="prompt"&gt;$&lt;/span&gt; fk --help
+Fluidkeys 0.3.0
+
+Configuration file: /home/paul/.config/fluidkeys/config.toml
+
+Usage:
+    fk setup
+    fk setup &amp;lt;email&amp;gt;
+    fk secret send &amp;lt;recipient-email-address&amp;gt;
+    fk secret receive
+    fk key create
+    fk key from-gpg
+    fk key list
+    fk key maintain [--dry-run]
+    fk key maintain automatic [--cron-output]
+    fk key upload
+
+Options:
+    -h --help         Show this screen
+       --dry-run      Don't change anything: only output what would happen
+       --cron-output  Only print output on errors
+
+&lt;/pre&gt;
+
+&lt;h2&gt;What do you think?&lt;/h2&gt;
+
+&lt;p&gt;Please &lt;a href="https://download.fluidkeys.com"&gt;download Fluidkeys&lt;/a&gt; and try sending a secret message to a colleague (or to us if you don&amp;#39;t have a colleague!)&lt;/p&gt;
+
+&lt;p&gt;Let us know how you get on!&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re excited to hear from you :)&lt;/p&gt;
+
+&lt;p&gt;— Paul &amp;amp; Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="mailto:hello@fluidkeys.com"&gt;Email us now&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Week 20: Quietly releasing 0.3</title>
+    <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-20/"/>
+    <id>https://www.fluidkeys.com/weeknotes/week-20/</id>
+    <published>2018-12-21T00:00:00+00:00</published>
+    <updated>2019-01-08T14:34:28+00:00</updated>
+    <author>
+      <name>Ian Drysdale</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Protecting liberty by simplifying security&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Recap&lt;/em&gt;: We’re building Fluidkeys, to help you easily send end-to-end encrypted secrets using PGP.&lt;/p&gt;
+
+&lt;p&gt;Using Fluidkeys reduces the impact of third-party data breaches, targeted spearphishing attacks and network compromise.&lt;/p&gt;
+
+&lt;h2&gt;The short version:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We wrestled with how macOS stores passwords in its keychain ⛓&lt;/li&gt;
+&lt;li&gt;Paul took more calls! ☎️&lt;/li&gt;
+&lt;li&gt;We released! Fluidkeys now guides you through getting setup to send and receive secrets!🕵️‍♀️&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;macOS keychain shenanigans&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href="https://www.umkc.edu/is/support/services/macintosh/keychain.asp"&gt;macOS keychain&lt;/a&gt; is a bit of software that you can use to store your passwords on. It’s useful since as it means you put them on it and then forget all about them. The programs that you stored your passwords can later retrieve them when needed, since your keychain unlocks when you log into your mac each time.&lt;/p&gt;
+
+&lt;p&gt;We’ve made Fluidkeys store your key’s strong password on the keychain, but had got ourselves in a bit of muddle. The password on the keychain wasn’t accessible to a job that runs every hour in the background to check whether it needs to rotate and update your key. So we lost a day or so to debugging and fixing that. Pleased to say it’s working!&lt;/p&gt;
+
+&lt;h2&gt;Learning more about how people use encryption&lt;/h2&gt;
+
+&lt;p&gt;Paul also had another four interesting calls with people about how they&amp;#39;re using PGP and encryption, including speaking to an auditor. I feel all these calls over the past few weeks have really helped us understand more about the different pains people using PGP experience. With Fluidkeys now in a place where it&amp;#39;s delivering some minimum value, I&amp;#39;m sure we&amp;#39;re going to learn so much more now we&amp;#39;re able to release. Exciting! 🚀&lt;/p&gt;
+
+&lt;h2&gt;We’ve (quietly) released 0.3&lt;/h2&gt;
+
+&lt;p&gt;As of today, you can get your team setup on Fluidkeys and send end-to-end encrypted secrets to one another from the command-line!&lt;/p&gt;
+
+&lt;p&gt;Paul will announce it properly soon, but if you can’t wait go ahead and &lt;a href="https://download.fluidkeys.com/"&gt;download it now&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://www.fluidkeys.com/weeknotes/week-19/"&gt;Secret Squirrel&lt;/a&gt; made it into the command line, see if you can see where!&lt;/p&gt;
+
+&lt;p&gt;I’m off on holiday now until mid January, so you’ll be hearing from Paul in the new year. Thanks to everyone who’s been following along, it’s been incredibly helping receiving your words of support and advice as we’ve gone this year!&lt;/p&gt;
+
+&lt;p&gt;Have a fantastic holiday and happy new year!&lt;/p&gt;
+
+&lt;p&gt;— Ian&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;All&lt;/em&gt; feedback is welcome, pop us an email to
+&lt;a href="mailto:hello@fluidkeys.com"&gt;hello@fluidkeys.com&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Week 19: Onboarding</title>
     <link rel="alternate" href="https://www.fluidkeys.com/weeknotes/week-19/"/>

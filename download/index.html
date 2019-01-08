@@ -70,7 +70,7 @@ cd $REPO</pre>
             <p>3.a) Build and install to <code>/usr/local/bin/fk</code>
             <pre>make && sudo make install
 
-fk setup <span class="email-address"></span></pre>
+fk setup<span class="email-address"></span></pre>
 
             <p>3.b) Or without <code>sudo</code> (root):</p>
             <pre>PREFIX=$HOME make && make install
@@ -147,11 +147,13 @@ function moveOperatingSystemToTop(operatingSystem) {
 
 function replaceEmailArgumentInSetup() {
     var email = decodeURIComponent(document.URL.split('#')[1]);
-    var emailAddresses = document.querySelectorAll("span.email-address");
-    console.log(emailAddresses)
-    if (email != "") {
-        for (var i = 0; i < emailAddresses.length; i++) {
-            emailAddresses[i].innerHTML = " " + email;
+    if (email !== 'undefined') {
+        var emailAddresses = document.querySelectorAll("span.email-address");
+        console.log(emailAddresses)
+        if (email != "") {
+            for (var i = 0; i < emailAddresses.length; i++) {
+                emailAddresses[i].innerHTML = " " + email;
+            }
         }
     }
 }
