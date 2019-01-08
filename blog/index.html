@@ -38,21 +38,21 @@
 
 <p>If you&#39;re keen to get started, head to <a href="https://download.fluidkeys.com">download.fluidkeys.com</a></p>
 
-<h2>Send secrets safely</h2>
+<h2>Sharing passwords, tokens, credentials and keys</h2>
 
-<p>From listening to engineering teams, we heard a number of different cases with similar characteristics:</p>
+<p>From listening to engineering teams, we heard a number of different types of sensitive information with similar characteristics:</p>
 
 <ul>
-<li>Name and address of a customer <a href="https://en.wikipedia.org/wiki/Personally_identifiable_information">(PII)</a> shared with the support team</li>
-<li>API access tokens sent to an external developer</li>
-<li>Auto-generated SSH keys to Amazon EC2 instances shared with a freelancer</li>
-<li>Amazon Web Services IAM credentials for S3 access</li>
-<li>Temporary passwords sent to new team members</li>
-<li>PGP private key to a joint hello@ inbox, shared among the team</li>
-<li>Password to an encrypted ZIP file</li>
+<li><strong>Names and addresses</strong> of customers <a href="https://en.wikipedia.org/wiki/Personally_identifiable_information">(PII)</a> shared with other teams</li>
+<li><strong>API access tokens</strong> sent to external developer partners</li>
+<li><strong>SSH key pairs</strong> for Amazon EC2 shared with freelance developers</li>
+<li><strong>IAM credentials</strong> for Amazon Web Services</li>
+<li><strong>Temporary passwords</strong> sent to new team members</li>
+<li><strong>PGP private keys</strong> for shared mailboxes</li>
+<li><strong>Encryption passwords</strong> for encrypted ZIP files</li>
 </ul>
 
-<p>These are small bits of data, fairly short lived, with the potential for high impact if lost (for example a <a href="https://www.quora.com/My-AWS-account-was-hacked-and-I-have-a-50-000-bill-how-can-I-reduce-the-amount-I-need-to-pay">$50,000 Amazon bill</a>)</p>
+<p>These are small bits of text, fairly short lived, with a potentially high impact if breached (like a <a href="https://www.quora.com/My-AWS-account-was-hacked-and-I-have-a-50-000-bill-how-can-I-reduce-the-amount-I-need-to-pay">$50,000 Amazon bill</a>)</p>
 
 <h3>How to quickly share throwaway secrets?</h3>
 
@@ -75,6 +75,8 @@ pQnTHjoupyGChXeDz9XDdmWtTuvYArlnjdVJfySHWGDQ66mm/IUie0jsnTOss6P1
 
 <p>You could put it in your shared password manager, but it&#39;s a bit overkill since you only need to send it once, and sometimes you see a delay on shared items showing up.</p>
 
+<h3>Send encrypted secrets from the command-line</h3>
+
 <p>With Fluidkeys you can send PGP-encrypted secrets directly from the command-line using your team-mate&#39;s email address.</p>
 
 <pre class="terminal">
@@ -92,17 +94,15 @@ pQnTHjoupyGChXeDz9XDdmWtTuvYArlnjdVJfySHWGDQ66mm/IUie0jsnTOss6P1
 <span class="positive"> ▸   Found public key for paul@paulfurley.com</span>
 </pre>
 
+<p>We use <a href="https://github.com/fluidkeys.api">our own server</a> to store public keys and transmit encrypted secrets.</p>
+
 <h2>Install and set up Fluidkeys in 2 minutes</h2>
 
-<p>We&#39;ve heard from a number of teams how time consuming it is to set up new starters with PGP and we&#39;ve worked hard on this.</p>
+<p>We&#39;ve heard from a number of teams that it&#39;s time consuming to set up new starters with PGP and we&#39;ve worked hard on this.</p>
 
-<p>It takes around 2 minutes to install Fluidkeys, verify your email and start sending and receiving encrypted secrets.</p>
+<p>It takes around 2 minutes for new users to install Fluidkeys, generate a PGP key, verify your email and start sending and receiving encrypted secrets.</p>
 
-<pre class="terminal">
-<span class="prompt">$</span> fk setup
-</pre>
-
-<p><a href="download.fluidkeys.com">Start using Fluidkeys now</a></p>
+<p><a href="https://download.fluidkeys.com">Take the two-minute challenge</a></p>
 
 <h2>Things to be aware of</h2>
 
@@ -116,7 +116,7 @@ pQnTHjoupyGChXeDz9XDdmWtTuvYArlnjdVJfySHWGDQ66mm/IUie0jsnTOss6P1
 
 <h3>Fluidkeys stores your key&#39;s password in your system keychain</h3>
 
-<p>In order to be able to rotate your key automatically, Fluidkeys stores the password to your private key in your sysystem keychain. You can search for entries containing &quot;Fluidkeys&quot;.</p>
+<p>In order to be able to rotate your key automatically, Fluidkeys stores the password to your private key in your system keychain. You can see these by searching for &quot;Fluidkeys&quot;.</p>
 
 <h3>Fluidkeys doesn&#39;t upload to the public keyserver network</h3>
 
@@ -160,15 +160,13 @@ Options:
 
 <h2>What do you think?</h2>
 
-<p>Please <a href="https://download.fluidkeys.com">download Fluidkeys</a> and try sending a secret message to a colleague (or to us if you don&#39;t have a colleague!)</p>
-
-<p>Let us know how you get on!</p>
+<p>Please have a go and let us know how you get on!</p>
 
 <p>We&#39;re excited to hear from you :)</p>
 
 <p>— Paul &amp; Ian</p>
 
-<p><a href="mailto:hello@fluidkeys.com">Email us now</a></p>
+<p><a href="mailto:hello@fluidkeys.com">Email hello@fluidkeys.com</a></p>
 
 <hr>
 
